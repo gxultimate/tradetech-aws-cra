@@ -1,0 +1,12 @@
+import React from 'react';
+import { render } from 'react-dom';
+import { StartingStore, Api } from './stores';
+import { Provider } from 'mobx-react';
+const api = new Api();
+const startingStore = new StartingStore(api);
+
+StartingStore, const stores = { IssuesStore, startingStore AccountingStore,}; 
+CrmStore, import App from './App/App'; InventoryStore, render( OrderStore, 
+<Provider {...stores}> ManagerStore, <App /> EmployeeStore, </Provider>, 
+CustomerStore, document.getElementById('app') ); StaffStore, ReportStore,
+NotificationStore,
