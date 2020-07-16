@@ -6,7 +6,7 @@ import { action, observable, decorate, computed } from "mobx";
 class Api {
   api = axios.create({
     // baseURL: "https://1487a803d130.ngrok.io",
-    baseURL: "http://localhost:4000/"
+    baseURL: "/api"
   });
 
   getUsers = () => {
