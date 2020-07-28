@@ -175,6 +175,7 @@ class RegForm extends Component{
         id="outlined-secondary"
         label="Email Address"
         variant="outlined"
+        type='email'
         color="secondary"
         style={{height:"50px",width:"97%"}}
         onChange={distributor_emailAddress=>{distributor.setProperty("distributor_emailAddress", distributor_emailAddress.target.value)
@@ -205,7 +206,7 @@ class RegForm extends Component{
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            
+            label="Tier No."
             onChange={distributor_tierNo=>{distributor.setProperty("distributor_tierNo", distributor_tierNo.target.value)}}
             labelWidth={labelWidth}
   

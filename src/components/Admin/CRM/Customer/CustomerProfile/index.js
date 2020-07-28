@@ -2,7 +2,11 @@ import React from 'react';
 import { makeStyles ,ThemeProvider} from '@material-ui/core/styles';
 import {Paper,Typography,Divider} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import {withRouter} from 'react-router-dom'
+import {
+  HashRouter as Router,withRouter,
+ 
+
+} from "react-router-dom";
 import {inject,observer} from 'mobx-react'
 import TransactionTable from './TransactionsTable'
 import user from './user.png'
@@ -30,22 +34,24 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import theme from './../../theme'
 import ActivityTable from './ActivityLogs'
 class CustProfile extends React.Component {
-  state = {  }
+
 
   componentDidMount(){
     let {crmStore:{getAccounts}}=this.props;
     getAccounts()
   }
+
   render() { 
+
     let {crmStore:{listOfUsers,account,editAccount}}=this.props
 
 function createData(id,name,pos,email,address,contactNo,birthday,dateRegistered,shopName,shopAddress){
   return {id,name,pos,email,address,contactNo,birthday,dateRegistered,shopName,shopAddress}
 }
 
-let filterUser =listOfUsers.filter(user => user.account_ID === this.props.location.state.id)
 
-let accountinfo =filterUser.map(info=>{
+
+let accountinfo =listOfUsers.filter(user => user.account_ID === this.state.myId).map(info=>{
 
   return(createData(
     info.account_ID,`${info.account_fName} ${info.account_mName} ${info.account_lName} ${info.account_suffix}`,`${info.account_accessType.charAt(0).toUpperCase()}${info.account_accessType.slice(1)}`,info.account_emailAddress,info.account_address,

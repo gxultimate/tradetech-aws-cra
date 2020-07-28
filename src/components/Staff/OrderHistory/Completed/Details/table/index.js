@@ -68,7 +68,8 @@ let rows = filorder.map(orders => {
 
 const useStyles = makeStyles({
   table: {
-    minWidth: '100%',
+    width: '100%',
+    minWidth:300,
   },
 });
 

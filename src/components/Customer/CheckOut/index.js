@@ -10,14 +10,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {withRouter} from 'react-router-dom'
 import moment from 'moment'
-
+import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import theme from './../../theme'
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 class CheckOut extends React.Component {
     state = {  }
 
@@ -29,6 +30,8 @@ class CheckOut extends React.Component {
     }
     render() { 
 let {customerStore:{listOfUsers,addOrder,order,listOfCart,addNotif,notif,addStockC,stock,product,editProduct,listofProducts}}=this.props;
+let dist = JSON.parse(sessionStorage.getItem('distData'))
+
 
     let date = new Date();
     function getHash(input){
@@ -65,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  
 }));
 
 
@@ -95,6 +99,11 @@ let getprc =cartFiler.map(item => {
   )
 })
 
+let getTotalprc =cartFiler.map(item => { 
+  return  ( item.product_Price * item.product_Quantity
+  )
+})
+
 let getq =cartFiler.map(item => { 
   return (item.product_Quantity
   )
@@ -118,18 +127,26 @@ let rowss =  listOfCart.map(product => {
  })
 
 let acID = this.props.location.state.account_id;
-
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
  function CheckOutGrid() {
   const classes = useStyles();
   const [state, setState] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [method, setMethod] = React.useState("Cash on Delivery");
+  const [store, setStore] = React.useState('');
+  const [sadd, setSadd] = React.useState('');
+  const [opens, setOpens] = React.useState(false);
+
   const handleChange = (event) => {
     const name = event.target.name;
     setState({
       ...state,
       [name]: event.target.value,
     });
+    setStore(event.target.value);
+    setSadd(event.target.value);
   };
 
 
@@ -137,22 +154,27 @@ let acID = this.props.location.state.account_id;
     return item.product_ID
     
   })
-console.log(getitemID,'cart')
+
+
   let placeOrder = ()=>{
 
-     
+    let dates = moment('11:45:00 am', 'h:mm:ss a')
+    let now = moment()
+
     order.setProperty('orderID',`${getHash(date.getFullYear())}-${ Math.floor(1000 + Math.random() * 9000)}`)
     order.setProperty('account_ID',acID)
     order.setProperty('modeOfPayment','Cash On Delivery')
     order.setProperty('orderDate',moment().format('MMM/DD/YYYY,h:mm:ssa'))
     order.setProperty('orderItems',getitem)
     order.setProperty('orderPrice',getprc)
+    order.setProperty('orderTotalPrice',getTotalprc)
     order.setProperty('order_Quantity',getq)
     order.setProperty('orderStatus','Pending')
     order.setProperty('paymentStatus','Pending')
     order.setProperty("orderTotalAmount",rowss.pop())
     order.setProperty('distributor_ID',getd[0])
     order.setProperty('orderDueDate',moment().add(15,'days').format('MMM/DD/YYYY'))
+    
 
     notif.setProperty('notif_ID',`${getHash(date.getHours())}-${ Math.floor(1000 + Math.random() * 9000)}`)
     notif.setProperty('account_ID',acID)
@@ -170,12 +192,16 @@ console.log(getitemID,'cart')
 
   // product.setProperty('product_ID',getitemID)
   // product.setProperty('product_Stocks',getq)
-
+  if(now.isAfter(dates) === true){
+      setOpen(false);
+      setOpens(true);
+    }else{
 addNotif();
     addOrder();
     // addStockC();
     // editProduct();
      setOpen(true);
+    }
 }
 const handleClose = () => {
   setOpen(false);
@@ -183,6 +209,12 @@ const handleClose = () => {
 
   return (
     <React.Fragment>
+
+<Snackbar  onClose={handleClose} open={opens} autoHideDuration={2000}  anchorOrigin={{vertical:'center',horizontal:'center'}}>
+        <Alert  severity="error">
+          Placing of order(s) disabled!
+        </Alert>
+      </Snackbar>
     <div className={classes.root} style={{marginTop:'16px'}}>
 
 
@@ -227,21 +259,59 @@ const handleClose = () => {
               </Grid>
 
               <Grid item sm={12} xs={12}>
-              <TextField id="outlined-basic" label="Store Name" defaultValue={myaccount.storename} variant="outlined" 
+              {/* <TextField id="outlined-basic" label="Store Name" defaultValue={myaccount.storename} variant="outlined" 
               style={{marginBottom:"8px"}} size='small' 
               // onChange={account_storeName=>{
               //   account.setProperty("account_storeName",account_storeName.target.value)
               // }}
-              />
+              /> */}
+
+<FormControl variant="outlined"  style={{marginBottom:"8px",width:'100%'}} size='small' >
+        <InputLabel id="demo-simple-select-outlined-label">Store Name</InputLabel>
+        <Select
+        style={{textAlign:'left'}}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          defaultValue={myaccount.storename}
+          onChange={handleChange}
+          label="Store Name"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={myaccount.storename}>{myaccount.storename}</MenuItem>
+         
+        </Select>
+      </FormControl>
+
               </Grid>
 
               <Grid item sm={12} xs={12}>
-              <TextField  id="outlined-basic" label="Store Address" defaultValue={myaccount.storeadd} variant="outlined" 
+              {/* <TextField  id="outlined-basic" label="Store Address" defaultValue={myaccount.storeadd} variant="outlined" 
               style={{marginBottom:"8px"}} size='small' 
               // onChange={account_storeAddress=>{
               //   account.setProperty("account_storeAddress",account_storeAddress.target.value)
               // }}
-              />
+              /> */}
+
+<FormControl variant="outlined"  style={{marginBottom:"8px",width:'100%'}} size='small' >
+        <InputLabel id="demo-simple-select-outlined-label">Store Address</InputLabel>
+        <Select
+        style={{textAlign:'left'}}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          defaultValue={myaccount.storeadd}
+          onChange={handleChange}
+          label="Store Address"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={myaccount.storeadd}>{myaccount.storeadd}</MenuItem>
+         
+        </Select>
+      </FormControl>
+
               </Grid>
 
               <Grid item sm={12} xs={12}>

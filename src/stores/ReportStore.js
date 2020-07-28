@@ -145,7 +145,7 @@ class ReportStore {
                 
                 this.api.getcart(getuserId.account_ID ? getuserId.account_ID  : getuserId.distributor_ID)
                 .then(resp =>{
-                  console.log(resp.data,'data')
+                 
                   this.listOfCart =resp.data
     
                   if (resp.data !== false){

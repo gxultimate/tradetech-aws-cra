@@ -426,7 +426,7 @@ class EditForm extends Component{
       </Grid>
  
 
-     <Grid item  xs={12} style={{margin:"5px",}}>
+     <Grid item  xs={5} item style={{margin:"5px"}}>
        <TextField 
       id="outlined-basic" 
       style={{width:"100%"}}
@@ -435,125 +435,39 @@ class EditForm extends Component{
       variant="outlined"
       onChange={product_Description=>{product.setProperty("product_Description", product_Description.target.value)}}
       /></Grid>
+
+
+<Grid item  xs={6} style={{margin:"5px"}}>
+   
+<FormControl variant="outlined" className={classes.formControl} style={{width:"100%"}}>
+        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+          Status
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          maxWidth="100"
+          label='Status'
+          defaultValue={product.product_Status}
+          onChange={product_Status=>{product.setProperty("product_Status", product_Status.target.value)}}
+          labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em></em>
+          </MenuItem>
+          <MenuItem value="active">Active</MenuItem>
+          <MenuItem value="onSale">On Sale</MenuItem>
+         
+        </Select>
+      </FormControl>
+   
+   </Grid>
+
+    
       </Grid>
 
 
-{/* 
-      <Typography variant="h6" style={{color:"#208769"}}> Storage Info</Typography>
-      <Grid
 
- container
-
- direction="row"
- justify="flex-start"
- alignItems="flex-start"
- 
->
-          <Grid xs={6} item style={{margin:"5px"}}>
-     <TextField 
-     id="outlined-basic" 
-     style={{width:"98%"}}
-     label="Barcode" 
-     variant="outlined"
-     defaultValue={product.product_Barcode}
-     onChange={product_Barcode=>{product.setProperty("product_Barcode", product_Barcode.target.value)}}
-     />
-     </Grid>
-     <Grid xs={5} item style={{margin:"5px"}}> */}
-     {/* <TextField 
-     id="outlined-basic" 
-     style={{width:"100%"}}
-     label="Brand" 
-     variant="outlined" 
-     onChange={product_Brand=>{product.setProperty("product_Brand", product_Brand.target.value)}}
-     /> */}
-       {/* <FormControl variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-       <InputLabel ref={inputLabel}  id="demo-simple-select-outlined-label">
-         Brand
-       </InputLabel>
-       <Select
-         labelId="demo-simple-select-outlined-label"
-         id="demo-simple-select-outlined"
-         maxWidth="100"
-         defaultValue={product.product_Brand}
-         onChange={product_Brand=>{product.setProperty("product_Brand", product_Brand.target.value)}}
-         labelWidth={labelWidth}
-       >
-         <MenuItem value="">
-           <em></em>
-         </MenuItem>
-         <MenuItem value="Ajinomoto">Ajinomoto</MenuItem>
-          <MenuItem value="Bear Brand">Bear Brand</MenuItem>
-          <MenuItem value="Lays">Lays</MenuItem>
-          <MenuItem value="Lucky Me">Lucky Me</MenuItem>
-          <MenuItem value="Maggi">Maggi</MenuItem>
-          <MenuItem value="Milo">Milo</MenuItem>
-          <MenuItem value="Nescafe">Nescafe</MenuItem>
-          <MenuItem value="Oishi">Oishi</MenuItem>
-          <MenuItem value="Palmolive">Palmolive</MenuItem>
-         
-          <MenuItem value="Safeguard">Safeguard</MenuItem>
-          <MenuItem value="Siver Swan">Siver Swan</MenuItem>    
-          <MenuItem value="Surf">Surf</MenuItem>
-          <MenuItem value="Uniliver">Uniliver</MenuItem>
-       </Select>
-     </FormControl>
-     </Grid>
-     <Grid xs={5} item style={{margin:"5px"}}> */}
-     {/* <TextField 
-     id="outlined-basic" 
-     style={{width:"100%"}}
-     label="Date Received" 
-     variant="outlined" 
-     onChange={product_DateReceived=>{product.setProperty("product_DateReceived", product_DateReceived.target.value)}}
-     /> */}
-         {/* <MuiPickersUtilsProvider utils={MomentUtils} >
-    
-
-    <KeyboardDatePicker
-      margin="normal"
-      id="dReceive"
-      label="Date Received"
-    value ={selectedDate}
-      
-      onChange={handleReceived}
-      KeyboardButtonProps={{
-        'aria-label': 'change date',
-      }}
-    />
-
-  
-</MuiPickersUtilsProvider>
-     </Grid>
-     <Grid xs={5} item style={{margin:"5px"}}> */}
-     {/* <TextField 
-     id="outlined-basic" 
-     style={{width:"100%"}}
-     label="Expiration Date" 
-     variant="outlined"
-     onChange={product_ExpirationDate=>{product.setProperty("product_ExpirationDate", product_ExpirationDate.target.value)}}
-     /> */}
-    
-      {/* <MuiPickersUtilsProvider utils={MomentUtils} >
-    
-
-    <KeyboardDatePicker
-      margin="normal"
-      id="dExpiration"
-      label="Expiration Date"
-  value={exselectedDate}
-     
-      onChange={handleExpiration}
-      KeyboardButtonProps={{
-        'aria-label': 'change date',
-      }}
-    />
-
-  
-</MuiPickersUtilsProvider>
-     </Grid>
-     </Grid> */}
-     
 
 
      <Typography variant="h6" style={{color:"#208769"}}> Remarks :</Typography>

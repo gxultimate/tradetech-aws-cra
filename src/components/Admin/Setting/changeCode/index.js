@@ -9,6 +9,18 @@ class Change extends React.Component {
     render() { 
  
 
+      function getHash(input){
+        var hash = 0, len = input.length;
+        for (var i = 0; i < len; i++) {
+          hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+          hash |= 0; // to 32bit integer
+        }
+      
+                
+      
+        return hash;
+      }
+
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -19,7 +31,9 @@ const changecode =()=>{
   let getId = JSON.parse(sessionStorage.getItem('userData'))
   let {startingStore:{addToken,token}}=this.props;
   token.setProperty("distributor_ID",getId.distributor_ID)
-  token.setProperty("distributor_warehouseName",getId.distributor_warehouseName)
+  token.setProperty("distributor_wHouse",getId.distributor_warehouseName)
+  token.setProperty('access_Token',`${getId.distributor_warehouseName.slice( 0, 3)}${ Math.floor(1000 + Math.random() * 9000)}`)
+  
   // deleteToken();
   addToken();
 }

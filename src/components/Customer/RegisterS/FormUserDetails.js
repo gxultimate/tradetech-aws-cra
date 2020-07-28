@@ -9,6 +9,8 @@ import { FormControl, InputLabel, MenuItem, Select} from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Link, withRouter } from 'react-router-dom';
+import {inject,observer} from 'mobx-react'
+
  class FormUserDetails extends Component {
 
       
@@ -17,16 +19,56 @@ import { Link, withRouter } from 'react-router-dom';
        
         snackbaropen:false,
       
-     
+        numberError:'',
         snackbarerror:"Fill out all fields.",
+        emailError:"",
+        errN:false,
+        errE:false,
+    }
+
+    componentDidMount(){
+      let{customerStore:{getAccounts}}=this.props;
+      getAccounts();
     }
 
      continue = e =>{
-       
-         e.preventDefault();
-         if(this.props.values.fName,this.props.values.mName,this.props.values.lName,this.props.values.address,this.props.values.emailAddress,this.props.values.contactNo != ''){
-         this.props.nextStep();
+      const {values} =this.props;
+      let{customerStore:{listOfUsers}}=this.props;
+      let filnum = listOfUsers.filter(nums => nums.account_contactNo === this.props.values.contactNo).length;
+      let filemail = listOfUsers.filter(nums => nums.account_emailAddress === this.props.values.emailAddress).length;
+      
+     
+         if(values.fName != '' && values.mName != '' && values.lName != '' && values.address != '' && values.emailAddress != '' && values.contactNo != '' && filnum === 0 && filemail === 0 ){
+          e.preventDefault();
+            this.props.nextStep();
+          
+        
+         
+        }
+        else
+         if(filnum != 0 || filemail != 0){
+           if (filnum != 0 && filemail != 0) {
+          this.setState({ errN: true });
+          this.setState({ numberError: "Contact number already taken!"});
+          this.setState({ errE: true });
+          this.setState({ emailError: "Email already taken!"});
+        }else if(filemail != 0 && filnum === 0){
+          this.setState({ errE: true });
+          this.setState({ errN: false });
+          this.setState({ emailError: "Email already taken!"});
+          this.setState({ numberError: ""});
         }else{
+          this.setState({ errE: false });
+          this.setState({ errN: true });
+          this.setState({ emailError: ""});
+          this.setState({ numberError: "Contact number already taken!"});
+        }
+        } 
+        else {
+          this.setState({ errE: false });
+          this.setState({ errN: false });
+          this.setState({ emailError: ""});
+          this.setState({ numberError: ""});
             this.setState({ snackbaropen: true });
         }
      }
@@ -39,6 +81,8 @@ import { Link, withRouter } from 'react-router-dom';
      
     render() {
         const {values,handleChange} =this.props;
+        
+   
         function Alert(props) {
             return <MuiAlert elevation={6} variant="filled" {...props} />;
           } 
@@ -149,6 +193,7 @@ import { Link, withRouter } from 'react-router-dom';
 
         <br/>
                 <TextField 
+                error={this.state.errN}
                 id="outlined-basic" 
                 label="Contact number" 
                 variant="outlined" 
@@ -157,6 +202,8 @@ import { Link, withRouter } from 'react-router-dom';
                 style={{marginBottom:"8px"}}
                 onChange={handleChange('contactNo')}
                 defaultValue={values.contactNo}
+               
+                helperText={this.state.numberError}
                 />
 
 <br/>
@@ -171,6 +218,7 @@ import { Link, withRouter } from 'react-router-dom';
                 />
                 <br/>
                  <TextField 
+                 error={this.state.errE}
                 id="outlined-basic" 
                 label="Email address" 
                 variant="outlined" 
@@ -179,6 +227,7 @@ import { Link, withRouter } from 'react-router-dom';
                 style={{marginBottom:"8px"}}
                 onChange={handleChange('emailAddress')}
                 defaultValue={values.emailAddress}
+                helperText={this.state.emailError}
                 />
           
                 
@@ -199,7 +248,7 @@ import { Link, withRouter } from 'react-router-dom';
                 </form>
         
                 </React.Fragment>
-                <Grid container sm={12} xs={12} style={{marginTop:"16px"}} alignItems='center'><Grid item xs={12} sm={12} style={{textAlign:'center',marginRight:'5px'}}><Typography variant='captiontext' >Have already an account? <Link to='/#/Login'> Login Here</Link></Typography></Grid>  </Grid>
+                <Grid container sm={12} xs={12} style={{marginTop:"16px"}} alignItems='center'><Grid item xs={12} sm={12} style={{textAlign:'center',marginRight:'5px'}}><Typography variant='captiontext' >Have already an account? <Link to='/Login'> Login Here</Link></Typography></Grid>  </Grid>
             </div>
         )
     }
@@ -212,4 +261,4 @@ const style ={
         backgroundColor:"#208769"
     }
 } 
-export default withRouter(FormUserDetails)
+export default withRouter(inject('customerStore')(observer(FormUserDetails)))

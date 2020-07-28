@@ -66,8 +66,8 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: 'name', numeric: false, disablePadding: false, label: 'Prod #' },
-  { id: 'item', numeric: true, disablePadding: false, label: 'Product' },
-  { id: 'brand', numeric: true, disablePadding: false, label: 'Brand' },
+  { id: 'item', numeric: false, disablePadding: false, label: 'Product' },
+  { id: 'brand', numeric: false, disablePadding: false, label: 'Brand' },
   { id: 'uom', numeric: true, disablePadding: false, label: 'UoM' },
   { id: 'stocks', numeric: true, disablePadding: false, label: 'Stocks' },
 ];
@@ -149,13 +149,14 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
 }));
+let filter = this.props.mysearch;
 function ReplenishTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
+  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -237,6 +238,11 @@ function ReplenishTable() {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
+               
+                  if(filter.length !== 0){
+                    if( row.item.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
+                    row.item.toLocaleLowerCase().split(' ').slice(-1).join(' ').startsWith(filter.toLocaleLowerCase())){
+                     
                   return (
                     <TableRow
                       hover
@@ -251,11 +257,39 @@ function ReplenishTable() {
                       <TableCell component="th" id={labelId} scope="row">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.item}</TableCell>
-                      <TableCell align="right">{row.brand}</TableCell>
+                      <TableCell align="left">{row.item}</TableCell>
+                      <TableCell align="left">{row.brand}</TableCell>
                       <TableCell align="right">{row.uom}</TableCell>
                       <TableCell align="right">{row.stocks.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
                     </TableRow>
+                    );
+
+                  }
+                  else{
+                    return null
+                 
+                }
+    
+                  }
+                  return (
+                    <TableRow
+                    hover
+                    onClick={(event) => handleClick(event, row.name)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.name}
+                    selected={isItemSelected}
+                  >
+                   
+                    <TableCell component="th" id={labelId} scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="left">{row.item}</TableCell>
+                    <TableCell align="left">{row.brand}</TableCell>
+                    <TableCell align="right">{row.uom}</TableCell>
+                    <TableCell align="right">{row.stocks.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                  </TableRow>
                   );
                 })}
               {emptyRows > 0 && (

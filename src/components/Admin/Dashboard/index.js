@@ -7,7 +7,7 @@ import {Grid,Typography,Divider,Card,CardContent,LinearProgress,Button} from '@m
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
-
+import { InputBase,IconButton, Paper } from '@material-ui/core';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import SmsFailedOutlinedIcon from '@material-ui/icons/SmsFailedOutlined';
 import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
@@ -20,11 +20,15 @@ import OrderChart from './OrderStat/Charts/Month'
 import DeliveryTab from './DeliveryAct'
 // tables
 import CustBalTable from './CustomerBal'
-import ReplenishTable from './Replenishment'
-
+import AITable from './Replenishment'
+import SBI from './SalesbyItem'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import SearchIcon from '@material-ui/icons/Search';
+import BestSelling from './BestSelling'
+import TopCust from './TopCustomer'
+import BottomCust from './BottomCust'
 class AdDashboard extends Component{
 
 
@@ -156,7 +160,24 @@ const useStyles = makeStyles(theme => ({
     color:"white",
     backgroundColor:"#F7A31C",
     height:"160px",
-   }
+   },
+    input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  
+  },
+
+  search: {
+    // padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'right',
+    width: '60%',
+    float:"right",
+    marginBottom:'5px',
+  },
 }));
 
 let filinactivecust = listOfUsers.filter(account => account.distributor_ID === getId.distributor_ID && account.account_status === 'archived').length;
@@ -186,6 +207,9 @@ let salesYTD =  listOfOrder.map(product => {
   function AdminDashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [filter,setFilter]= React.useState("")
+  const [filterCB,setFilterCB]= React.useState("")
+  const [filterAI,setFilterAI]= React.useState("")
   const [state, setState] = React.useState({
     open: false,
     vertical: 'top',
@@ -406,7 +430,7 @@ let salesYTD =  listOfOrder.map(product => {
             <CardContent>
               <Grid container>
                 <Grid item xs={6}> 
-              <Typography variant="h5" style={{color :"grey"}}>Total Sales</Typography>
+              <Typography variant="h5" style={{color :"grey"}}>Total Sales/Collection</Typography>
               </Grid>
               <Grid xs={6}> 
              {/* tab */}
@@ -421,14 +445,19 @@ let salesYTD =  listOfOrder.map(product => {
 
           </Card>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={3} sm={3}>
         <Card>
             <CardContent>
-              <Grid container>
-                <Grid item xs={6}> 
+              <Grid container  sm={12} xs={12}>
+                <Grid item xs={12} sm={12}> 
               <Typography variant="h5" style={{color :"grey"}}> Top 5 Best Selling</Typography>
+     
+
+              </Grid >
+              <Grid  item xs={12} sm={12} style={{marginTop:'16px'}}>
+              <BestSelling />
               </Grid>
-          
+             
               </Grid>
              
             </CardContent>
@@ -498,11 +527,15 @@ let salesYTD =  listOfOrder.map(product => {
         <Grid item xs={3}>
         <Card>
             <CardContent>
-              <Grid container>
-                <Grid item xs={6}> 
+              <Grid container sm={12} xs={12}>
+                <Grid item xs={12} sm={12}> 
               <Typography variant="h5" style={{color :"grey"}}>Top 5 Customers</Typography>
               </Grid>
           
+              <Grid item xs={12} sm={12}> 
+             <TopCust/>
+              </Grid>
+
               </Grid>
              
             </CardContent>
@@ -521,23 +554,41 @@ let salesYTD =  listOfOrder.map(product => {
               <Typography variant="h5" style={{color :"grey"}}> Customer Balance</Typography>
               </Grid>
               <Grid xs={6}> 
-           
+              <Paper component="form" className={classes.search} >
+     
+     <InputBase
+       className={classes.input}
+       placeholder="Search"
+       inputProps={{ 'aria-label': 'search customers' }}
+       onChange={(e)=>setFilterCB(e.target.value)}
+     />
+     <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+     <IconButton type="submit" className={classes.iconButton} aria-label="search">
+       <SearchIcon style={{color:"white"}}/>
+     </IconButton>
+     </span>
+   
+   </Paper>
               </Grid>
               </Grid>
               <Divider/>
               <Grid xs={12}>
-                <CustBalTable/>
+                <CustBalTable mysearch={filterCB}/>
               </Grid>
             </CardContent>
 
           </Card>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={3} sm={3}>
         <Card>
             <CardContent>
-              <Grid container>
-                <Grid item xs={6}> 
+              <Grid container sm={12} xs={12}>
+                <Grid item xs={12} sm={12}> 
               <Typography variant="h5" style={{color :"grey"}}> Bottom 5 Customers</Typography>
+              </Grid>
+
+              <Grid item xs={12} sm={12}> 
+              <BottomCust/>
               </Grid>
           
               </Grid>
@@ -558,12 +609,26 @@ let salesYTD =  listOfOrder.map(product => {
               <Typography variant="h5" style={{color :"grey"}}>Available Inventory</Typography>
               </Grid>
               <Grid xs={6}> 
-           
+              <Paper component="form" className={classes.search} >
+     
+     <InputBase
+       className={classes.input}
+       placeholder="Search"
+       inputProps={{ 'aria-label': 'search customers' }}
+       onChange={(e)=>setFilterAI(e.target.value)}
+     />
+     <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+     <IconButton type="submit" className={classes.iconButton} aria-label="search">
+       <SearchIcon style={{color:"white"}}/>
+     </IconButton>
+     </span>
+   
+   </Paper>
               </Grid>
               </Grid>
               <Divider/>
               <Grid xs={12}>
-                <ReplenishTable/>
+                <AITable mysearch = {filterAI}/>
               </Grid>
             </CardContent>
 
@@ -584,6 +649,41 @@ let salesYTD =  listOfOrder.map(product => {
             <CardContent>
          
             </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={9}>
+        <Card>
+            <CardContent>
+              <Grid container>
+                <Grid item xs={6}> 
+              <Typography variant="h5" style={{color :"grey"}}>Sales By Item</Typography>
+              </Grid>
+              <Grid xs={6}> 
+              <Paper component="form" className={classes.search} >
+     
+     <InputBase
+       className={classes.input}
+       placeholder="Search"
+       inputProps={{ 'aria-label': 'search customers' }}
+       onChange={(e)=>setFilter(e.target.value)}
+     />
+     <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+     <IconButton type="submit" className={classes.iconButton} aria-label="search">
+       <SearchIcon style={{color:"white"}}/>
+     </IconButton>
+     </span>
+   
+   </Paper>
+  
+              </Grid>
+              </Grid>
+              <Divider/>
+              <Grid xs={12}>
+                <SBI mysearch={filter}/>
+              </Grid>
+            </CardContent>
+
           </Card>
         </Grid>
 

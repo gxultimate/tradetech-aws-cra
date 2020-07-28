@@ -25,7 +25,7 @@ import pr from './pr.png';
 // import ProfileManagement from './ProfileManagement';
 import SettingGrid from './Setting'
 import ReportGrid from './Reports'
-import ProfileGrid from './CRM/Customer/CustomerProfile'
+import ProfileGrid from './CRM/CustomerProfile'
 
 // report
 import SalesByCustomer from './Reports/Sales/SalesByCustomer'
@@ -324,7 +324,7 @@ const useStyles = makeStyles(theme => ({
       <Route path="/Admin/CRM" render={()=><CRM/>}/>
       <Route path="/Admin/OrderManagement" render={()=><OrderManagement/>}/>
       <Route path="/Admin/InventoryManagement" render={()=><Inventory/>}/>
-      <Route path="/Admin/CustomerProfile" render={()=><ProfileGrid/>}/>
+      <Route path="/Admin/CustomerProfile/" render={()=><ProfileGrid/>}/>
      
    
       {/* <Route  path="/Admin/ProfileManagement" render={()=><ProfileManagement/>}/> */}

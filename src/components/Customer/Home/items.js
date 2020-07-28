@@ -215,7 +215,7 @@ setTimeout(() => {
          
       return (
       
-  <Grid item xs={6} sm={2} key={product.product_ID}>
+  <Grid item xs={6} sm={1} key={product.product_ID}>
   
   <Card style={{minHeight:"100%"}}>
     <ThemeProvider theme={theme}>
@@ -296,7 +296,7 @@ setTimeout(() => {
     }
     return (
       
-  <Grid item xs={6} sm={2}>
+  <Grid item xs={6} sm={1}>
   
   <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
        <Alert  severity="success">
@@ -309,7 +309,7 @@ setTimeout(() => {
         </Alert></Snackbar>
 
 
-        <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}} style={{position:'fixed'}}   open={this.state.snackbaropenC} autoHideDuration={2000} onClose={this.snackbarClose}  >   
+        <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}} style={{position:'absolute',top:5}}   open={this.state.snackbaropenC} autoHideDuration={2000} onClose={this.snackbarClose}  >   
        <Alert onClose={this.snackbarClose}  severity="warning">
        {this.state.snackbarC }
         </Alert></Snackbar>

@@ -76,7 +76,7 @@ let getorder =filpacking.map(orders =>{
     <Grid container  xs={12} sm={12}>
     
       <Grid item xs={12} sm={12}>
-        <Typography variant="h5"  style={{color:"#208769",float:"left",marginLeft:"5px"}}>Orders On Packing</Typography>
+        <Typography variant="h5"  style={{color:"#208769",float:"left",marginLeft:"5px"}}>Orders on warehouse</Typography>
       </Grid>
   
    <Grid item xs={12} sm={12}>

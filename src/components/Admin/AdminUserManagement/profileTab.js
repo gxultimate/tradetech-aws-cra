@@ -12,6 +12,7 @@ import theme from './../theme'
 
 import StaffGrid from './Staff'
 import AdminGrid from './Admin'
+import Deactivated from './Deactivated'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,6 +79,7 @@ export default function ProfilesTab() {
         >
           <Tab label="Staff" {...a11yProps(0)} />
           <Tab label="Manager" {...a11yProps(1)} />
+          <Tab label="Deactivated" {...a11yProps(2)} />
   
         </Tabs>
       </AppBar>
@@ -92,6 +94,9 @@ export default function ProfilesTab() {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <AdminGrid/>
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          <Deactivated/>
         </TabPanel>
   
       </SwipeableViews>

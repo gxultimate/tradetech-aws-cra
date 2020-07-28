@@ -66,7 +66,7 @@ return(
     <Grid container spacing={3} xs={12} sm={12}>
     
     <Grid item xs={9} sm={9}>
-      <Typography variant="h5"  style={{color:"#208769",float:"left",marginLeft:"5px"}}>Orders On Delivery</Typography>
+      <Typography variant="h5"  style={{color:"#208769",float:"left",marginLeft:"5px"}}>Orders on delivery</Typography>
     </Grid>
 
  <Grid item xs={3} sm={3}>

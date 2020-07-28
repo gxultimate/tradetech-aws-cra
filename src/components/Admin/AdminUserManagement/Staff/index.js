@@ -7,6 +7,8 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import AddStaff from './addStaff';
 import StaffTable from './Table';
+import {  IconButton, Paper ,InputBase} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 class StaffIndex extends React.Component {
   
 
@@ -25,12 +27,28 @@ const useStyles = makeStyles(theme => ({
 
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 210,
+    width: '90%',
     
    
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  
+  },
+
+  search: {
+    // padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'right',
+    width: '100%',
+    float:"right"
   },
 }));
 
@@ -47,8 +65,8 @@ const useStyles = makeStyles(theme => ({
     <div className={classes.root}>
       <Grid container direction="row"  spacing={2} lg={12} sm={12} xs={12}>
         <Grid item lg={12} sm={12} xs={12}>
-          <Grid container justify="flex-start" alignItems="flex-start">
-              <Grid item xs={6} sm={6}>
+          <Grid container justify="flex-start" alignItems="flex-start" >
+              <Grid item xs={2} sm={2} >
               <FormControl variant="outlined" className={classes.formControl}  >
         <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
          Staff Role
@@ -66,7 +84,24 @@ const useStyles = makeStyles(theme => ({
         </Select>
       </FormControl>
             </Grid>
-            <Grid item xs={6} sm={6} style={{textAlign:"right"}}>
+            <Grid item xs={2} sm={2} >
+            <Paper component="form" className={classes.search} style={{marginTop:'18px'}}>
+     
+     <InputBase
+       className={classes.input}
+       placeholder="Search"
+       inputProps={{ 'aria-label': 'search customers' }}
+       onChange={(e)=>setFilter(e.target.value)}
+     />
+     <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+     <IconButton type="submit" className={classes.iconButton} aria-label="search">
+       <SearchIcon style={{color:"white"}}/>
+     </IconButton>
+     </span>
+   
+   </Paper>
+            </Grid>
+            <Grid item xs={8} sm={8} style={{textAlign:"right"}} >
               <AddStaff/>
             </Grid>
             </Grid>

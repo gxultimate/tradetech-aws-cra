@@ -21,7 +21,7 @@ class MyDistributor extends React.Component {
   
   componentDidMount(){
     let {customerStore:{ getMembership,getToken}}=this.props;
-    
+    // getProducts();
     getToken();
     getMembership();
   }
@@ -39,11 +39,6 @@ class MyDistributor extends React.Component {
     }
   
     
-  getNewMembers = () => {
-    let {customerStore:{ getMembership,getToken}}=this.props;
-    getToken();
-    getMembership() 
-  }
   
   
 
@@ -102,7 +97,7 @@ console.log(res,'ress')
       setTimeout(() => {
       addcLogs();
       distributor.setProperty("distributor_ID",res.distributor_ID)
-      this.props.history.push("/Customer" )
+      this.props.history.push({"pathname":"/Customer", state:{ Distid: res.distributor_ID}} )
     }, 500);
 
 
@@ -125,9 +120,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-let getDist = listOfMembership.filter(ace => ace.account_ID === getId.account_ID)
-
-let git = getDist.map(dist =>{
+let getDist = listOfMembership.filter(ace => ace.account_ID === getId.account_ID).map(dist =>{
   return (
 <React.Fragment key={dist.membership_ID}>
 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={snackbaropen} autoHideDuration={2000} onClose={snackbarClose}  >   
@@ -137,9 +130,7 @@ let git = getDist.map(dist =>{
 <ListItem button onClick={()=>accessD(dist)}>
         <ListItemText secondary={dist.distributor_wHouse} />
         <ListItemSecondaryAction>
-                  <IconButton onClick={()=>{accessD(dist) 
-                                     
-                                           }}  edge="end" aria-label="icon">
+                  <IconButton onClick={()=>accessD(dist)}  edge="end" aria-label="icon">
                     <ArrowForwardIosIcon />
                    
                   </IconButton>
@@ -168,7 +159,7 @@ function DistGrid() {
         </Toolbar>
       </AppBar>
       <Toolbar />
-                <Grid container direction="row" sm={10} xs={11} justify='center' alignItems='center' style={{marginTop:"95px"}}>
+                <Grid container direction="row" sm={5} xs={12} justify='center' alignItems='center' style={{paddingTop:"90px",margin:'auto',paddingRight:'20px'}}>
     <Grid item sm={12} xs={12} style={{textAlign:"center"}} justify='center'>
 <Paper style={{marginLeft:'20px'}}>
     <Grid container sm={12} >
@@ -194,12 +185,12 @@ function DistGrid() {
       </List>
       <Divider />
       <List component="nav" aria-label="secondary mailbox folders">
-       {git}
+       {getDist}
       </List>
           </Paper>
         </Grid>
         </Grid>
-               <div style={{margin:0, top: 'auto',right: 20,bottom: 70,left: 'auto',position: 'fixed'}} >
+               <div style={{margin:0, top: 'auto',right: 20,bottom: 70,left: 'auto',position: 'fixed'}}>
    <AddDist />
     </div>
    <Grid  item lg={12} sm={12} xs={12} style={{bottom: 0,position: 'absolute',border:'1px solid white',width:'100%'}}>

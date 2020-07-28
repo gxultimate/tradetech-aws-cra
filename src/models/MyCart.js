@@ -6,6 +6,7 @@ class MyCart extends Model {
   constructor(props) {
     const defaults = {
         cart_ID: "",
+        cart_Status:"",
         account_ID:"",
         product_ID: "",
         distributor_ID: "",
@@ -34,6 +35,7 @@ class MyCart extends Model {
 
 decorate(MyCart, {
     cart_ID: observable,
+    cart_Status:observable,
         account_ID:observable,
         product_ID: observable,
         distributor_ID: observable,

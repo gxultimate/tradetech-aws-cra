@@ -27,6 +27,10 @@ class Login extends React.Component {
       
      
         snackbarerror:"Incorrect username or password.",
+        snackbaropenD:false,
+      
+     
+        snackbarD:"Your account has been deactivated.",
     }
     this.login  = this.login.bind(this);
   
@@ -127,6 +131,14 @@ class Login extends React.Component {
        
                 },500)
                  }
+                 else if(res===6){
+                  this.setState({ snackbaropenD: true });
+                  setTimeout(() => {
+                
+                    this.props.history.push("/")
+                   
+                  }, 500);
+                 }
 
                  
           else{
@@ -159,6 +171,11 @@ class Login extends React.Component {
 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
        <Alert  severity="error">
        {this.state.snackbarerror }
+        </Alert></Snackbar>
+
+        <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropenD} autoHideDuration={2000} onClose={this.snackbarClose}  >   
+       <Alert  severity="warning">
+       {this.state.snackbarD }
         </Alert></Snackbar>
         
 

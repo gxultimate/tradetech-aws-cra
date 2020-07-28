@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
 import FailedTBL from './table';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -39,7 +41,10 @@ export default function FailedGrid() {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-      <Grid item sm={12} xs={12} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
+      <Grid item sm={6} xs={6}>
+          <Button startIcon={<ImportExportIcon />} size='small' variant='contained' style={{backgroundColor:'#208769',color:'white'}}>export</Button>
+        </Grid>
+      <Grid item sm={6} xs={6} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
         
         <Paper component="form" className={classes.search} >
      

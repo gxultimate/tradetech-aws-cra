@@ -84,13 +84,13 @@ function MyCart(){
 return(
 <div style={{marginTop:"20px"}}>
 
-    <Grid container direction="row" sm={10} xs={11} >
+    <Grid container direction="row" sm={8} xs={12} justify='center' alignItems='center' style={{margin:'auto',paddingRight:'30px'}}>
     <Grid item sm={12} xs={12} style={{margin:"auto"}}>
 <Paper style={{marginLeft:"32px"}}>
     <Grid container sm={12} >
        <Grid item  sm={1} xs={1} style={{backgroundColor:"#208769",paddingRight:"10px"}}></Grid>
        <Grid item sm={5} xs={5} style={{paddingTop:"10px",paddingBottom:"10px",marginleft:"15px"}}><Typography variant="p" style={{fontWeight:"bold",width:"98%"}}>&nbsp;&nbsp;My Cart</Typography> </Grid>
-       <Grid item  sm={5} xs={6} style={{paddingRight:"10px",color:"#208769",textAlign:"right",paddingTop:"10px",paddingBottom:"10px",}}><Typography variant="p">{a} items on cart</Typography></Grid>
+       <Grid item  sm={5} xs={6} style={{paddingRight:"10px",color:"#208769",textAlign:"right",paddingTop:"10px",paddingBottom:"10px",}}><Typography variant="p">{a} item(s) on cart</Typography></Grid>
        </Grid>
        </Paper>
     </Grid>

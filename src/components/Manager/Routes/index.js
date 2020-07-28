@@ -9,6 +9,7 @@ import logo from './../../Logo/logowhite.png'
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import Badge from '@material-ui/core/Badge';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import Tooltip from '@material-ui/core/Tooltip';
 class DrawerList extends React.Component{
 
        componentDidMount(){
@@ -59,12 +60,13 @@ return (
 
 
         <ListItem button >
-        
+       
+       
       <ListItemIcon style={{color:"white"}} onClick={()=>{
 
          this.props.history.push("/Manager");
  
-  }}><Badge color="secondary" badgeContent={count}><ListAltIcon/></Badge></ListItemIcon>
+  }}> <Tooltip title={`${count} order(s) assigned`} placement="right"><Badge color="secondary" badgeContent={count}><ListAltIcon/></Badge></Tooltip></ListItemIcon> 
    
      <ListItemText style={{color:"white"}} onClick={()=>{
          

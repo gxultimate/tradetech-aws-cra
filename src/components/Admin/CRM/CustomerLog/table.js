@@ -25,18 +25,27 @@ import { withRouter } from 'react-router-dom';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import Slide from '@material-ui/core/Slide';
+
+
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import ProfileInfo from './../CustomerProfile'
+
 class CustlogsTBL extends React.Component {
 
 
   componentDidMount() {
     let {crmStore:{getcLogs}}=this.props;
-    getcLogs();
+    getcLogs()
   }
 
 
   
   render() { 
-    let {crmStore:{listOfClogs,notif,addNotif,addReport,report}}=this.props
+    let {crmStore:{listOfClogs,notif,addNotif,addReport,report,account}}=this.props
     let mysearch = props =>{
       return this.props.mySearch
     }
@@ -67,14 +76,7 @@ class CustlogsTBL extends React.Component {
       return <Slide direction="up" ref={ref} {...props} />;
     });
 
-    const profile = custprof => {
- 
-  setTimeout(() => {
   
-   this.props.history.push({"pathname":"/Admin/CustomerProfile", state:{ id: custprof.account_ID}} )
- }, 500);
-  
- }
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -87,7 +89,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === 'asc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -188,20 +190,39 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },  appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+    color:'white'
   },
 }));
 
 function CLogTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('date');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
-
+  const [openI, setOpenI] = React.useState(false);
   const filter = mysearch();
+
+
+
+  const profile = custprof => {
+ account.setProperty('account_ID',custprof.account_ID)
+  
+    setOpenI(true);
+  
+   
+  
+  }
+
   const reports =accounts =>{
 
    
@@ -228,6 +249,7 @@ function CLogTable() {
   }
   const handleClose = () => {
     setOpen(false);
+    setOpenI(false);
   };
 
   const agree = ()=>{
@@ -355,12 +377,12 @@ function CLogTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.clog_id)}
+                      // onClick={(event) => handleClick(event, row.clog_id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.clog_id}
-                      selected={isItemSelected}
+                      // selected={isItemSelected}
                     >
                     
                       <TableCell component="th" id={labelId} scope="row">
@@ -380,12 +402,12 @@ function CLogTable() {
               return (
                 <TableRow
                 hover
-                onClick={(event) => handleClick(event, row.clog_id)}
+                // onClick={(event) => handleClick(event, row.clog_id)}
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
                 key={row.clog_id}
-                selected={isItemSelected}
+                // selected={isItemSelected}
               >
               
                 <TableCell component="th" id={labelId} scope="row">
@@ -447,6 +469,31 @@ function CLogTable() {
           </Button>
         </DialogActions>
       </Dialog>
+      
+
+
+
+      <Dialog fullScreen open={openI} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+          <IconButton edge="start" color="inherit" >
+              <InfoOutlinedIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Profile Information
+            </Typography>
+            <IconButton autoFocus color="inherit" onClick={handleClose} aria-label="close">
+            <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      <DialogContent>
+<ProfileInfo accId={account.account_ID}/>
+      </DialogContent>
+
+      </Dialog>
+
+
 
     </div>
   );

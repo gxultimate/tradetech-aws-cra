@@ -1,6 +1,6 @@
 
 
-import { FormControlLabel, Grid, IconButton, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from '@material-ui/core';
+import { FormControlLabel,Typography, Grid, IconButton, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -17,7 +17,17 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import theme from './../../../theme';
 
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
+import Slide from '@material-ui/core/Slide';
 
+
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
+import CloseIcon from '@material-ui/icons/Close';
+import ProfileInfo from './../../CustomerProfile'
 
 
 class ArchivedTBL extends React.Component {
@@ -151,11 +161,22 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+    color:'white'
   },
 }));
 let mysearch = props =>{
   return this.props.mySearch
 }
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
  function ArchivedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -165,6 +186,7 @@ let mysearch = props =>{
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
+  const [openI, setOpenI] = React.useState(false);
   const filter = mysearch();
 
 
@@ -184,7 +206,18 @@ let mysearch = props =>{
 
   const handleClose = () => {
     setOpen(false);
+    setOpenI(false);
   };
+
+
+  const profile = custprof => {
+    account.setProperty('account_ID',custprof.account_ID)
+     
+       setOpenI(true);
+     
+      
+     
+     }
 
 // table Data
 let rows = listOfcustomer.map(user => {
@@ -395,7 +428,25 @@ let rows = listOfcustomer.map(user => {
       />
    
 
+   <Dialog fullScreen open={openI} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+          <IconButton edge="start" color="inherit" >
+              <InfoOutlinedIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Profile Information
+            </Typography>
+            <IconButton autoFocus color="inherit" onClick={handleClose} aria-label="close">
+            <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      <DialogContent>
+<ProfileInfo accId={account.account_ID}/>
+      </DialogContent>
 
+      </Dialog>
     </div>
   );
 }

@@ -11,9 +11,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import FormatListNumberedOutlinedIcon from '@material-ui/icons/FormatListNumberedOutlined';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
-
 import Badge from '@material-ui/core/Badge';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 class DrawerList extends React.Component{
 
@@ -96,7 +96,14 @@ return (
          
          this.props.history.push("/Admin/OrderManagement");
  
-  }}> <Badge color="secondary" badgeContent={count}><AssignmentOutlinedIcon  style={{color:"white"}}/></Badge></ListItemIcon>
+  }}> 
+   <Tooltip title={`${count} incoming order(s)`} placement="right"  arrow TransitionComponent={Zoom}>
+  <Badge color="secondary" badgeContent={count}> 
+ <AssignmentOutlinedIcon  style={{color:"white"}}/>
+ 
+  </Badge>
+  </Tooltip>
+  </ListItemIcon>
      <ListItemText onClick={()=>{
          
          this.props.history.push("/Admin/OrderManagement");

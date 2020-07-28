@@ -265,7 +265,7 @@ class TransactionsTable extends React.Component {
 
   componentDidMount(){
     let{crmStore:{getOrderD,order}}=this.props;
-    console.log(this.props.account_ID,'mymy')
+   
     order.setProperty('account_ID',this.props.account_ID)
     getOrderD();
   }

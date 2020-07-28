@@ -9,8 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {inject,observer} from 'mobx-react'
 class accessCode extends React.Component {
-    state = {  }
-
+  
 
 
     componentDidMount(){
@@ -22,7 +21,7 @@ class accessCode extends React.Component {
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 600,
+    minWidth: '100%',
   },
 });
 

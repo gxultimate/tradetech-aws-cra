@@ -18,13 +18,13 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 class Replenish extends React.Component {
-  state = {  }
+
   componentDidMount(){
-    let{startingStore:{getStock}}=this.props;
-    getStock();
+    let {issuesStore:{getReportSup}}=this.props;
+    getReportSup()
   }
   render() { 
-
+    let{issuesStore:{listOfReport}}=this.props;
 
     const useStyles1 = makeStyles((theme) => ({
       root: {
@@ -92,7 +92,7 @@ class Replenish extends React.Component {
     };
     
 
-    let{startingStore:{productStocks}}=this.props;
+  
 
 
 
@@ -114,31 +114,16 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs,Qty) {
-  return { name, calories, fat, carbs,Qty };
+function createData(ID,  sender,type, detail, date) {
+  return { ID,  sender,type, detail, date };
 }
-let myID = JSON.parse(sessionStorage.getItem('userData'));
-
-let filStocks = productStocks.filter(stck => stck.distributor_ID === myID.distributor_ID );
-
-let rows = filStocks.map(stocks => {
-
-return (createData(
-
-stocks.stock_ID,stocks.product_Name,stocks.product_Brand,stocks.product_UoM,stocks.product_replenishQty
-
-))
-
-
+let rows = listOfReport.map(report =>{
+  return(createData(
+    report.report_ID,report.report_Sender,report.report_Type,report.report_Detail,report.report_Date
+  ))
 })
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24),
-//   createData('Ice cream sandwich', 237, 9.0, 37),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67),
-//   createData('Gingerbread', 356, 16.0, 49),
-// ];
+
 
 const useStyles = makeStyles({
   table: {
@@ -164,14 +149,14 @@ const useStyles = makeStyles({
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="Replenish table">
+      <Table className={classes.table} aria-label="Replenish table" size='small'>
         <TableHead>
           <TableRow>
-            <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell align="left">Product</StyledTableCell>
-            <StyledTableCell align="left">Vendor</StyledTableCell>
-            <StyledTableCell align="left">UoM</StyledTableCell>
-            <StyledTableCell align="left">Quantity</StyledTableCell>
+            <StyledTableCell>Sender</StyledTableCell>
+            <StyledTableCell align="left">Type</StyledTableCell>
+            <StyledTableCell align="left">Detail</StyledTableCell>
+            <StyledTableCell align="left">Date</StyledTableCell>
+            
             
           </TableRow>
         </TableHead>
@@ -180,14 +165,14 @@ const useStyles = makeStyles({
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.ID}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.sender}
               </StyledTableCell>
-              <StyledTableCell align="left">{row.calories}</StyledTableCell>
-              <StyledTableCell align="left">{row.fat}</StyledTableCell>
-              <StyledTableCell align="left">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="left">{row.Qty}</StyledTableCell>
+              <StyledTableCell align="left">{row.type}</StyledTableCell>
+              <StyledTableCell align="left">{row.detail}</StyledTableCell>
+              <StyledTableCell align="left">{row.date}</StyledTableCell>
+             
           
             </StyledTableRow>
           ))}
@@ -226,4 +211,4 @@ return (
 }
 }
 
-export default inject('startingStore')(observer(Replenish));
+export default inject('issuesStore')(observer(Replenish));

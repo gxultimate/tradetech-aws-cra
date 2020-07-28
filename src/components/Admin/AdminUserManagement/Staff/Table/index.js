@@ -1,6 +1,6 @@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
-import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
+import { lighten, makeStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,41 +8,43 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import {IconButton,TableRow} from '@material-ui/core';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import InfoIcon from '@material-ui/icons/Info';
+import theme from './../../../../theme';
+import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import CloseIcon from '@material-ui/icons/Close';
+import ProfileInfo from './../../StaffProfile'
+
 
 class StaffList extends React.Component {
   state = {  }
   render() { 
-let {employeeStore:{listOfUsers}}=this.props;
+    let {employeeStore:{listOfUsers,account,editAccount}}=this.props;
 let disId = JSON.parse(sessionStorage.getItem('userData'));
 
-function createData(name,contract, role, email, mobileNo, status) {
-  return { name,contract, role, email, mobileNo, status };
+function createData(name,contract, role, email, mobileNo, status,action) {
+  return { name,contract, role, email, mobileNo, status,action };
 }
 
 
-let filterStaff =listOfUsers.filter(staff =>  staff.account_accessType === 'Staff' && staff.distributor_ID === disId.distributor_ID) 
-
-let rows =filterStaff.map(staff => {
-
-return(createData(
-
-`${staff.account_fName} ${staff.account_mName} ${staff.account_lName}`,staff.account_contract,staff.staff_Role,staff.account_emailAddress,staff.account_contactNo,staff.account_status
+let filterStaff =listOfUsers.filter(staff =>  staff.account_accessType === 'Staff' && staff.distributor_ID === disId.distributor_ID && staff.account_status === 'active') 
 
 
-
-
-))
-
-
-
-
-
-})
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -78,6 +80,7 @@ const headCells = [
   { id: 'mobileNo', numeric: true, disablePadding: false, label: 'Mobile No' },
  
   { id: 'status', numeric: true, disablePadding: false, label: 'Status' },
+  { id: 'action', numeric: true, disablePadding: false, label: 'Action' },
 ];
 
 const StyledTableCell = withStyles((theme) => ({
@@ -135,25 +138,7 @@ StaffTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
+
 
 
 
@@ -178,9 +163,20 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  }, appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+    color:'white'
   },
 }));
 let filter = this.props.mysearch;
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function StaffTable() {
   const classes = useStyles();
@@ -190,6 +186,65 @@ function StaffTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
+  const [openI, setOpenI] = React.useState(false);
+  const handleClickOpen =(arc)=>{
+    setOpen(true);
+    account.setProperty("account_ID", arc.account_ID)
+    account.setProperty("account_status",'archived')
+  }
+
+  const handleArchive = () => {
+
+   
+    editAccount();
+  
+
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setOpenI(false)
+  };
+
+
+  const profile = staffprof => {
+    account.setProperty('account_ID',staffprof.account_ID)
+    setOpenI(true)
+    
+   };
+   
+
+
+  let rows =filterStaff.map(staff => {
+
+    return(createData(
+    
+    `${staff.account_fName} ${staff.account_mName} ${staff.account_lName}`,staff.account_contract,staff.staff_Role,staff.account_emailAddress,staff.account_contactNo,staff.account_status, <div><IconButton   size="medium" style={{backgroundColor:"#31AF91"}} onClick={()=>{profile(staff)}}> <InfoIcon /> </IconButton> <IconButton size="medium" style={{backgroundColor:"#FFA500"}} onClick={()=>{handleClickOpen(staff)}}> <ArchiveIcon /> </IconButton></div>
+    
+    
+    
+    
+    ))
+    
+    
+    
+    
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -271,27 +326,28 @@ function StaffTable() {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   if(filter.length !== 0){
-                    if(row.role.startsWith(filter) ){
+                    if(row.role.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase())  ){
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      // onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
-                      selected={isItemSelected}
+                      // selected={isItemSelected}
                     >
                       
                       <TableCell component="th" id={labelId} scope="row">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.contract}</TableCell>
-                      <TableCell align="right">{row.role}</TableCell>
+                      <TableCell align="left">{row.contract}</TableCell>
+                      <TableCell align="left">{row.role}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
                       <TableCell align="right">{row.mobileNo}</TableCell>
                       
                       <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.action}</TableCell>
                     </TableRow>
                  );
 
@@ -304,25 +360,26 @@ function StaffTable() {
                 }
                 return (
                   <TableRow
-                  hover
-                  onClick={(event) => handleClick(event, row.name)}
-                  role="checkbox"
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  key={row.name}
-                  selected={isItemSelected}
-                >
-                  
-                  <TableCell component="th" id={labelId} scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="left">{row.contract}</TableCell>
-                  <TableCell align="left">{row.role}</TableCell>
-                  <TableCell align="left">{row.email}</TableCell>
-                  <TableCell align="right">{row.mobileNo}</TableCell>
-                  
-                  <TableCell align="right">{row.status}</TableCell>
-                </TableRow>
+                      hover
+                      // onClick={(event) => handleClick(event, row.name)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.name}
+                      // selected={isItemSelected}
+                    >
+                      
+                      <TableCell component="th" id={labelId} scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="left">{row.contract}</TableCell>
+                      <TableCell align="left">{row.role}</TableCell>
+                      <TableCell align="left">{row.email}</TableCell>
+                      <TableCell align="right">{row.mobileNo}</TableCell>
+                      
+                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.action}</TableCell>
+                    </TableRow>
                   );
   
                 })}
@@ -348,6 +405,52 @@ function StaffTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+
+<Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Deactivate this account?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+           
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <ThemeProvider theme={theme}>
+          <Button onClick={handleClose} color="secondary" variant='contained' style={{color:'white'}}>
+            Cancel
+          </Button>
+          <Button onClick={handleArchive} color="primary" autoFocus variant='contained' style={{color:'white'}}>
+            Agree
+          </Button>
+          </ThemeProvider>
+        </DialogActions>
+      </Dialog>
+
+
+      <Dialog fullScreen open={openI} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+          <IconButton edge="start" color="inherit" >
+              <InfoOutlinedIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Profile Information
+            </Typography>
+            <IconButton autoFocus color="inherit" onClick={handleClose} aria-label="close">
+            <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      <DialogContent>
+<ProfileInfo accId={account.account_ID}/>
+      </DialogContent>
+
+      </Dialog>
+
     </div>
   );
 }

@@ -448,10 +448,8 @@ let rowss =  listOfCart.map(product => {
                     
                     >
                  
-                      {/* <TableCell component="th" id={labelId} scope="row" align="left"  padding='none'>
-                       <span style={{paddingleft:"10px"}}> {row.image}</span>
-                      </TableCell> */}
-                      <TableCell component="th" id={labelId} scope="row" align="left" style={{fontSize:"12px"}} >{row.name}</TableCell>
+                
+                      <TableCell component="th" id={labelId} scope="row" align="left" style={{fontSize:"12px",width:'100%',paddingLeft:'3px'}} padding='none'>{row.name}</TableCell>
                       <TableCell align="right" style={{fontSize:"12px"}} padding='none'>{row.quantity}</TableCell>
                       <TableCell align="right" style={{fontSize:"12px"}} padding='none'>{row.price}</TableCell>
                     

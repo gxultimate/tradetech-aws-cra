@@ -31,7 +31,7 @@ import theme from './../../theme'
     
       handleClose =()=>{
     
-            this.props.history.push("/#/Login")
+            this.props.history.push("/Login")
 
       }
   
@@ -76,7 +76,7 @@ import theme from './../../theme'
         
           else{
          
-                this.props.history.push("/#/Login")
+                this.props.history.push("/Login")
            
           }
          })

@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button,Grid } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -82,6 +82,7 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#208769',
     color: theme.palette.common.white,
+  
   },
   body: {
     fontSize: 14,
@@ -95,11 +96,12 @@ function CompletedHead(props) {
   };
 
   return (
-    <TableHead>
+    <TableHead       >
       <TableRow>
       
         {headCells.map((headCell) => (
           <StyledTableCell
+      
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
@@ -192,6 +194,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     order.setProperty('orderStatus',ord.orderStatus)
     order.setProperty('paymentStatus',ord.paymentStatus)
     order.setProperty('account_ID',ord.account_ID)
+    order.setProperty('orderDateCompleted',ord.orderDateCompleted)
     order.setProperty('distributor_ID',ord.distributor_ID)
     order.setProperty('packer_ID',ord.packer_ID)
     order.setProperty('dispatcher_ID',ord.dispatcher_ID)
@@ -287,12 +290,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
         
         <TableContainer>
           <Table
+      
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size='small'
             aria-label="enhanced table"
           >
             <CompletedHead
+            
               classes={classes}
               numSelected={selected.length}
               order={sorder}
@@ -357,18 +362,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
         open={open}
         TransitionComponent={Transition}
         keepMounted
+        maxWidth='sm'
         onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        {/* <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle> */}
-        <DialogContent>
+    
+        <DialogContent  >
+          <Grid style={{margin:'auto'}}>
          <Details />
+         </Grid>
         </DialogContent>
         <DialogActions>
         
           <ThemeProvider theme={theme}>
-          <Button onClick={handleClose} color="secondary" variant="contained">
+          <Button onClick={handleClose} style={{backgroundColor:'#F7A31C',color:'white'}} variant="contained">
             Close
           </Button>
           </ThemeProvider>

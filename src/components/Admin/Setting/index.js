@@ -2,16 +2,16 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import MyProfile from './Profile'
+import ProfileInfo from './Profile.js'
 import AccessCode from './AccessCode'
 import ChangeButton from './changeCode'
 import {inject,observer} from 'mobx-react'
 import {Typography,Divider} from '@material-ui/core/'
 class setting extends React.Component {
-    state = {  }
 
 
-    componentWillMount(){
+
+    componentDidMount(){
       let {startingStore:{getToken}}=this.props;
 
       getToken();
@@ -37,34 +37,35 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <div className={classes.root}>
- <Grid container  sm={12} xs={12}>
-<Typography variant="h5">
+      <Typography variant="h5">
 Setting
 </Typography>
+ <Grid container spacing={3} sm={12} xs={12} >
 
 
-{/* <Grid item sm={12} xs={12} style={{marginTop:'25px'}}>
+
+<Grid item sm={7} xs={12} style={{marginTop:'25px'}}>
   <Typography variant='h6'>My Profile</Typography>
-      <Grid container spacing={3} sm={12} xs={12}>
+      <Grid container  sm={12} xs={12}>
  
     
        <Grid item sm={12} xs={12} >
-         <MyProfile/>
+         <ProfileInfo/>
          </Grid>
         </Grid>
-        </Grid> */}
+        </Grid>
 
 
-<Grid item sm={12} xs={12} style={{marginTop:'25px'}}>
+<Grid item sm={5} xs={12} style={{marginTop:'25px'}}>
   <Typography variant='h6'>Access Token</Typography>
-      <Grid container spacing={3} sm={12} xs={12}>
+      <Grid container  sm={12} xs={12}>
  
     
         <Grid item sm={12} xs={12} style={{textAlign:"right"}}>
           <ChangeButton/>
        </Grid>
        <Grid item sm={12} xs={12} >
-       <MyProfile/>
+       
          <AccessCode/>
          </Grid>
         </Grid>

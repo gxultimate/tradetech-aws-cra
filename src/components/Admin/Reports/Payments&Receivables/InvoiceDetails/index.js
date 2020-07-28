@@ -1,13 +1,16 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles ,ThemeProvider} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {withRouter} from 'react-router-dom'
-import { Typography, Divider,IconButton } from '@material-ui/core';
+import { Typography, Divider,IconButton,Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import MaterialUIPickers from './DatePicker'
 import SbCTable from './table'
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+import theme from './../../../theme'
+import PrintIcon from '@material-ui/icons/Print';
 class SBC extends React.Component {
   state = {  }
   render() { 
@@ -45,8 +48,18 @@ const useStyles = makeStyles((theme) => ({
   const [filter,setFilter]= React.useState("");
   return (
     <div className={classes.root}>
+        <Grid container direction='row' sm={12} xs={12} >
+        <Grid item xs={8} sm={8}  >
         <Typography variant="h6">Reports</Typography>
-        <Divider/>
+        </Grid>
+        <ThemeProvider theme={theme}>
+        <Grid item xs={4} sm={4}  style={{textAlign:'right'}}>
+        <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
+          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button>
+        </Grid>
+        </ThemeProvider>
+        </Grid>
+        <Divider style={{marginRight:'20px'}} />
       <Grid container spacing={3} xs={12} sm={12} style={{marginTop:"10px"}}>
       
         <Grid item xs={12} sm={12}>

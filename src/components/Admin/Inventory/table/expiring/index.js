@@ -195,6 +195,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let myfilter  = this.props.mysearch; 
  function ExpiryTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -283,6 +284,8 @@ const useStyles = makeStyles((theme) => ({
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
+                  if(myfilter.length !== 0){
+                    if( row.item.toLocaleLowerCase().startsWith(myfilter.toLocaleLowerCase()) || row.brand.toLocaleLowerCase().startsWith(myfilter.toLocaleLowerCase()) || row.category.toLocaleLowerCase().startsWith(myfilter.toLocaleLowerCase())){
                   return (
                     <TableRow
                       hover
@@ -306,6 +309,35 @@ const useStyles = makeStyles((theme) => ({
                       <TableCell align="right">{row.dayss}days</TableCell>
                       <TableCell align="right">{row.action}</TableCell>
                     </TableRow>
+                     )
+                    }
+                    else{
+                      return null
+                    }
+                  }
+                  return (
+                    <TableRow
+                    hover
+                    // onClick={(event) => handleClick(event, row.name)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.item}
+                    selected={isItemSelected}
+                  >
+               
+                    <TableCell component="th" id={labelId} scope="row">
+                      {row.image}
+                    </TableCell>
+                    <TableCell align="right">{row.item}</TableCell>
+                    <TableCell align="right">{row.category}</TableCell>
+                    <TableCell align="right">{row.brand}</TableCell>
+                    <TableCell align="right">{row.uom}</TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.stocks}</TableCell>
+                    <TableCell align="right">{row.dayss}days</TableCell>
+                    <TableCell align="right">{row.action}</TableCell>
+                  </TableRow>
                   );
                 })}
               {emptyRows > 0 && (

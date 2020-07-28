@@ -38,12 +38,14 @@ class DistributorsTable extends React.Component {
   }
 
 
-  componentWillMount() {
+  componentDidMount() {
       
     let {startingStore:{getDistributors }}=this.props;
 
     getDistributors().then(res => 
+     
       this.setState({listOfDistributors : res})
+      
     )
   }
 
@@ -188,10 +190,17 @@ function Alert(props) {
   const [open, setOpen] = React.useState(false);
   const [openD, setOpenD] = React.useState(false);
   const [openS, setOpenS] = React.useState(false);
-  const theme = useTheme();
+  const [openA, setOpenA] = React.useState(false);
+  // const theme = useTheme();
 //   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+const handleCloseA = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
 
+  setOpenA(false);
+};
 
   const handleClickOpen = (distributors) => {
     setOpen(true);
@@ -241,6 +250,11 @@ const handleArchive = (dis) => {
 };
 let deactivate =()=>{
   archiveDistributor();
+  setOpenD(false);
+  setTimeout(()=>{
+    setOpenA(true)
+  },1000)
+
 }
 
 
@@ -305,9 +319,16 @@ let deactivate =()=>{
     <div className={classes.root}>
                <Snackbar open={openS} autoHideDuration={2000}  anchorOrigin={{vertical:'center',horizontal:'center'}}>
         <Alert  severity="success">
-        Edit successful!
+        Edit successful
         </Alert>
       </Snackbar>
+
+      <Snackbar open={openA} autoHideDuration={3000}  anchorOrigin={{vertical:'center',horizontal:'center'}} onClose={handleCloseA}>
+        <Alert  severity="success">
+        Account Deactivated
+        </Alert>
+      </Snackbar>
+
       <Paper className={classes.paper}>
         
         <TableContainer>

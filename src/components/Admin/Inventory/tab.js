@@ -17,7 +17,7 @@ import theme from './../theme';
 import RestockTable from './Restock';
 import EnhancedTable from './table';
 import ExpiringTable from './table/expiring';
-
+import Excel from './UploadBulk'
 
  function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -83,6 +83,7 @@ export default function InventoryTab() {
   const classes = useStyles();
   const [filter,setFilter]= React.useState("")
   const [value, setValue] = React.useState(0);
+  const [Rfilter,RsetFilter]= React.useState("")
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -119,6 +120,9 @@ export default function InventoryTab() {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Grid container lg={12} xs={12} sm={12}>
+          <Grid item xs={12} sm={12} style={{textAlign:'right'}}>
+<Excel/>
+          </Grid>
           <Grid item  lg={12} xs={12} sm={12}>
       <Paper className={classes.paper} style={{marginBottom:"10px"}}>
     
@@ -137,7 +141,7 @@ export default function InventoryTab() {
 
       <FormControl  variant="outlined" className={classes.formControl} style={{marginRight:"5px",width:"95%"}}>
         <InputLabel htmlFor="grouped-native-select">Category</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select"
+        <Select native defaultValue="" id="grouped-native-select" label="Category"
        onChange={(e)=>setFilter(e.target.value)}
         >
        <option aria-label="None" value="" />
@@ -280,22 +284,331 @@ export default function InventoryTab() {
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Grid container lg={12} md={12} xs={12}>
-          <Grid item lg={12} md={12} xs={12}> <Paper className={classes.paper}></Paper> </Grid>
-            <Grid item lg={12} md={12} xs={12}>
-        <ExpiringTable/>
-        </Grid>
-        </Grid>
+        <Grid container lg={12} xs={12} sm={12}>
+          <Grid item  lg={12} xs={12} sm={12}>
+      <Paper className={classes.paper} style={{marginBottom:"10px"}}>
+    
+        <Grid
+  container
+  lg={12} xs={12} sm={12}
+  direction="row"
+  justify="flex-end"
+  alignItems="flex-end"
+  
+>
+       
+          <Grid item xs={2}  >
+
+
+
+      <FormControl  variant="outlined" className={classes.formControl} style={{marginRight:"5px",width:"95%"}}>
+        <InputLabel htmlFor="grouped-native-select">Category</InputLabel>
+        <Select native defaultValue="" id="grouped-native-select" label="Category"
+       onChange={(e)=>setFilter(e.target.value)}
+        >
+       <option aria-label="None" value="" />
+          <optgroup label="Beverages">
+            <option value='Coffee'>Coffee</option>
+            <option value='Tea'>Tea</option>
+            <option value='Juice'>Juice</option>
+            <option value='Soda'>Soda</option>
+            <option value='Milk'>Milk</option>
+            <option value='Water'>Water</option>
+          </optgroup>
+          <optgroup label="Bread/Bakery">
+            <option value='Sandwich Loaf'>Sandwich Loaf</option>
+            <option value='Cake'>Cake</option>
+            <option value='Brownies'>Brownies</option>
+            <option value='Cookies'>Cookies</option>
+            <option value='Biscuits'>Biscuits</option>
+            <option value='Pizzas'>Pizzas</option>
+            <option value='Doughnuts'>Doughnuts</option>
+            <option value='Pandesal'>Pandesal</option>
+            <option value='Pies'>Pies</option>
+          </optgroup>
+          <optgroup label="Canned/Jarred">
+            <option value='Sardines'>Sardines</option>
+            <option value='Tuna'>Tuna</option>
+            <option value='Corned beef'>Corned beef</option>
+            <option value='Mushroom'>Mushroom</option>
+            <option value='Sausage'>Sausage</option>
+            <option value='Condenced Milk'>Condenced Milk</option>
+            <option value='Evaporated Milk'>Evaporated Milk</option>
+            <option value='Sisig'>Sisig</option>
+            <option value='Corn'>Corn</option>
+            <option value='Fruits'>Fruits</option>
+            <option value='Juice'>Juice</option>
+          </optgroup>
+          <optgroup label="Cleaning">
+            <option value='Disinfectant'>Disinfectant</option>
+            <option value='Sprays'>Sprays</option>
+            <option value='Toilet'>Toilet</option>
+            <option value='Floor'>Floor</option>
+            <option value='Furnature'>Furnature</option>
+            <option value='Carpet'>Carpet</option>
+            <option value='Detergent'>Detergent</option>
+            <option value='Bleach'>Bleach</option>
+            <option value='Fabric Conditioner'>Fabric Conditioner</option>
+            <option value='Dishwashing'>Dishwashing</option>
+          </optgroup>
+          <optgroup label="Dry/Baking">
+            <option value='Flour'>Flour</option>
+            <option value='Sugar'>Sugar</option>
+            <option value='Measuring'>Measuring</option>
+          </optgroup>
+          <optgroup label="Liquor">
+          <option value='Brandy'>Brandy</option>
+          <option value='Beer'>Beer</option>
+            <option value='Whiskey'>Whiskey</option>
+            <option value='Gin'>Gin</option>
+           
+          </optgroup>
+          <optgroup label="Produce">
+            <option value='Fruits'>Fruits</option>
+            <option value='Vegetable'>Vegetable</option>
+          </optgroup>
+          <optgroup label="Paper Goods">
+            <option value='Toilet Paper'>Toilet Paper</option>
+            <option value='Table Napkin'>Table Napkin</option>
+          </optgroup>
+          <optgroup label="Personal Care">
+            <option value='Soap'>Soap</option>
+            <option value='Shampoo'>Shampoo</option>
+            <option value='Cotton'>Cotton</option>
+            <option value='Shaving'>Shaving</option>
+            <option value='Lotion'>Lotion</option>
+            <option value='Facial Wash'>Facial Wash</option>
+            <option value='Facial Cream'>Facial Cream</option>
+          </optgroup>
+        </Select>
+      </FormControl>
+
+      </Grid>
+<Grid item xs={2}>
+           
+              <FormControl variant="outlined" className={classes.formControl} style={{marginRight:"2px",width:"95%"}}>
+        <InputLabel htmlFor="outlined-age-native-simple">Brand</InputLabel>
+        <Select
+       
+         
+          onChange={(e)=>setFilter(e.target.value)}
+          label="Brand"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value="Ajinomoto">Ajinomoto</MenuItem>
+          <MenuItem value="Bear Brand">Bear Brand</MenuItem>
+          <MenuItem value="Lays">Lays</MenuItem>
+          <MenuItem value="Lucky Me">Lucky Me</MenuItem>
+          <MenuItem value="Maggi">Maggi</MenuItem>
+          <MenuItem value="Milo">Milo</MenuItem>
+          <MenuItem value="Nescafe">Nescafe</MenuItem>
+          <MenuItem value="Oishi">Oishi</MenuItem>
+          <MenuItem value="Palmolive">Palmolive</MenuItem>
+         
+          <MenuItem value="Safeguard">Safeguard</MenuItem>
+          <MenuItem value="Siver Swan">Siver Swan</MenuItem>    
+          <MenuItem value="Surf">Surf</MenuItem>
+          <MenuItem value="Uniliver">Uniliver</MenuItem>
+        
+        </Select>
+      </FormControl>
+
+      
+
+</Grid>
+<Grid sm={3}  > 
+<Paper component="form" className={classes.search} >
+   
+   <InputBase
+     className={classes.input}
+     placeholder="Search Items"
+     inputProps={{ 'aria-label': 'search Items' }}
+     onChange={(e)=>setFilter(e.target.value)}
+   />
+   <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+   <IconButton type="submit" className={classes.iconButton} aria-label="search">
+     <SearchIcon style={{color:"white"}}/>
+   </IconButton>
+   </span>
+  
+ </Paper>
+
+      </Grid>
+      </Grid>
+     
+      </Paper >
+      </Grid>
+      <Grid item sm={12}>
+          <ExpiringTable mysearch={filter}/>
+          </Grid>
+          </Grid>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Grid container direction="row" lg={12} md={12} xs={12}>
-           <Grid item lg={12} md={12} xs={12}>
+        <Grid container lg={12} xs={12} sm={12}>
+          <Grid item xs={12} sm={12} style={{textAlign:'right'}}>
+<Excel/>
+          </Grid>
+          <Grid item  lg={12} xs={12} sm={12}>
+      <Paper className={classes.paper} style={{marginBottom:"10px"}}>
+    
+        <Grid
+  container
+  lg={12} xs={12} sm={12}
+  direction="row"
+  justify="flex-end"
+  alignItems="flex-end"
+  
+>
+       
+          <Grid item xs={2}  >
 
-           </Grid>
-            <Grid item lg={12} md={12} xs={12}>
-        <RestockTable/>
-        </Grid>
-        </Grid>
+
+
+      <FormControl  variant="outlined" className={classes.formControl} style={{marginRight:"5px",width:"95%"}}>
+        <InputLabel htmlFor="grouped-native-select">Category</InputLabel>
+        <Select native defaultValue="" id="grouped-native-select" label="Category"
+       onChange={(e)=>setFilter(e.target.value)}
+        >
+       <option aria-label="None" value="" />
+          <optgroup label="Beverages">
+            <option value='Coffee'>Coffee</option>
+            <option value='Tea'>Tea</option>
+            <option value='Juice'>Juice</option>
+            <option value='Soda'>Soda</option>
+            <option value='Milk'>Milk</option>
+            <option value='Water'>Water</option>
+          </optgroup>
+          <optgroup label="Bread/Bakery">
+            <option value='Sandwich Loaf'>Sandwich Loaf</option>
+            <option value='Cake'>Cake</option>
+            <option value='Brownies'>Brownies</option>
+            <option value='Cookies'>Cookies</option>
+            <option value='Biscuits'>Biscuits</option>
+            <option value='Pizzas'>Pizzas</option>
+            <option value='Doughnuts'>Doughnuts</option>
+            <option value='Pandesal'>Pandesal</option>
+            <option value='Pies'>Pies</option>
+          </optgroup>
+          <optgroup label="Canned/Jarred">
+            <option value='Sardines'>Sardines</option>
+            <option value='Tuna'>Tuna</option>
+            <option value='Corned beef'>Corned beef</option>
+            <option value='Mushroom'>Mushroom</option>
+            <option value='Sausage'>Sausage</option>
+            <option value='Condenced Milk'>Condenced Milk</option>
+            <option value='Evaporated Milk'>Evaporated Milk</option>
+            <option value='Sisig'>Sisig</option>
+            <option value='Corn'>Corn</option>
+            <option value='Fruits'>Fruits</option>
+            <option value='Juice'>Juice</option>
+          </optgroup>
+          <optgroup label="Cleaning">
+            <option value='Disinfectant'>Disinfectant</option>
+            <option value='Sprays'>Sprays</option>
+            <option value='Toilet'>Toilet</option>
+            <option value='Floor'>Floor</option>
+            <option value='Furnature'>Furnature</option>
+            <option value='Carpet'>Carpet</option>
+            <option value='Detergent'>Detergent</option>
+            <option value='Bleach'>Bleach</option>
+            <option value='Fabric Conditioner'>Fabric Conditioner</option>
+            <option value='Dishwashing'>Dishwashing</option>
+          </optgroup>
+          <optgroup label="Dry/Baking">
+            <option value='Flour'>Flour</option>
+            <option value='Sugar'>Sugar</option>
+            <option value='Measuring'>Measuring</option>
+          </optgroup>
+          <optgroup label="Liquor">
+          <option value='Brandy'>Brandy</option>
+          <option value='Beer'>Beer</option>
+            <option value='Whiskey'>Whiskey</option>
+            <option value='Gin'>Gin</option>
+           
+          </optgroup>
+          <optgroup label="Produce">
+            <option value='Fruits'>Fruits</option>
+            <option value='Vegetable'>Vegetable</option>
+          </optgroup>
+          <optgroup label="Paper Goods">
+            <option value='Toilet Paper'>Toilet Paper</option>
+            <option value='Table Napkin'>Table Napkin</option>
+          </optgroup>
+          <optgroup label="Personal Care">
+            <option value='Soap'>Soap</option>
+            <option value='Shampoo'>Shampoo</option>
+            <option value='Cotton'>Cotton</option>
+            <option value='Shaving'>Shaving</option>
+            <option value='Lotion'>Lotion</option>
+            <option value='Facial Wash'>Facial Wash</option>
+            <option value='Facial Cream'>Facial Cream</option>
+          </optgroup>
+        </Select>
+      </FormControl>
+
+      </Grid>
+<Grid item xs={2}>
+           
+              <FormControl variant="outlined" className={classes.formControl} style={{marginRight:"2px",width:"95%"}}>
+        <InputLabel htmlFor="outlined-age-native-simple">Brand</InputLabel>
+        <Select
+       
+         
+          onChange={(e)=>setFilter(e.target.value)}
+          label="Brand"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value="Ajinomoto">Ajinomoto</MenuItem>
+          <MenuItem value="Bear Brand">Bear Brand</MenuItem>
+          <MenuItem value="Lays">Lays</MenuItem>
+          <MenuItem value="Lucky Me">Lucky Me</MenuItem>
+          <MenuItem value="Maggi">Maggi</MenuItem>
+          <MenuItem value="Milo">Milo</MenuItem>
+          <MenuItem value="Nescafe">Nescafe</MenuItem>
+          <MenuItem value="Oishi">Oishi</MenuItem>
+          <MenuItem value="Palmolive">Palmolive</MenuItem>
+         
+          <MenuItem value="Safeguard">Safeguard</MenuItem>
+          <MenuItem value="Siver Swan">Siver Swan</MenuItem>    
+          <MenuItem value="Surf">Surf</MenuItem>
+          <MenuItem value="Uniliver">Uniliver</MenuItem>
+        
+        </Select>
+      </FormControl>
+
+      
+
+</Grid>
+<Grid sm={3}  > 
+<Paper component="form" className={classes.search} >
+   
+   <InputBase
+     className={classes.input}
+     placeholder="Search Items"
+     inputProps={{ 'aria-label': 'search Items' }}
+     onChange={(e)=>setFilter(e.target.value)}
+   />
+   <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+   <IconButton type="submit" className={classes.iconButton} aria-label="search">
+     <SearchIcon style={{color:"white"}}/>
+   </IconButton>
+   </span>
+  
+ </Paper>
+
+      </Grid>
+      </Grid>
+     
+      </Paper >
+      </Grid>
+      <Grid item sm={12}>
+          <RestockTable mysearch={filter}/>
+          </Grid>
+          </Grid>
         </TabPanel>
       </SwipeableViews>
     </div>

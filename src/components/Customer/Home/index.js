@@ -40,7 +40,7 @@ const styles={
     
   }
   state={
-    listofProducts:[],
+    listofProducts:[]
   }
   
   render() {

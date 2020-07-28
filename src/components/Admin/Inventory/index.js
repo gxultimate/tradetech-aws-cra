@@ -3,7 +3,7 @@ import React, { Component} from 'react';
 import {withRouter} from 'react-router-dom'
 import {inject,observer} from 'mobx-react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {Grid,CssBaseline,Typography,Divider,Paper} from '@material-ui/core';
+import {Grid,CssBaseline,Typography,Divider,Paper, Button} from '@material-ui/core';
 
 import AddButton from './NewProd/index.js';
 import Stock from './Replenish/index.js';
@@ -13,7 +13,7 @@ import AddItemGroupBtn from './NewItemGroup'
 import UploadBulk from './UploadBulk';
 import InventoryTab from './tab.js'
 
-
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 
 class InventDrawer extends Component{
 
@@ -46,14 +46,14 @@ render(){
          
           
         <Grid item lg={12} sm={12} xs={12}>
-            <Grid container direction="row" justify="flex-end" alignItems="flex-end"  lg={12} sm={12} xs={12}>
-      
-            <Grid item >
-             <AddButton/>
-             </Grid>
-             {/* <Grid item >
-             <AddItemGroupBtn/>
-             </Grid> */}
+            <Grid container direction="row" alignItems="right" justify="right" lg={12} sm={12} xs={12} style={{textAlign:'right',float:'right'}}>
+     
+          
+            
+    <Grid item xs={12}>  <AddButton/></Grid>
+       
+             
+        
                
           </Grid >
           </Grid>

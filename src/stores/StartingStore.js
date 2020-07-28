@@ -208,22 +208,24 @@ else {
             this.createToken(this.account.account_username);
          
           let access = resp.data.account_accessType ? resp.data.account_accessType : resp.data.distributor_accessType
-            if (access === "superadmin"  ) {   
+            if (access === "superadmin"  && resp.data.account_status === "active") {   
                      resolve(1);       
                      } 
-              else if (access === "distributor"){
+              else if (access === "distributor" && resp.data.distributor_status ==="active"){
 
                 resolve(2);
               }
-              else if (access === "customer"){
+              else if (access === "customer" && resp.data.account_status === "active"){
                 resolve(3);
               }
-              else if (access === "Staff"){
+              else if (access === "Staff" && resp.data.account_status === "active"){
                
                 resolve(4);
-              }else if (access === 'manager'){
+              }else if (access === 'manager' && resp.data.account_status === "active"){
                 
                 resolve(5);
+              }else if(resp.data.account_status === "archived" || resp.data.distributor_status ==="archived"    ){
+                resolve(6);
               }
 
             else {         
@@ -342,21 +344,22 @@ else {
           })
         }
 
-        // getDistributors = () => { 
-        //   return new Promise((resolve, reject) => {   
-        //     this.api.getdistributors()
-        //     .then(resp => {    
-        //        this.listOfDistributors = resp.data
+        editDistributorD = () => { 
+      
+            let getDistId = JSON.parse(sessionStorage.getItem('userData'))
+            let dis = this.listOfDistributors.filter(data=> {
+              if (data.distributor_ID === getDistId.distributor_ID){
+                  return data._id
+              }
+            })
+      
          
-        //        if (resp.data !== false ) {   
-        //                 resolve(resp.data);       
-        //                 } 
-        //        else {         
-        //          resolve(false);      
-        //          }  
-        //          });
-        //         })
-        //   }
+            this.api.editdistributor(this.distributor , dis[0]._id)
+            .then(resp => {
+           
+              this.listOfDistributors=resp.data
+            })
+          }
         archiveDistributor = () => {
           let dis = this.listOfDistributors.filter(data=> {
             if (data.distributor_ID === this.distributor.distributor_ID){
@@ -711,7 +714,7 @@ else {
                 getReport = () => {
                   this.api.getreport()
                   .then(resp => {
-              
+                  console.log(resp.data,'storeData')
                    this.listOfReport=resp.data
                   
                 
@@ -871,6 +874,7 @@ decorate(StartingStore, {
   getProductImgR:action,
   createToken:action,
   getNotif:action,
+  editDistributorD:action,
   
 });
 

@@ -11,7 +11,13 @@ function StatChart(){
         labels:['2020', '2021', '2022', '2023', '2024', '2025', '2026','2027','2028','2029','2030'],
         datasets: [
             {
-            label: 'Paid (Yearly)',
+                label: 'Credit (Weekly)',
+                backgroundColor: '#208769',
+                borderColor: '#208769',
+                data: [3, 10, 5, 2, 20, 30, 45]
+            },
+            {
+            label: 'COD (Yearly)',
             backgroundColor: '#208769',
             borderColor: '#208769',
             data: [3345, 10345, 5345, 2545, 20435, 30344, 45444,55234,23234,3434,4544]

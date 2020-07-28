@@ -75,17 +75,12 @@ function RegisterDistributor() {
     distributor.setProperty("distributor_status",'active')
  addDistributor();
   setOpen(false);
+  setTimeout(()=> {
+
+ 
   setOpenS(true);
-// }else{
-//   console.log('false')
-// }
-    //  this.setState({ loading: true });
+},1500)
 
-    //  setTimeout(() => {
-    //    this.setState({ loading: false, visible: false });
-    //  }, 3000);
-
-     // success();
 
 };
 
@@ -94,7 +89,7 @@ function RegisterDistributor() {
     <div>
       <Snackbar open={openS} autoHideDuration={1500} anchorOrigin={{vertical:'top',horizontal:'center'}} onClose={handleCloseS}>
         <Alert onClose={handleCloseS} severity="success">
-          Distributor Successfully Added!
+        Account successfully created
         </Alert>
       </Snackbar>
       <Button variant="outlined"  onClick={handleClickOpen} style={{marginTop:"8px",backgroundColor:"#208769",color:"white"}}>

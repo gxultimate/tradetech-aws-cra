@@ -86,8 +86,8 @@ const DialogActions = withStyles(theme => ({
 
   return (
     <div>
-      <Button variant="outlined"  onClick={handleClickOpen} style={{margin:"8px",backgroundColor:"#208769",color:"white"}}>
-        <SystemUpdateAltIcon/> <span style={{marginLeft:"5px"}}> Excel Upload</span>
+      <Button variant="outlined" size='small'  onClick={handleClickOpen} style={{margin:"8px",backgroundColor:"#208769",color:"white"}}>
+        <SystemUpdateAltIcon/> <span style={{marginLeft:"5px"}}>Export to Excel</span>
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>

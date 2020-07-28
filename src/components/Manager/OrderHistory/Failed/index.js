@@ -1,5 +1,5 @@
 
-import { Button } from '@material-ui/core';
+import { Button,Grid ,Slide } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
@@ -16,6 +16,12 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import theme from './../../../theme';
+
+import Details from './Details';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+
 class FailedTable extends React.Component {
 
 
@@ -34,7 +40,7 @@ function createData(ref, date, reason, moreinfo) {
   return { ref, date, reason, moreinfo };
 }
 
-let {managerStore:{listOfOrder,listOfReport}}=this.props;
+let {managerStore:{listOfOrder,listOfReport,order}}=this.props;
 let myId =JSON.parse(sessionStorage.getItem('userData'))
 let filterComplete =listOfOrder.filter(order => {
    if(order.orderStatus === 'Failed'  && order.distributor_ID === myId.distributor_ID ) {
@@ -158,26 +164,54 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
 }));
-console.log(listOfReport,'rep')
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 function Failed() {
   const classes = useStyles();
   const [sorder, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('date');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
 
 
+  
+  const handleClickOpen = (ord) => {
 
-  let rows = filterComplete.map(order => {
+    
+    order.setProperty('orderID',ord.orderID)
+    order.setProperty('orderItems',ord.orderItems)
+    order.setProperty('order_Quantity',ord.order_Quantity)
+    order.setProperty('modeOfPayment',ord.modeOfPayment)
+    order.setProperty('orderDate',ord.orderDate)
+    order.setProperty('orderStatus',ord.orderStatus)
+    order.setProperty('paymentStatus',ord.paymentStatus)
+    order.setProperty('account_ID',ord.account_ID)
+    order.setProperty('orderDateCompleted',ord.orderDateCompleted)
+    order.setProperty('distributor_ID',ord.distributor_ID)
+    order.setProperty('packer_ID',ord.packer_ID)
+    order.setProperty('dispatcher_ID',ord.dispatcher_ID)
+    order.setProperty('order_addedInfo',ord.order_addedInfo)
+    order.setProperty('orderTotalAmount',ord.orderTotalAmount)
+    // getOrderD();
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  let rows = filterComplete.map(orderss => {
 return(createData(
-    order.orderID,order.orderDate,`${listOfReport.filter(rpt => rpt.order_ID === order.orderID).map(ordrpt =>{
+    orderss.orderID,orderss.orderDate,`${listOfReport.filter(rpt => rpt.order_ID === orderss.orderID).map(ordrpt =>{
       return ordrpt.report_Detail
 
     })}`,<div><ThemeProvider theme={theme}> <Button size='small' variant="outlined" color="primary" 
-    // onclick={()=>{details(order)}}
-    >
+  onClick={()=>{handleClickOpen(orderss)}}>
     Details
   </Button></ThemeProvider></div>
 ))
@@ -306,6 +340,33 @@ return(createData(
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+
+
+<Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        maxWidth='sm'
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+
+        <DialogContent  >
+          <Grid style={{margin:'auto'}}>
+         <Details />
+         </Grid>
+        </DialogContent>
+        <DialogActions>
+        
+          <ThemeProvider theme={theme}>
+          <Button onClick={handleClose} style={{backgroundColor:'#F7A31C',color:'white'}} variant="contained">
+            Close
+          </Button>
+          </ThemeProvider>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }

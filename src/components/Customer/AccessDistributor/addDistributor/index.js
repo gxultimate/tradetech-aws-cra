@@ -25,7 +25,7 @@ class AddStore extends React.Component {
     render() {
    
         let myId =JSON.parse(sessionStorage.getItem('userData'))
- let {customerStore:{addMembership,membership,listOfToken,listOfMembership,getMembership }}=this.props;
+ let {customerStore:{addMembership,membership,listOfToken,listOfMembership }}=this.props;
 
  function getHash(input){
     var hash = 0, len = input.length;
@@ -50,6 +50,7 @@ function FormDialog() {
  
   const [open, setOpen] = React.useState(false);
   const [Sopen, SsetOpen] = React.useState(false);
+  const [Scopen, ScsetOpen] = React.useState(false);
   const [Mopen, MsetOpen] = React.useState(false);
   const [tknn, settknn] = React.useState("");
   const handleClickOpen = () => {
@@ -66,7 +67,7 @@ function FormDialog() {
   const submit = () => {
     let filtkn = listOfToken.filter(tkns => tkns.access_Token === tknn).length;
   let filmember =listOfMembership.filter(memb => memb.account_ID === myId.account_ID && memb.access_Token === tknn).length;
-
+    
    
  
    
@@ -86,14 +87,15 @@ function FormDialog() {
       membership.setProperty('account_ID',myId.account_ID)
       addMembership();
       setTimeout(()=>{
-        setOpen(false)
+       
+        ScsetOpen(true);
       },500)
      
     }else if (filmember !=0){
-       setOpen(false);
+      // setOpen(false);
       MsetOpen(true);
     }else{
-       setOpen(false);
+      // setOpen(false);
       SsetOpen(true);
     }
    
@@ -107,6 +109,7 @@ function FormDialog() {
   let  snackbarClose =(event)=>{
     SsetOpen(false);
     MsetOpen(false);
+    ScsetOpen(false);
   }
 
 
@@ -121,6 +124,10 @@ function FormDialog() {
       <Snackbar anchorOrigin={{vertical:'center',horizontal:'center'}}    open={Mopen} autoHideDuration={2000} onClose={snackbarClose}   >   
     <Alert  severity="warning">
     Already a Member!
+      </Alert></Snackbar>
+      <Snackbar anchorOrigin={{vertical:'center',horizontal:'center'}}    open={Scopen} autoHideDuration={2000} onClose={snackbarClose}    >   
+    <Alert  severity="success">
+    Distributor added!
       </Alert></Snackbar>
 
         <ThemeProvider theme={theme}>

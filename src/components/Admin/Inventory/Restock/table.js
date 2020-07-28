@@ -20,7 +20,7 @@ class Restock extends React.Component {
   state = {  }
 
 
-  componentWillMount() {
+  componentDidMount() {
       
     let {inventoryStore:{getStock, }}=this.props;  
     getStock();
@@ -162,6 +162,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let myfilter  = this.props.mysearch; 
 function RestockTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -250,6 +251,8 @@ function RestockTable() {
                   const isItemSelected = isSelected(row.prodID);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
+                  if(myfilter.length !== 0){
+                    if( row.name.toLocaleLowerCase().startsWith(myfilter.toLocaleLowerCase()) || row.brand.toLocaleLowerCase().startsWith(myfilter.toLocaleLowerCase()) ){
                   return (
                     <TableRow
                       hover
@@ -270,6 +273,32 @@ function RestockTable() {
                       <TableCell align="right">{row.date}</TableCell>
                       <TableCell align="right">{row.expiration}</TableCell>
                     </TableRow>
+                     )
+                    }
+                    else{
+                      return null
+                    }
+                  }
+                  return (
+                    <TableRow
+                    hover
+                    onClick={(event) => handleClick(event, row.prodID)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.prodID}
+                    selected={isItemSelected}
+                  >
+                  
+                    <TableCell component="th" id={labelId} scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.uom}</TableCell>
+                    <TableCell align="right">{row.brand}</TableCell>
+                    <TableCell align="right">{row.replenishQty}</TableCell>
+                    <TableCell align="right">{row.date}</TableCell>
+                    <TableCell align="right">{row.expiration}</TableCell>
+                  </TableRow>
                   );
                 })}
               {emptyRows > 0 && (

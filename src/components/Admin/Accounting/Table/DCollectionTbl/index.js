@@ -15,25 +15,42 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TotalCollection from './TotalCollection.js';
+import moment from 'moment'
+import { DialogContent } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 
+import IconButton from '@material-ui/core/IconButton';
+
+import Slide from '@material-ui/core/Slide';
+
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import InfoIcon from '@material-ui/icons/Info';
+import PrintIcon from '@material-ui/icons/Print';
+
+import InfoTable from './../../Info';
 
 class DCollectionTbl extends React.Component {
   componentDidMount(){
-    let{accountingStore:{getOrder}}=this.props;
+    let{accountingStore:{getOrder,getDistributors}}=this.props;
     getOrder();
+    getDistributors()
   }
   render() {
-    let{accountingStore:{listOfOrder,listOfUsers}}=this.props;
+    let{accountingStore:{listOfOrder,listOfUsers,order}}=this.props;
 
-    function createData(orderNo,dispatcher, customerName,mname, lname, date, collection ) {
-      return { orderNo,dispatcher, customerName,mname, lname, date, collection  };
+    function createData(orderInfo,orderNo,dispatcher, customerName,mname, lname, date, collection ) {
+      return {orderInfo, orderNo,dispatcher, customerName,mname, lname, date, collection  };
     }
     
 
 let rows = listOfOrder.map(order=> {
 
   return(createData(
-    order.orderID,`${listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,order.orderDate,<span>&#8369;{order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+    order,order.orderID,`${listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,order.orderDate,<span>&#8369;{order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
 
   ))
 })
@@ -48,8 +65,8 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(order, orderBy) {
-  return order === 'desc'
+function getComparator(orders, orderBy) {
+  return orders === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -57,8 +74,8 @@ function getComparator(order, orderBy) {
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
+    const orders = comparator(a[0], b[0]);
+    if (orders !== 0) return orders;
     return a[1] - b[1];
   });
   return stabilizedThis.map((el) => el[0]);
@@ -81,7 +98,7 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 function DCTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, onSelectAllClick, orders, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -95,17 +112,17 @@ function DCTableHead(props) {
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            sortDirection={orderBy === headCell.id ? orders : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? orders : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {orders === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -121,30 +138,11 @@ DCTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  orders: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
 
 
 const useStyles = makeStyles((theme) => ({
@@ -168,6 +166,13 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+    color:'white'
   },
 }));
 
@@ -190,19 +195,24 @@ let rowss =  listOfOrder.map(product => {
  let mysearch = props =>{
   return this.props.mysearch
 }
-
+let sdate = moment(this.props.startdate,'MMM/DD/YYYY');
+let edate = moment(this.props.enddate,'MMM/DD/YYYY');
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
  function DCTable() {
   const classes = useStyles();
-  const [order, setOrder] = React.useState('asc');
+  const [orders, setOrders] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const filter = mysearch();
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && orders === 'asc';
+    setOrders(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -234,6 +244,35 @@ let rowss =  listOfOrder.map(product => {
 
     setSelected(newSelected);
   };
+
+
+  const handleClickOpen = (orderinfo) => {
+    order.setProperty('orderItems',orderinfo.orderItems)
+    order.setProperty('orderPrice',orderinfo.orderPrice)
+    order.setProperty('order_Quantity',orderinfo.order_Quantity)
+    order.setProperty('orderID',orderinfo.orderID)
+    order.setProperty('modeOfPayment',orderinfo.modeOfPayment)
+    order.setProperty('orderDate',orderinfo.orderDate)
+    order.setProperty('orderStatus',orderinfo.orderStatus)
+    order.setProperty('paymentStatus',orderinfo.paymentStatus)
+    order.setProperty('orderTotalAmount',orderinfo.orderTotalAmount)
+    order.setProperty('account_ID',orderinfo.account_ID)
+    order.setProperty('distributor_ID',orderinfo.distributor_ID)
+    order.setProperty('packer_ID',orderinfo.packer_ID)
+    order.setProperty('dispatcher_ID',orderinfo.dispatcher_ID)
+    order.setProperty('order_addedInfo',orderinfo.order_addedInfo)
+    order.setProperty('order_totalPayment',orderinfo.order_totalPayment)
+    order.setProperty('orderReturnDate  ',orderinfo.orderReturnDate)
+    order.setProperty('orderDateCompleted',orderinfo.orderDateCompleted)
+    order.setProperty('orderCustomerBalance',orderinfo.orderCustomerBalance)
+    order.setProperty('orderDueDate',orderinfo.orderDueDate)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -267,7 +306,7 @@ let rowss =  listOfOrder.map(product => {
             <DCTableHead
               classes={classes}
               numSelected={selected.length}
-              order={order}
+              order={orders}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
@@ -279,21 +318,23 @@ let rowss =  listOfOrder.map(product => {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.orderNo);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
-                  if(filter.length !== 0){
+                  let mydate =moment(row.date,'MMM/DD/YYYY')
+                  if(filter.length !== 0 || edate._isValid === true){
                     if( row.orderNo.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.customerName.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.date.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) 
                    
-                    ){
+                    ||  mydate.isBetween(sdate,edate)  || mydate == sdate || mydate == edate){
                      
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.orderNo)}
+                      // onClick={(event) => handleClick(event, row.orderNo)}
+                onClick={()=>{handleClickOpen(row.orderInfo)}}
+
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.orderNo}
-                      selected={isItemSelected}
+                      // selected={isItemSelected}
                     >
                      
                       <TableCell component="th" id={labelId} scope="row" >
@@ -316,12 +357,14 @@ let rowss =  listOfOrder.map(product => {
                 return (
                   <TableRow
                   hover
-                  onClick={(event) => handleClick(event, row.orderNo)}
+                  // onClick={(event) => handleClick(event, row.orderNo)}
+                onClick={()=>{handleClickOpen(row.orderInfo)}}
+
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
                   key={row.orderNo}
-                  selected={isItemSelected}
+                  // selected={isItemSelected}
                 >
                  
                   <TableCell component="th" id={labelId} scope="row" >
@@ -365,6 +408,30 @@ let rowss =  listOfOrder.map(product => {
 
 
     </Grid>
+
+
+    <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+              <InfoIcon/>
+            </IconButton>
+            <Typography variant="h6" noWrap style={{fontWeight:"bold",color:"white",padding:'5px'}} className={classes.title} >
+            <span style={{color:"orange"}}>TRADE</span>TECH
+          </Typography>
+            <Button autoFocus startIcon={<PrintIcon/>}  onClick={handleClose} variant='contained' style={{backgroundColor:'#208769',color:'white',marginRight:'12px'}}>
+              Print
+            </Button>
+            <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close" variant='contained'>
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+     <DialogContent>
+<InfoTable/>
+     </DialogContent>
+      </Dialog>
+
     </div>
   );
 }

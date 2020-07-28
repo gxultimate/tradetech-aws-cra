@@ -17,7 +17,8 @@ import DeliveryGrid from './Delivery';
 import PackGrid from './Packing';
 import TransferGrid from './Transfer';
 import { Grid } from '@material-ui/core';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 
 
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function getSteps() {
-  return ['Packing', 'Transfer', 'Delivery'];
+  return ['Warehouse', 'Dispatcher', 'Delivery'];
 }
 
 const useColorlibStepIconStyles = makeStyles({

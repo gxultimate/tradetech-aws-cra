@@ -7,8 +7,11 @@ import logo from './../../Logo/logowhite.png'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Link, withRouter } from 'react-router-dom';
+import {inject,observer} from 'mobx-react'
  class Account extends Component {
     state = { 
+        unameError:'',
+        errUn:false,
       snackbaropen:false,
         snackbarerror:"The specified passwords do not match",
     }
@@ -18,12 +21,21 @@ import { Link, withRouter } from 'react-router-dom';
       }
 
      continue = e =>{
-
-         e.preventDefault();
+        let{customerStore:{listOfUsers}}=this.props;
+        let filuname = listOfUsers.filter(nums => nums.account_username  === this.props.values.username).length;
+       let {values} =this.props;
        
-         if(this.props.values.password === this.props.values.confPassword){
+         if(values.password === values.confPassword && filuname === 0 ){
+            e.preventDefault();
             this.props.nextStep();
-         }else{
+         }else if(filuname != 0){
+            this.setState({ errUn: true });
+            this.setState({ unameError: "Username already taken!"});
+         }
+         
+         else{
+            this.setState({ errUn: false });
+            this.setState({ unameError: ""});
             this.setState({ snackbaropen: true });
          }
         
@@ -80,12 +92,14 @@ import { Link, withRouter } from 'react-router-dom';
                >Account Information</Typography>
                
                 <TextField 
+                error={this.state.errUn}
                 id="outlined-basic" 
                 label="Username" 
                 style={{marginBottom:"8px"}}
                 variant="outlined" 
                 onChange={handleChange('username')}
                 defaultValue={values.username}
+                helperText={this.state.unameError}
                 />
                 <br/>
                 <TextField 
@@ -131,7 +145,7 @@ import { Link, withRouter } from 'react-router-dom';
                 </form>
                 </React.Fragment>
 
-                <Grid container sm={12} xs={12} style={{marginTop:"16px"}} alignItems='center'><Grid item xs={12} sm={12} style={{textAlign:'center',marginRight:'5px'}}><Typography variant='captiontext' >Have already an account? <Link to='/#/Login'> Login Here</Link></Typography></Grid>  </Grid>
+                <Grid container sm={12} xs={12} style={{marginTop:"16px"}} alignItems='center'><Grid item xs={12} sm={12} style={{textAlign:'center',marginRight:'5px'}}><Typography variant='captiontext' >Have already an account? <Link to='/Login'> Login Here</Link></Typography></Grid>  </Grid>
             </div>
         )
     }
@@ -144,4 +158,4 @@ const style ={
         backgroundColor:"#208769"
     }
 } 
-export default withRouter(Account)
+export default withRouter(inject('customerStore')(observer(Account)))

@@ -21,7 +21,8 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 
@@ -168,12 +169,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 let filter=this.props.mysearch;
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 // ////////////////////////////////////////////////////
  function ArchivedDisTable() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [openA, setOpenA] = React.useState(false);
   const theme = useTheme();
-
+  const handleCloseA = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+  
+    setOpenA(false);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -194,6 +205,10 @@ const handleArchive = (dis) => {
 
 let restore =()=>{
   archiveDistributor();
+  setOpen(false);
+  setTimeout(()=>{
+    setOpenA(true)
+  },1000)
 }
 
   const [order, setOrder] = React.useState('asc');
@@ -265,6 +280,11 @@ let restore =()=>{
 
   return (
     <div className={classes.root}>
+        <Snackbar open={openA} autoHideDuration={3000}  anchorOrigin={{vertical:'center',horizontal:'center'}} onClose={handleCloseA}>
+        <Alert  severity="success">
+        Account Restored
+        </Alert>
+      </Snackbar>
       <Paper className={classes.paper}>
        
         <TableContainer>

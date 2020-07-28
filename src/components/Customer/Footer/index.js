@@ -1,18 +1,24 @@
-import React from 'react';
-import { makeStyles,ThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline, Divider } from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
+import Badge from '@material-ui/core/Badge';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ListItemText from '@material-ui/core/ListItemText';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import LocalShippingTwoToneIcon from '@material-ui/icons/LocalShippingTwoTone';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import theme from './theme';
-import {HashRouter as Router,withRouter} from 'react-router-dom'
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Backdrop from '@material-ui/core/Backdrop';
-import Badge from '@material-ui/core/Badge';
-import {inject,observer} from 'mobx-react'
-import { CssBaseline } from '@material-ui/core';
+
+
+
 
 class FooterNav extends React.Component {
 
@@ -64,18 +70,75 @@ const useStyles = makeStyles({
   },
 });
 
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: '#208769',
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
+
 let valu=this.val;
 let filnotif =listOfNotif.filter(notf =>  notf.notif_subject === 'Order Process' && notf.sender_ID === getID.account_ID || notf.notif_subject === 'Order Process' && notf.account_ID === getID.account_ID)
 let count =filnotif.length;
 
+let notif =filnotif.map(notf => 
+  {return (
+  <div key={notf.notif_ID}>
+  <StyledMenuItem>
+       
+      
+    
+        <ListItemText primary={notf.notif_description} secondary={notf.notif_date} />
+      
+    
+     
+</StyledMenuItem>
+ <Divider/>
+ </div>
+)
 
+})
+
+const ITEM_HEIGHT = 100;
 function Footer() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+
+
+
+
   const handleClose = () => {
     setOpen(false);
+    setAnchorEl(null);
   };
   const handleToggle = () => {
     setOpen(!open);
@@ -86,7 +149,12 @@ const bn =(e)=>{
   setValue(value+1)
 }
 
-let notif =filnotif.map(notf => {return notf})
+let notification =(event)=>{
+  setAnchorEl(event.currentTarget);
+
+}
+
+
 
   return (
     <React.Fragment>
@@ -107,7 +175,7 @@ let notif =filnotif.map(notf => {return notf})
       <BottomNavigationAction  label="Home" icon={<HomeIcon />}
        onClick={()=>{HomeD()}} 
       />
-      <BottomNavigationAction  label="Notification" icon={ <Badge color="secondary" badgeContent={count}><NotificationsIcon /></Badge>} />
+      <BottomNavigationAction  label="Notification" icon={ <Badge color="secondary" badgeContent={count}><NotificationsIcon  onClick={notification}/></Badge>} />
       <BottomNavigationAction  label="My Order" icon={<LocalShippingTwoToneIcon />}
       onClick={myOrder} />
       <BottomNavigationAction   label="Account"  icon={<AccountCircleIcon/>} onClick={myAccount} />
@@ -116,6 +184,25 @@ let notif =filnotif.map(notf => {return notf})
     
 
     </ThemeProvider>
+
+    <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        size='small'
+        // keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: '40ch',
+          },
+        }}
+      >
+       {notif}
+  
+      </StyledMenu>
+
     </React.Fragment>
   );
 }

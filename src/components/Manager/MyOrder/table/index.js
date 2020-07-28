@@ -33,7 +33,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Items from './Items'
-
+import Tooltip from '@material-ui/core/Tooltip';
 
  class MyOrders extends React.Component {
 
@@ -328,12 +328,8 @@ if (myorder.distributor_ID === getId.distributor_ID && myorder.orderStatus === '
     let count = orderss.orderItems.length;
     return(createData(
     
-    orderss.orderID,`${listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,orderss.orderDate,orderss.orderStatus,<div><IconButton onClick={()=>items(orderss)}  size="medium" style={{backgroundColor:"#31AF91"}} > <Badge color="secondary" badgeContent={count} > <ListAltIcon /> </Badge></IconButton> </div>,
+    orderss.orderID,`${listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,orderss.orderDate,orderss.orderStatus,<IconButton onClick={()=>items(orderss)}  size="medium" style={{backgroundColor:"#31AF91"}} ><Badge color="secondary" badgeContent={count} > <ListAltIcon /> </Badge> </IconButton>,
     <div><IconButton  onClick={()=>{assign(orderss)}}  size="medium" style={{backgroundColor:"#31AF91"}} > <AssignmentReturnedOutlinedIcon /> </IconButton></div>
-    
-    
-    
-    
     ))
     
     

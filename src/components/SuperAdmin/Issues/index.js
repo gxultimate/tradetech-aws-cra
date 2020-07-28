@@ -7,17 +7,9 @@ import Tabs from './tab'
 
 
  class IssuesGrid extends React.Component {
-componentWillMount(){
-  let {startingStore:{getReport}}=this.props;
-  getReport();
-}
+
 
     render() {
-
-
-      
-      
-
           
            function IssuesGrid() {
           
@@ -48,7 +40,7 @@ componentWillMount(){
     }
 }
 
-export default withRouter(inject('startingStore')(observer(IssuesGrid)))
+export default withRouter(inject('issuesStore')(observer(IssuesGrid)))
 
 
 

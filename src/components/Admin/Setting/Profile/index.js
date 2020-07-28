@@ -9,7 +9,7 @@ import {TextField,Button} from '@material-ui/core'
 import UpdateIcon from '@material-ui/icons/Update';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-class myProfile extends React.Component {
+class ProfileInfo extends React.Component {
     state = {  }
 
     componentDidMount(){
@@ -85,7 +85,7 @@ function Alert(props) {
 
 
   return (
-    <Fragment>
+  
     <div className={classes.root}>
 
 <Snackbar open={open} autoHideDuration={2000}  anchorOrigin={{vertical:'center',horizontal:'center'}}>
@@ -104,7 +104,7 @@ function Alert(props) {
       {getAccount.map((row)=>(
       <Grid container spacing={3}>
      
-        <Grid item xs={6} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Paper className={classes.paper}>
             <Typography variant="h6" style={{marginBottom:"25px"}}>Personal Information </Typography>
             <Grid container direction="row"  sm={12} xs={12}>
@@ -232,7 +232,7 @@ function Alert(props) {
       ))} 
       </form>
     </div>
-    </Fragment>
+   
   );
 }
 return ( 
@@ -241,4 +241,4 @@ return (
 }
 }
 
-export default inject("startingStore")(observer(myProfile));
+export default inject("startingStore")(observer(ProfileInfo));

@@ -24,11 +24,13 @@ class Profile extends React.Component {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    minWidth:600
   },
 }));
 let {managerStore:{listOfUsers}}=this.props;
@@ -106,7 +108,7 @@ function Alert(props) {
         <Typography variant="h6"> My Profile</Typography> 
         <Divider style={{marginTop:"25px"}} />
         </Grid>
-        <Grid item xs={6} sm={6}>
+        <Grid item xs={8} sm={8}>
           <Paper className={classes.paper}>
             <Typography variant="h6" style={{marginBottom:"25px"}}>Personal Information </Typography>
             <Grid container direction="row"  sm={12} xs={12}>

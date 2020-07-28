@@ -24,10 +24,14 @@ render(){
   return (
 <Fragment>
       <Grid container direction="row" lg={12} sm={12} xs={12}>
+        <Grid item sm={6} xs={6}>
         <Typography variant="h5" >
            Order Management
         </Typography>
-        
+        </Grid>
+        <Grid item sm={6} xs={6}>
+
+        </Grid>
         </Grid>
  
         <Divider style ={{marginBottom:"5px"}}/> 

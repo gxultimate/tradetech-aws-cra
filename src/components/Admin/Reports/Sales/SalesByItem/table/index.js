@@ -35,8 +35,7 @@ state = {
 function createData(name, qty, price, total) {
   return { name, qty, price, total };
 }
-console.log(this.state.listOfCart)
-console.log(listOfCart,'asd')
+
 let rows = listofProducts.map(prods => {
   return (createData(
 
@@ -150,7 +149,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: '100%',
+    width: '100%',
+    minWidth:1100
   },
   visuallyHidden: {
     border: 0,

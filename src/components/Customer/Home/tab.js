@@ -26,14 +26,22 @@ class HomeTab extends React.Component {
       
     let {customerStore:{getProducts,getDistributors,getAccounts }}=this.props;
 
-    getProducts();
+ 
    
     getDistributors();
     getAccounts();
 
+    getProducts().then(res => {
+        
 
-  }
+      this.setState({listofProducts: res})
+    })
+   
 
+}
+state={
+listofProducts:[],
+}
 
   render() { 
 
@@ -157,8 +165,8 @@ const useStyles = makeStyles(theme => ({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-        <Grid container direction="row" xs={12} >
-<Grid xs={5} style={{marginRight:'20px'}}>
+        <Grid container direction="row" xs={12} sm={12} textAlign='right' justify='right'>
+<Grid xs={5} sm={1} style={{marginRight:'20px'}}>
 
       {/* <FormControl className={classes.formControl} size='small' >
         <InputLabel id="demo-controlled-open-select-label" style={{  fontSize:'15px'}}>Categories</InputLabel>
@@ -273,7 +281,7 @@ const useStyles = makeStyles(theme => ({
       </FormControl>
 
 </Grid>
-  <Grid item  xs={6} style={{textAlign:"right",paddingTop:'14px'}}>
+  <Grid item sm={1} xs={6} style={{textAlign:"right",paddingTop:'14px'}}>
         
         <Paper component="form" className={classes.search}  >
      
@@ -297,7 +305,9 @@ const useStyles = makeStyles(theme => ({
         </Grid>
   
    </Grid>
+   {/* <Grid container direction='row' sm={8} xs={12}> */}
          <Items mysearch={filter}/>
+         {/* </Grid> */}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
         <Grid container direction="row" xs={12} >

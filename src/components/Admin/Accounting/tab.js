@@ -1,3 +1,4 @@
+import DateFnsUtils from '@date-io/date-fns';
 import { Grid, IconButton, Paper } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
@@ -7,6 +8,8 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -14,19 +17,10 @@ import theme from './../../theme';
 import MaterialUIPickers from './DatePicker';
 import DCollection from './Table/DCollectionTbl';
 import Invoice from './Table/Invoice';
-import Purchased from './Table/PurchasedProd';
-import OrderInfo from './Table/PurchasedProd/OrderInfo';
 import TotalSales from './Table/TotalSales';
 import TransactionTbl from './Table/TransactionTbl';
-import moment from 'moment'
 
 
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 
 function TabPanel(props) {
@@ -103,8 +97,8 @@ export default function FullWidthTabs() {
     // Invoice & Receipts
     const [IRfilter,IRsetFilter]= React.useState("")
 
-    const [selectedStartDate, setSelectedStartDate] = React.useState(new Date());
-    const [selectedEndDate, setSelectedEndDate] = React.useState(new Date());
+    const [selectedStartDate, setSelectedStartDate] = React.useState();
+    const [selectedEndDate, setSelectedEndDate] = React.useState();
 
     const [filterDate,setFilterDate]= React.useState("")
 
@@ -129,33 +123,12 @@ export default function FullWidthTabs() {
     
     setSelectedEndDate(date);
 
-    let dateArr = []; //Array where rest of the dates will be stored
 
-    let scopeprevDate = moment(selectedStartDate);//15 days back date from today(This is the from date)
-    
-    let scopenextDate = moment(selectedEndDate);//Date after 15 days from today (This is the end date)
-    
-    //extracting date from objects in MM-DD-YYYY format
-    let scopestartDate = moment(scopeprevDate._d).format('MMM/DD/YYYY');
-    let scopeEndDate = moment(scopenextDate._d).format('MMM/DD/YYYY');
-    
-    //creating JS date objects
-    let start = new Date(scopestartDate);
-    let end = new Date(scopeEndDate);
-    
-    //Logic for getting rest of the dates between two dates("FromDate" to "EndDate")
-    while(start < end){
-       dateArr.push(moment(start).format('MMM/DD/YYYY, h:mm:ss a'));
-       let newDate = start.setDate(start.getDate() + 1);
-       start = new Date(newDate);  
-    }
-    
-    setFilterDate(dateArr);
-    console.log(filterDate);
+
 
   };
 
-  
+
 
   return (
     <div className={classes.root}>
@@ -172,9 +145,9 @@ export default function FullWidthTabs() {
         >
           <Tab label="Transactions" {...a11yProps(0)} />
           <Tab label="Delivery" {...a11yProps(1)} />
-          <Tab label="Orders" {...a11yProps(2)} />
-          <Tab label="Sales" {...a11yProps(3)} />
-          <Tab label="Invoice & Receipts" {...a11yProps(4)} />
+        
+          <Tab label="Sales" {...a11yProps(2)} />
+          <Tab label="Invoice & Receipts" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       </ThemeProvider>
@@ -269,7 +242,7 @@ export default function FullWidthTabs() {
   
         
         <Grid item lg={12} sm={12} xs={12} style={{marginTop:"1%"}}>
-        <TransactionTbl  mysearch={filter} mydate={filterDate}/>
+        <TransactionTbl  mysearch={filter} startdate={selectedStartDate} enddate={selectedEndDate}/>
         </Grid >
         </Grid>
         </TabPanel>
@@ -279,9 +252,48 @@ export default function FullWidthTabs() {
  <Grid item lg={12} sm={12} xs={12} >
 <Paper className={classes.paper}>
   <Grid container lg={12} sm={12} xs={12}>
-  <Grid item lg={8} sm={8} xs={8}>
-   <Typography variant="subtitle2" style={{textAlign:"left"}}>Delivery Collection of &nbsp; <MaterialUIPickers/> &nbsp; to &nbsp;<MaterialUIPickers/></Typography>
-  </Grid>
+  <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Delivery Collection as of &nbsp; 
+
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
+   
+<ThemeProvider theme={theme}>
+   <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+       
+
+        format="MMM/dd/yyyy"
+        value={selectedStartDate}
+        color='primary'
+        onChange={handleDateChangeStart}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+</ThemeProvider>
+    
+  </MuiPickersUtilsProvider>
+
+
+&nbsp; to &nbsp; 
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
+ <ThemeProvider theme={theme}>
+   <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+       
+
+        format="MMM/dd/yyyy"
+        value={selectedEndDate}
+        color='primary'
+        onChange={handleDateChangeEnd}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+</ThemeProvider>
+</MuiPickersUtilsProvider>
+</Typography> </Grid>
   <Grid item lg={3} sm={3} xs={3} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
        
        <Paper component="form" className={classes.search} >
@@ -308,52 +320,12 @@ export default function FullWidthTabs() {
 </Paper>
 </Grid>
 <Grid item  lg={12} sm={12} xs={12} style={{marginTop:"20px"}}>
-<DCollection mysearch={DCfilter}/>
+<DCollection mysearch={DCfilter} startdate={selectedStartDate} enddate={selectedEndDate}/>
 </Grid>
 </Grid>
         </TabPanel>
+
         <TabPanel value={value} index={2} dir={theme.direction}>
-        <Grid container lg={12} sm={12} xs={12} style={{marginTop:"1%"}}>
-        <Grid item lg={12} sm={12} xs={12}>
-   <Paper className={classes.paper}>
-   <Grid container direction="row" lg={12} sm={12} xs={12}>
-  <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Orders as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
-  <Grid item lg={3} sm={3} xs={3} style={{textAlign:"right",float:"right",marginTop:"8px"}}>
-        
-        <Paper component="form" className={classes.search} >
-     
-        <InputBase
-          className={classes.input}
-          placeholder="Search"
-          inputProps={{ 'aria-label': 'search customers' }}
-          onChange={(e)=>setFilter(e.target.value)}
-        />
-        <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
-        <IconButton type="submit" className={classes.iconButton} aria-label="search">
-          <SearchIcon style={{color:"white"}}/>
-        </IconButton>
-        </span>
-      
-      </Paper>
-     
-     
-        </Grid>
-  
-   </Grid>
-
-   </Paper>
-
-   </Grid>
-          <Grid item lg={12} sm={12} xs={12} style={{marginTop:"20px"}}>
-         <Purchased mysearch={Ofilter}/>
-         </Grid>
-         <Grid item lg={12} sm={12} xs={12}>
-          <OrderInfo/>
-          </Grid>
-          </Grid >
-
-        </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
         <Grid
   container
   direction="row"
@@ -365,7 +337,48 @@ export default function FullWidthTabs() {
    <Grid item lg={12} sm={12} xs={12} style={{width:'100%'}}>
    <Paper className={classes.paper}>
    <Grid container direction="row" lg={12} sm={12} xs={12}>
-  <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2">Sales as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
+   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Sales as of &nbsp; 
+
+  <MuiPickersUtilsProvider utils={DateFnsUtils} >
+     
+<ThemeProvider theme={theme}>
+     <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+         
+
+          format="MMM/dd/yyyy"
+          value={selectedStartDate}
+          color='primary'
+          onChange={handleDateChangeStart}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+ </ThemeProvider>
+      
+    </MuiPickersUtilsProvider>
+  
+  
+  &nbsp; to &nbsp; 
+  <MuiPickersUtilsProvider utils={DateFnsUtils} >
+   <ThemeProvider theme={theme}>
+     <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+         
+
+          format="MMM/dd/yyyy"
+          value={selectedEndDate}
+          color='primary'
+          onChange={handleDateChangeEnd}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+ </ThemeProvider>
+ </MuiPickersUtilsProvider>
+ </Typography> </Grid>
   <Grid item sm={3} xs={3} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
         
         <Paper component="form" className={classes.search} >
@@ -395,10 +408,10 @@ export default function FullWidthTabs() {
   
        
         <Grid item lg={12} sm={12} xs={12} style={{marginTop:"1%"}}>
-        <TotalSales mysearch={Sfilter}/>
+        <TotalSales mysearch={Sfilter} startdate={selectedStartDate} enddate={selectedEndDate}/>
         </Grid > </Grid>
         </TabPanel>
-        <TabPanel value={value} index={4} dir={theme.direction}>
+        <TabPanel value={value} index={3} dir={theme.direction}>
         <Grid
   container
   direction="row"
@@ -410,7 +423,48 @@ export default function FullWidthTabs() {
    <Grid item lg={12} sm={12} xs={12} style={{width:'100%'}}>
    <Paper className={classes.paper}>
    <Grid container direction="row"lg={12} sm={12} xs={12}>
-  <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Invoice & Receipt as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
+   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Invoice and Receipt as of &nbsp; 
+
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
+   
+<ThemeProvider theme={theme}>
+   <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+       
+
+        format="MMM/dd/yyyy"
+        value={selectedStartDate}
+        color='primary'
+        onChange={handleDateChangeStart}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+</ThemeProvider>
+    
+  </MuiPickersUtilsProvider>
+
+
+&nbsp; to &nbsp; 
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
+ <ThemeProvider theme={theme}>
+   <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+       
+
+        format="MMM/dd/yyyy"
+        value={selectedEndDate}
+        color='primary'
+        onChange={handleDateChangeEnd}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+</ThemeProvider>
+</MuiPickersUtilsProvider>
+</Typography> </Grid>
   <Grid item sm={3} xs={3} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
         
         <Paper component="form" className={classes.search} >
@@ -440,7 +494,7 @@ export default function FullWidthTabs() {
   
        
         <Grid item style={{marginTop:"1%"}} lg={12} sm={12} xs={12}>
-        <Invoice mysearch={IRfilter}/>
+        <Invoice mysearch={IRfilter} startdate={selectedStartDate} enddate={selectedEndDate}/>
         </Grid >
         </Grid>
         </TabPanel>

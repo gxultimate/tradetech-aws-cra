@@ -75,6 +75,16 @@ getDistributors = () => {
                   })
                 }
 
+                getReportSup = () => {
+                  this.api.getreportsup()
+                  .then(resp => {
+            
+                   this.listOfReport=resp.data
+                   
+                
+                  })
+                }
+
 
 }
 
@@ -89,6 +99,7 @@ decorate(IssuesStore, {
   listOfDistributors:observable,
   listOfUserDocs:observable,
   getReport:action,
+  getReportSup:action,
   getDistributors:action,
   getAccounts:action,
   

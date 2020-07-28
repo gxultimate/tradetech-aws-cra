@@ -32,26 +32,26 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
+import InfoTable from './../../Info';
+import CloseIcon from '@material-ui/icons/Close';
+import InfoIcon from '@material-ui/icons/Info';
+import PrintIcon from '@material-ui/icons/Print';
+import AppBar from '@material-ui/core/AppBar';
 class FailedTBL extends React.Component {
-  state = {  }
-
-
-  render() { 
-    let {orderStore:{getReport}}=this.props;
-let {orderStore:{listOfOrder,report,listOfUsers,listOfReport}}=this.props;
-
-let rep =()=>{
-  getReport();
  
+componentDidMount(){
+  let {orderStore:{getReport}}=this.props;
+  getReport()
 }
 
-function createData(ref,date, paystat, cust, pack, dist, paymethod, orderstat, reason) {
-  return { ref,date, paystat, cust, pack, dist, paymethod, orderstat, reason };
+  render() { 
+   
+let {orderStore:{listOfOrder,report,listOfUsers,listOfReport}}=this.props;
+
+
+
+function createData(orderInfo,ref,date, paystat, cust, pack, dist, paymethod, orderstat, reason) {
+  return {orderInfo, ref,date, paystat, cust, pack, dist, paymethod, orderstat, reason };
 }
 
 let myId = JSON.parse(sessionStorage.getItem('userData'))
@@ -154,25 +154,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
 
 
 const useStyles = makeStyles((theme) => ({
@@ -196,9 +177,19 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+    color:'white'
   },
 }));
 let filter =this.props.mysearch;
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
  function FailedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -208,24 +199,51 @@ let filter =this.props.mysearch;
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
+  const [openI, setOpenI] = React.useState(false);
 
   const view = (reason) => {
-    report.setProperty('order_ID',reason.order_ID)
-   rep()
+    console.log(reason,'reara')
+    report.setProperty('order_ID',reason.orderID)
+    
+  
 
 
     setOpen(true);
   };
 
+  const handleClickOpen = (orderinfo) => {
+    order.setProperty('orderItems',orderinfo.orderItems)
+    order.setProperty('orderPrice',orderinfo.orderPrice)
+    order.setProperty('order_Quantity',orderinfo.order_Quantity)
+    order.setProperty('orderID',orderinfo.orderID)
+    order.setProperty('modeOfPayment',orderinfo.modeOfPayment)
+    order.setProperty('orderDate',orderinfo.orderDate)
+    order.setProperty('orderStatus',orderinfo.orderStatus)
+    order.setProperty('paymentStatus',orderinfo.paymentStatus)
+    order.setProperty('orderTotalAmount',orderinfo.orderTotalAmount)
+    order.setProperty('account_ID',orderinfo.account_ID)
+    order.setProperty('distributor_ID',orderinfo.distributor_ID)
+    order.setProperty('packer_ID',orderinfo.packer_ID)
+    order.setProperty('dispatcher_ID',orderinfo.dispatcher_ID)
+    order.setProperty('order_addedInfo',orderinfo.order_addedInfo)
+    order.setProperty('order_totalPayment',orderinfo.order_totalPayment)
+    order.setProperty('orderReturnDate  ',orderinfo.orderReturnDate)
+    order.setProperty('orderDateCompleted',orderinfo.orderDateCompleted)
+    order.setProperty('orderCustomerBalance',orderinfo.orderCustomerBalance)
+    order.setProperty('orderDueDate',orderinfo.orderDueDate)
+    setOpenI(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
+    setOpenI(false);
   };
 
   let rows = filOrder.map(order=> {
 
     return(createData(
     
-        order.orderID,order.orderDate,order.paymentStatus,<span > {listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,
+      order,order.orderID,order.orderDate,order.paymentStatus,<span > {listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,
         <span > {listOfUsers.filter(accs => accs.account_ID === order.packer_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span > {listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,order.modeOfPayment,order.orderStatus,<div><ThemeProvider theme={theme}><Button variant="contained" startIcon={<VisibilityIcon/>} onClick={()=>{view(order)}} color="primary" size='small'>
         View
       </Button></ThemeProvider></div>
@@ -319,12 +337,13 @@ let filter =this.props.mysearch;
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.ref)}
+                      // onClick={(event) => handleClick(event, row.ref)}
+                      onClick={()=>{handleClickOpen(row.orderInfo)}}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.ref}
-                      selected={isItemSelected}
+                      // selected={isItemSelected}
                     >
                   
                       <TableCell component="th" id={labelId} scope="row" >
@@ -348,12 +367,13 @@ let filter =this.props.mysearch;
                   return(
                     <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.ref)}
+                    // onClick={(event) => handleClick(event, row.ref)}
+                    onClick={()=>{handleClickOpen(row.orderInfo)}}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.ref}
-                    selected={isItemSelected}
+                    // selected={isItemSelected}
                   >
                 
                     <TableCell component="th" id={labelId} scope="row" >
@@ -398,6 +418,7 @@ let filter =this.props.mysearch;
 <ThemeProvider theme={theme}>
 <Dialog
 open={open}
+minWidth='md'
 TransitionComponent={Transition}
 keepMounted
 onClose={handleClose}
@@ -409,8 +430,8 @@ aria-describedby="alert-dialog-slide-description"
 <DialogContent>
   <DialogContentText id="alert-dialog-slide-description">
     <Grid container xs ={12} sm={12}>
-<Grid item xs ={12} sm={12}><span style={{fontWeight:"bold"}}>Subject :</span> Delay In Packing </Grid>
-<Grid item xs ={12} sm={12}><span style={{fontWeight:"bold"}}>Note : </span>Product is taking too long to be Packed </Grid>
+
+<Grid item xs ={12} sm={12}><span style={{fontWeight:"bold"}}>Note : </span>{listOfReport.filter(rep=> rep.order_ID === report.order_ID ).map(repdtl=>{return repdtl.report_Detail})} </Grid>
 
     </Grid>
   </DialogContentText>
@@ -424,6 +445,31 @@ aria-describedby="alert-dialog-slide-description"
 </DialogActions>
 </Dialog>
 </ThemeProvider>
+
+
+
+
+<Dialog fullScreen open={openI} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+              <InfoIcon/>
+            </IconButton>
+            <Typography variant="h6" noWrap style={{fontWeight:"bold",color:"white",padding:'5px'}} className={classes.title} >
+            <span style={{color:"orange"}}>TRADE</span>TECH
+          </Typography>
+            <Button autoFocus startIcon={<PrintIcon/>}  onClick={handleClose} variant='contained' style={{backgroundColor:'#208769',color:'white',marginRight:'12px'}}>
+              Print
+            </Button>
+            <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close" variant='contained'>
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+     <DialogContent>
+<InfoTable/>
+     </DialogContent>
+      </Dialog>
 
     </div>
   );

@@ -17,11 +17,11 @@ import { inject, observer } from 'mobx-react';
 class IssueTable extends React.Component {
  
   componentDidMount(){
-    let {startingStore:{getReport}}=this.props;
-    getReport();
+    let {issuesStore:{getReportSup}}=this.props;
+    getReportSup();
   }
     render() {
-      let{startingStore:{listOfReport}}=this.props;
+      let{issuesStore:{listOfReport}}=this.props;
 
 function createData(repID, ordID, detail, date, sender) {
   return { repID, ordID, detail, date, sender };
@@ -289,4 +289,4 @@ return (
   }
   }
   
-  export default inject('startingStore')(observer(IssueTable))
+  export default inject('issuesStore')(observer(IssueTable))

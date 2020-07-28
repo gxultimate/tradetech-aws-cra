@@ -102,6 +102,12 @@ let getdist = JSON.parse(sessionStorage.getItem('distData'))
      
     }
 
+    let back =()=>{
+     
+        this.props.history.push("/Customer");
+  
+    }
+
       const addToCart = () =>{
         let {customerStore:{addtoCart}}=this.props;
          
@@ -139,9 +145,9 @@ let getdist = JSON.parse(sessionStorage.getItem('distData'))
 return(
   
 
-  <Grid container spacing={2} sm={12} xs={12}>
+  <Grid container sm={6} xs={12}  >
         
-  <Grid item  sm={12} xs={12} style={{marginTop:"20px"}}>
+  <Grid item  sm={12} xs={12} style={{margin:"auto",paddingTop:'20px',paddingBottom:'10px'}}>
    <div style={{margin:"auto",width:"90%"}}> 
    <Paper  style={{backgroundColor:"#208769",color:"white",fontWeight:"bold",outlineColor:"black",padding:"5px"}}>
      <Grid container sm={12} xs={12}>
@@ -155,12 +161,12 @@ return(
    </div>  
   </Grid>
   
-  <Grid item sm={10} xs={8} style={{margin:"auto"}}>
+  <Grid item sm={10} xs={8} style={{margin:"auto",paddingBottom:'10px'}}>
      <Paper ><img src={product.product_Img} style={{height:"80%",width:"100%"}}></img> </Paper>
   </Grid>
 
   <Grid item sm={10} xs={10} style={{marginTop:"15px",margin:"auto",border:"1px solid grey"}}>
-    <Grid container direction="row" sm={12}>
+    <Grid container direction="row" sm={12} style={{padding:'8px'}}>
   <Grid item sm={6} xs={8} >
 <Typography variant="p" style={{fontWeight:"bold"}}>{product.product_Name}({product.product_UoM})</Typography>
   </Grid>
@@ -210,17 +216,34 @@ return(
     </Grid>
   </Grid>
  
- <Grid item sm={10} xs={10} alignItems='center' justify='center' style={{textAlign:"center"}}>
-  
+ <Grid item sm={12} xs={12} >
+  <Grid container sm={12} xs={12} >
+
+
+  <Grid item  sm={6} xs={6} >
+<Button
+  variant="contained"
+  style={{backgroundColor:"#FFA500",color:"white",marginTop:"14px",marginLeft:"13%",width:"85%",marginBottom:"80px"}}
+  onClick={() => {back()}}
+
+>
+  back
+</Button>
+</Grid>
+
+    <Grid item  sm={6} xs={6} >
+    
  <Button
   variant="contained"
-  style={{backgroundColor:"#208769",color:"white",marginTop:"14px",marginLeft:"12%",width:"100%",marginBottom:"80px"}}
+  style={{backgroundColor:"#208769",color:"white",marginTop:"14px",marginLeft:"5x",textAlign:'right',width:"85%",marginBottom:"80px"}}
   onClick={() => {addToCart()}}
 
 >
   Add to Cart
 </Button>
+</Grid>
 
+</Grid>
  </Grid>
 </Grid>
 

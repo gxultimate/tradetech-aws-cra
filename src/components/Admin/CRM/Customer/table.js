@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { lighten, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import {  makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import InfoIcon from '@material-ui/icons/Info';
 // import EditIcon from '@material-ui/icons/Edit';
@@ -33,8 +33,8 @@ const profile = custprof => {
   console.log(custprof.account_ID,'getaccount')
   setTimeout(() => {
   
-   this.props.history.push({"pathname":"/Admin/CustomerProfile", state:{ id: custprof.account_ID}} )
- }, 500);
+   this.props.history.push({"pathname":"/Admin/CustomerProfile", state:{ cust_id: custprof.account_ID}} )
+ }, 1000);
   
  };
 

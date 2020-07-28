@@ -6,7 +6,7 @@ import { action, observable, decorate, computed } from "mobx";
 class Api {
   api = axios.create({
     // baseURL: "https://1487a803d130.ngrok.io",
-    // baseURL: `${config.apiUrl}/`
+    baseURL: "http://192.168.86.101:5000/"
   });
 
   getUsers = () => {
@@ -75,7 +75,7 @@ class Api {
 
   }
 
-  loginaccount = data => {
+  loginaccount = async data => {
     return this.api.post("accounts/login" , {
       mode: 'cors',
       data: data
@@ -225,6 +225,10 @@ class Api {
   
     return this.api.get(`report/${id}`)
   }
+  getreportsup =() =>{
+  
+    return this.api.get(`report/`)
+  }
 
   addclogs =(data)=> {
     return this.api.post("/log",{
@@ -282,6 +286,7 @@ class Api {
     return this.api.get(`membership/${id}`)
 
   }
+
   
 }
 
@@ -317,6 +322,7 @@ decorate(Api, {
   staffassigned:action,
   addreport:action,
   getreport:action,
+  getreportsup:action,
   archivedistributor:action,
   addclogs:action,
   getclogs:action,
@@ -328,6 +334,7 @@ decorate(Api, {
   addmembership:action,
   getmembership:action,
   gettokenR:action,
+
 
 });
 

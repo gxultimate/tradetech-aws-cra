@@ -23,6 +23,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import ReplenishForm from './../Replenish/form.js';
 import EditForm from './EditForm.js';
+import InfoIcon from '@material-ui/icons/Info';
 class InventoryTable extends React.Component{
 
   constructor(props){
@@ -210,7 +211,7 @@ let filter =this.props.mysearch;
   const handleClickOpen = (prods) => {
   
        
-    setOpen(true);
+    
         product.setProperty("product_ID", prods.product_ID)
         product.setProperty("product_Name", prods.product_Name)
         product.setProperty("product_Category", prods.product_Category)
@@ -225,7 +226,8 @@ let filter =this.props.mysearch;
         product.setProperty("product_Remarks", prods.product_Remarks)
         product.setProperty("product_Packaging", prods.product_Packaging)
         product.setProperty("product_Variant", prods.product_Variant)
-        
+        product.setProperty("product_Status", prods.product_Status)
+        setOpen(true);
       };  
     
       
@@ -382,7 +384,7 @@ let filter =this.props.mysearch;
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   if(filter.length !== 0){
-                    if( row.item.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ){
+                    if( row.item.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.brand.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.category.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ){
                   return (
                     <TableRow
                       hover

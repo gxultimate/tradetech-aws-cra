@@ -50,6 +50,8 @@ let orderStas = this.props.stats;
   const [opens, setOpens] = React.useState(false);
 
   const handleClickOpen = () => {
+
+
     order.setProperty('orderID',selectedOrder)
     order.setProperty('orderStatus','Failed')
     order.setProperty('orderReturnDate',moment().format('MMM/DD/YYYY,hh:mm:ssa'))
@@ -66,13 +68,16 @@ let orderStas = this.props.stats;
   };
 
   const handleClose = () => {
+
     setOpen(false);
     setOpens(false);
   };
 
   let cancelOrd =()=>{
-
-    if(orderStas === 'Transfer' || orderStas === 'Dispatch'){
+    let dates = moment('11:45:00 am', 'h:mm:ss a')
+    let now = moment()
+    
+    if(now.isAfter(dates) === true){
       setOpen(false);
       setOpens(true);
     }else{

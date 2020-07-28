@@ -11,7 +11,13 @@ function StatChart(){
         labels:['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [
             {
-            label: 'Paid (Weekly)',
+                label: 'Credit (Weekly)',
+                backgroundColor: '#208769',
+                borderColor: '#208769',
+                data: [3, 10, 5, 2, 20, 30, 45]
+            },
+            {
+            label: 'COD (Weekly)',
             backgroundColor: '#208769',
             borderColor: '#208769',
             data: [3, 10, 5, 2, 20, 30, 45]
@@ -21,7 +27,7 @@ function StatChart(){
             backgroundColor:'#F7A31C',
             borderColor:'#F7A31C',
             data:[43,23,12,47,34,3,76]
-        }
+        },
     ]
     
     }

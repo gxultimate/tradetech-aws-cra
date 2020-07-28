@@ -8,20 +8,32 @@ import Address from './Address'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Link, withRouter } from 'react-router-dom';
+
+import {inject,observer} from 'mobx-react'
  class FormPersonalDetails extends Component {
     state = {
  
        
         snackbaropen:false,
-      
-     
+        snameError:'',
+        errN:false,
         snackbarerror:"Fill out all fields.",
     }
      continue = e =>{
-         e.preventDefault();
-         if(this.props.values.shopName,this.props.values.shopAddress != ''){
+        let{customerStore:{listOfUsers}}=this.props;
+        let {values} =this.props;
+        let filsname = listOfUsers.filter(nums => nums.account_storeName === this.props.values.shopName).length;
+        
+         if(values.shopName != '' &&  values.shopAddress != '' && filsname === 0){
+            e.preventDefault();
          this.props.nextStep();
-        }else{
+        }
+        else if(filsname != 0){
+            this.setState({ errN: true });
+            this.setState({ snameError: "Store name already taken!"});
+        } else{
+            this.setState({ errN: '' });
+            this.setState({ snameError: ""});
             this.setState({ snackbaropen: true });
         }
      }
@@ -81,6 +93,7 @@ import { Link, withRouter } from 'react-router-dom';
                >Store Details</Typography>
               
                 <TextField 
+                error={this.state.errN}
                 id="outlined-basic" 
                 label="Store Name" 
                 required
@@ -88,6 +101,7 @@ import { Link, withRouter } from 'react-router-dom';
                 style={{marginBottom:"8px"}}
                 onChange={handleChange('shopName')}
                 defaultValue={values.shopName}
+                helperText={this.state.snameError}
                 />
                 <br/>
                 <TextField 
@@ -124,7 +138,7 @@ import { Link, withRouter } from 'react-router-dom';
                 </Grid>
                 </form>
                 </React.Fragment>
-                <Grid container sm={12} xs={12} style={{marginTop:"16px"}} alignItems='center'><Grid item xs={12} sm={12} style={{textAlign:'center',marginRight:'5px'}}><Typography variant='captiontext' >Have already an account? <Link to='/#/Login'> Login Here</Link></Typography></Grid>  </Grid>
+                <Grid container sm={12} xs={12} style={{marginTop:"16px"}} alignItems='center'><Grid item xs={12} sm={12} style={{textAlign:'center',marginRight:'5px'}}><Typography variant='captiontext' >Have already an account? <Link to='/Login'> Login Here</Link></Typography></Grid>  </Grid>
             </div>
         )
     }
@@ -138,4 +152,4 @@ const style ={
     }
 
 } 
-export default withRouter(FormPersonalDetails)
+export default withRouter(inject('customerStore')(observer(FormPersonalDetails)))

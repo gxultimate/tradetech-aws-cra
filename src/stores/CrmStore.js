@@ -214,7 +214,11 @@ else {
             return new Promise ((resolve,reject) =>{
             let getuserId = JSON.parse(sessionStorage.getItem('userData'))
         
-            this.api.getclogs(getuserId.distributor_ID)
+            this.api.getclogs(getuserId.distributor_ID,{
+              params: {
+                _limit: 1
+               }
+            })
             .then(resp =>{
            
               this.listOfClogs =resp.data

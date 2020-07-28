@@ -11,7 +11,13 @@ function StatChart(){
         labels:['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
         datasets: [
             {
-            label: 'Paid (Monthly)',
+                label: 'Credit (Weekly)',
+                backgroundColor: '#208769',
+                borderColor: '#208769',
+                data: [3, 10, 5, 2, 20, 30, 45]
+            },
+            {
+            label: 'COD (Monthly)',
             backgroundColor: '#208769',
             borderColor: '#208769',
             data: [3, 10, 5, 2, 20, 30, 45,55,23,34,45,80]
