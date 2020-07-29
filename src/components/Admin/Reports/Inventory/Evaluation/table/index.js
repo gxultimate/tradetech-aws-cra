@@ -13,7 +13,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 class Evaluation extends React.Component {
 
@@ -149,7 +149,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 
 function EvaluationTable() {
@@ -215,6 +222,17 @@ function EvaluationTable() {
 
   return (
     <div className={classes.root}>
+      <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="TotalSales"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
+
       <Paper className={classes.paper}>
        
         <TableContainer>
@@ -223,6 +241,7 @@ function EvaluationTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <EvaluationTableHead
               classes={classes}

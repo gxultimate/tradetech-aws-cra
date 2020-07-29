@@ -12,9 +12,10 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import React from 'react';
 
-
+import moment from 'moment'
 
 
 
@@ -168,11 +169,20 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'5px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 let mysearch = props =>{
   return this.props.mysearch
 }
+let sdate = moment(this.props.startdate,'MMM/DD/YYYY');
+let edate = moment(this.props.enddate,'MMM/DD/YYYY');
 function SReturnTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -236,6 +246,17 @@ function SReturnTable() {
 
   return (
     <div className={classes.root}>
+   <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="SalesReturn"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
+
       <Paper className={classes.paper}>
        
         <TableContainer>
@@ -244,6 +265,7 @@ function SReturnTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <SReturnTableHead
               classes={classes}
@@ -260,9 +282,12 @@ function SReturnTable() {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
-                  if(filter.length !== 0){
-                                  if( row.name.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
+                  let mydate =moment(row.rdate,'MMM/DD/YYYY')
+                  let strmydate =moment(mydate).format('MMM/DD/YYYY')
+                  let strsdate = moment(sdate).format('MMM/DD/YYYY')
+                  let stredate = moment(edate).format('MMM/DD/YYYY')
+                  if(filter.length !== 0 || edate._isValid === true){
+                                  if(  mydate.isBetween(sdate,edate)  || strmydate == strsdate || strmydate == stredate || row.name.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
                                   row.ref.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
                                   row.cust.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
                                   row.due.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||

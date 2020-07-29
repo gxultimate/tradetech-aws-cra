@@ -31,6 +31,7 @@ import Slide from '@material-ui/core/Slide';
 import InfoIcon from '@material-ui/icons/Info';
 import { DialogContent } from '@material-ui/core';
 import InfoTable from './../../Info';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
 class Completed extends React.Component {
@@ -185,7 +186,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
     color:'white'
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 let filter =this.props.mysearch;
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -282,6 +290,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
   return (
     <div className={classes.root}>
+       <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="CompletedOrders"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Paper className={classes.paper}>
        
         <TableContainer>
@@ -290,6 +308,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <EnhancedTableHead
               classes={classes}

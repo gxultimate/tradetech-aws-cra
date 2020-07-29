@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
         </Grid>
         <ThemeProvider theme={theme}>
         <Grid item xs={4} sm={4}  style={{textAlign:'right'}}>
-        <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
-          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button>
+        {/* <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
+          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button> */}
         </Grid>
         </ThemeProvider>
         </Grid>
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
             <Grid item sm={12} style={{width:'100%',marginBottom:"16px"}}>
    <Paper className={classes.paper}>
    <Grid container direction="row" sm={12}>
-  <Grid item xs={9} >  </Grid>
+  <Grid item xs={9} style={{textAlign:'left'}}><Typography variant='h6'>Sales by customer</Typography>  </Grid>
   <Grid item xs={3} >     
   <Paper component="form" className={classes.search} >
    

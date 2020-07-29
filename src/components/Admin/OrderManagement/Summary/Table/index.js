@@ -25,6 +25,7 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import InfoTable from './../../Info';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 class SummaryTBL extends React.Component {
 componentDidMount(){
   let {orderStore:{getOrder,getAccounts,getDistributors}}=this.props;
@@ -177,7 +178,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
     color:'white'
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 
 let mysearch = props =>{
@@ -279,6 +287,16 @@ function SummaryTable() {
 
   return (
     <div className={classes.root}>
+       <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="OrderSummary"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Paper className={classes.paper}>
     
         <TableContainer>
@@ -287,6 +305,7 @@ function SummaryTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <EnhancedTableHead
               classes={classes}

@@ -42,7 +42,7 @@ export default function FailedGrid() {
     <div className={classes.root}>
       <Grid container spacing={3}>
       <Grid item sm={6} xs={6}>
-          <Button startIcon={<ImportExportIcon />} size='small' variant='contained' style={{backgroundColor:'#208769',color:'white'}}>export</Button>
+          {/* <Button startIcon={<ImportExportIcon />} size='small' variant='contained' style={{backgroundColor:'#208769',color:'white'}}>export</Button> */}
         </Grid>
       <Grid item sm={6} xs={6} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
         

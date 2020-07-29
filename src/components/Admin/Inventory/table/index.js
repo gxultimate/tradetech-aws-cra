@@ -24,6 +24,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ReplenishForm from './../Replenish/form.js';
 import EditForm from './EditForm.js';
 import InfoIcon from '@material-ui/icons/Info';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 class InventoryTable extends React.Component{
 
   constructor(props){
@@ -186,14 +187,21 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 
 let filter =this.props.mysearch;
  function InventTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('item');
+  const [orderBy, setOrderBy] = React.useState('');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
@@ -358,6 +366,16 @@ let filter =this.props.mysearch;
   return (
     <React.Fragment>
     <div className={classes.root}>
+    <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="Inventory"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Paper className={classes.paper}>
        
         <TableContainer>
@@ -366,6 +384,7 @@ let filter =this.props.mysearch;
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <EnhancedTableHead
               classes={classes}

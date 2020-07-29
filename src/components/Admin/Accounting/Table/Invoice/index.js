@@ -25,7 +25,7 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 
 import Slide from '@material-ui/core/Slide';
-
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
@@ -173,7 +173,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
     color:'white'
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 let mysearch = props =>{
   return this.props.mysearch
@@ -275,6 +282,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
   return (
     <div className={classes.root}>
+      <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="Invoice&Receipt"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Paper className={classes.paper}>
      
         <TableContainer>
@@ -283,6 +300,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <InvoiceHead
               classes={classes}
@@ -299,9 +317,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.orderNo);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  let mydate =moment(row.date,'MMM/DD/YYYY')
-                  if(filter.length !== 0 || edate._isValid === true){
-                    if(row.orderNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.customerName.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase())|| row.Odate.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || mydate.isBetween(sdate,edate)  || mydate == sdate || mydate == edate){
+                  let mydate =moment(row.Odate,'MMM/DD/YYYY')
+                  let strmydate =moment(mydate).format('MMM/DD/YYYY')
+                  let strsdate = moment(sdate).format('MMM/DD/YYYY')
+                  let stredate = moment(edate).format('MMM/DD/YYYY')
+                  if(edate._isValid === true){
+                    if( mydate.isBetween(sdate,edate)  || strmydate == strsdate || strmydate == stredate){
                   return (
                     <TableRow
                       hover
@@ -332,6 +353,38 @@ const Transition = React.forwardRef(function Transition(props, ref) {
               }
 
                 }
+                else  if(filter.length !== 0 ){
+                  if(row.orderNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.customerName.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase())|| row.Odate.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ){
+                return (
+                  <TableRow
+                    hover
+                    // onClick={(event) => handleClick(event, row.orderNo)}
+                    onClick={()=>{handleClickOpen(row.orderInfo)}}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.orderNo}
+                    // selected={isItemSelected}
+                  >
+                   
+                    <TableCell component="th" id={labelId} scope="row">
+                      {row.orderNo}
+                    </TableCell>
+                    <TableCell align="left">{row.Odate}</TableCell>
+                <TableCell align="left">{row.customerName} {row.mname} {row.lname}</TableCell>
+                    <TableCell align="right">{row.invoice}</TableCell>
+                    <TableCell align="right">{row.receipt}</TableCell>
+                  
+                  </TableRow>
+               );
+
+              }
+              else{
+                return null
+             
+            }
+
+              }
                 return (
                   <TableRow
                   hover

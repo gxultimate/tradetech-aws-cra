@@ -24,7 +24,7 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 
 import Slide from '@material-ui/core/Slide';
-
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
@@ -179,7 +179,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
     color:'white'
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 
 
@@ -283,6 +290,16 @@ function TransactionTbl() {
 
   return (
     <div className={classes.root}>
+      <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="Transactions"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Grid lg={12} sm={12} xs={12}>
       <Paper className={classes.paper}>
   
@@ -292,6 +309,7 @@ function TransactionTbl() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <TransactionTblHead
               classes={classes}
@@ -313,12 +331,15 @@ function TransactionTbl() {
                   let strmydate =moment(mydate).format('MMM/DD/YYYY')
                   let strsdate = moment(sdate).format('MMM/DD/YYYY')
                   let stredate = moment(edate).format('MMM/DD/YYYY')
+                  console.log(edate._isValid,'asdasd')
              
-                  if(filter.length !== 0 || edate._isValid === true){
+                  if( edate._isValid === true){
                   
       
                   
-                    if( mydate.isBetween(sdate,edate)  || strmydate == strsdate || strmydate == stredate || row.referenceNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.custfname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase())){
+                    if( mydate.isBetween(sdate,edate) || strmydate === strsdate || strmydate === stredate 
+                    // || row.referenceNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.custfname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) 
+                    ){
                    
                   return (
                     <TableRow
@@ -348,6 +369,35 @@ function TransactionTbl() {
              
             }
 
+              }
+              else if (filter.length !== 0 ){
+if(row.referenceNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.custfname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ){
+  return (
+    <TableRow
+      hover
+      // onClick={(event) => handleClick(event, row.referenceNo)}
+      onClick={()=>{handleClickOpen(row.orderInfo)}}
+      role="checkbox"
+      aria-checked={isItemSelected}
+      tabIndex={-1}
+      key={row.referenceNo}
+      // selected={isItemSelected}
+    >
+      
+      <TableCell component="th" id={labelId} scope="row">
+        {row.referenceNo}
+      </TableCell>
+      <TableCell align="right">{row.custfname} {row.mname} {row.lname}</TableCell>
+      <TableCell align="right">&#8369;{row.amount}</TableCell>
+      <TableCell align="right">{row.date}</TableCell>
+      <TableCell align="right">{row.status}</TableCell>
+    </TableRow>
+);
+
+}  else{
+  return null
+
+}
               }
               return (
                 <TableRow

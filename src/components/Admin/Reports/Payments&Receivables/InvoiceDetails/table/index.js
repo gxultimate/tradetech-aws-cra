@@ -13,9 +13,9 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-
-
+import moment from 'moment'
 
 
  class InvoiceD extends React.Component {
@@ -164,9 +164,18 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+  
+    
+  }
 }));
 let filter = this.props.mysearch;
+let sdate = moment(this.props.startdate,'MMM/DD/YYYY');
+let edate = moment(this.props.enddate,'MMM/DD/YYYY');
 function InvoiceDTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -230,6 +239,16 @@ function InvoiceDTable() {
 
   return (
     <div className={classes.root}>
+       <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="Invoice(Report)"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Paper className={classes.paper}>
        
         <TableContainer>
@@ -238,6 +257,7 @@ function InvoiceDTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <InvoiceDTableHead
               classes={classes}
@@ -255,8 +275,12 @@ function InvoiceDTable() {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
-                  if(filter.length !== 0){
-                    if( row.name.startsWith(filter) || row.cust.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.orddate.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
+                  let mydate =moment(row.orddate,'MMM/DD/YYYY')
+                  let strmydate =moment(mydate).format('MMM/DD/YYYY')
+                  let strsdate = moment(sdate).format('MMM/DD/YYYY')
+                  let stredate = moment(edate).format('MMM/DD/YYYY')
+                  if(filter.length !== 0 || edate._isValid === true){
+                    if( mydate.isBetween(sdate,edate)  || strmydate == strsdate || strmydate == stredate || row.name.startsWith(filter) || row.cust.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || row.orddate.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
                     row.cust.toLocaleLowerCase().split(' ').slice(-1).join(' ').startsWith(filter.toLocaleLowerCase())){
                      
                   return (

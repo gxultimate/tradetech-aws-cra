@@ -6,11 +6,12 @@ import {withRouter} from 'react-router-dom'
 import { Typography, Divider,IconButton,Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import MaterialUIPickers from './DatePicker'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import SbCTable from './table'
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import theme from './../../../theme'
 import PrintIcon from '@material-ui/icons/Print';
+import DateFnsUtils from '@date-io/date-fns';
 class SBC extends React.Component {
   state = {  }
   render() { 
@@ -46,6 +47,28 @@ const useStyles = makeStyles((theme) => ({
  function SalesByCustomer() {
   const classes = useStyles();
   const [filter,setFilter]= React.useState("");
+  const [selectedStartDate, setSelectedStartDate] = React.useState();
+    const [selectedEndDate, setSelectedEndDate] = React.useState();
+
+
+    const handleDateChangeStart = (date) => {
+   
+      setSelectedStartDate(date);
+      
+  
+  
+  
+    };
+    const handleDateChangeEnd = (date) => {
+     
+      
+      setSelectedEndDate(date);
+  
+  
+  
+  
+    };
+
   return (
     <div className={classes.root}>
         <Grid container direction='row' sm={12} xs={12} >
@@ -54,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
         </Grid>
         <ThemeProvider theme={theme}>
         <Grid item xs={4} sm={4}  style={{textAlign:'right'}}>
-        <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
-          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button>
+        {/* <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
+          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button> */}
         </Grid>
         </ThemeProvider>
         </Grid>
@@ -68,26 +91,69 @@ const useStyles = makeStyles((theme) => ({
 
             <Grid item sm={12} style={{width:'100%',marginBottom:"16px"}}>
    <Paper className={classes.paper}>
-   <Grid container direction="row" sm={12}>
-  <Grid item xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Invoice as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
-  <Grid item xs={3} >     
-  <Paper component="form" className={classes.search} >
+   <Grid container direction="row"lg={12} sm={12} xs={12}>
+   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Invoice  as of &nbsp; 
+
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
    
-   <InputBase
-     className={classes.input}
-     placeholder="Search "
-     inputProps={{ 'aria-label': 'search ' }}
-     onChange={(e)=>setFilter(e.target.value)}
-   />
-   <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
-   <IconButton type="submit" className={classes.iconButton} aria-label="search">
-     <SearchIcon style={{color:"white"}}/>
-   </IconButton>
-   </span>
-   {/* <IconButton color="primary" className={classes.iconButton} aria-label="directions">
-     <DirectionsIcon />
-   </IconButton> */}
- </Paper></Grid>
+<ThemeProvider theme={theme}>
+   <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+       
+
+        format="MMM/dd/yyyy"
+        value={selectedStartDate}
+        color='primary'
+        onChange={handleDateChangeStart}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+</ThemeProvider>
+    
+  </MuiPickersUtilsProvider>
+
+
+&nbsp; to &nbsp; 
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
+ <ThemeProvider theme={theme}>
+   <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+       
+
+        format="MMM/dd/yyyy"
+        value={selectedEndDate}
+        color='primary'
+        onChange={handleDateChangeEnd}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+</ThemeProvider>
+</MuiPickersUtilsProvider>
+</Typography> </Grid>
+  <Grid item sm={3} xs={3} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
+        
+        <Paper component="form" className={classes.search} >
+     
+        <InputBase
+          className={classes.input}
+          placeholder="Search"
+          inputProps={{ 'aria-label': 'search customers' }}
+          onChange={(e)=>setFilter(e.target.value)}
+        />
+        <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
+        <IconButton type="submit" className={classes.iconButton} aria-label="search">
+          <SearchIcon style={{color:"white"}}/>
+        </IconButton>
+        </span>
+    
+      </Paper>
+     
+     
+        </Grid>
   
    </Grid>
 
@@ -97,7 +163,7 @@ const useStyles = makeStyles((theme) => ({
 
            
             <Grid item xs={12} sm={12}>
-              <SbCTable mysearch={filter}/>
+              <SbCTable mysearch={filter} startdate={selectedStartDate} enddate={selectedEndDate}/>
             </Grid>
             </Grid>
           

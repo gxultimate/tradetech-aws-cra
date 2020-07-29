@@ -120,9 +120,9 @@ export default function InventoryTab() {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Grid container lg={12} xs={12} sm={12}>
-          <Grid item xs={12} sm={12} style={{textAlign:'right'}}>
+          {/* <Grid item xs={12} sm={12} style={{textAlign:'right'}}>
 <Excel/>
-          </Grid>
+          </Grid> */}
           <Grid item  lg={12} xs={12} sm={12}>
       <Paper className={classes.paper} style={{marginBottom:"10px"}}>
     
@@ -447,9 +447,9 @@ export default function InventoryTab() {
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
         <Grid container lg={12} xs={12} sm={12}>
-          <Grid item xs={12} sm={12} style={{textAlign:'right'}}>
+          {/* <Grid item xs={12} sm={12} style={{textAlign:'right'}}>
 <Excel/>
-          </Grid>
+          </Grid> */}
           <Grid item  lg={12} xs={12} sm={12}>
       <Paper className={classes.paper} style={{marginBottom:"10px"}}>
     

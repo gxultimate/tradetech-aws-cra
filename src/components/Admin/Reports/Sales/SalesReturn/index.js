@@ -77,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
         </Grid>
         <ThemeProvider theme={theme}>
         <Grid item xs={4} sm={4}  style={{textAlign:'right'}}>
-        <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
-          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button>
+        {/* <Button variant='contained' size='small' color='primary' startIcon={ <PrintIcon />}  style={{marginRight:"10px"}}>Print</Button>
+          <Button variant='contained' size='small' color='primary' startIcon={ <ImportExportIcon />}  style={{marginRight:"20px"}}>Excel</Button> */}
         </Grid>
         </ThemeProvider>
         </Grid>
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
             <Grid item sm={12} style={{width:'100%',marginBottom:"16px"}}>
    <Paper className={classes.paper}>
    <Grid container direction="row" sm={12}>
-   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Sales as of &nbsp; 
+   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Sales Return as of &nbsp; 
 
 <MuiPickersUtilsProvider utils={DateFnsUtils} >
    
