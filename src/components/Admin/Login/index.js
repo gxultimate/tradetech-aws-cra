@@ -3,7 +3,7 @@ import {inject,observer} from 'mobx-react'
 import { Paper,  Grid, TextField, Button, FormControlLabel, Checkbox,CssBaseline } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
 import logogreen from './../../Logo/logogreen.png'
-// import img from './loginBackground.jpg'
+import img from './loginBackground.jpg'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 class Login extends React.Component {
@@ -166,7 +166,9 @@ class Login extends React.Component {
       
 
 
-<div>
+<div
+          style={{backgroundImage:`url(${img})`,height:'100vh',backgroundSize:"cover",backgroundAttachment:"fixed",backgroundPosition:"center",backgroundRepeat:"no-repeat",textAlign:"center"}}
+          >
 
 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
        <Alert  severity="error">
