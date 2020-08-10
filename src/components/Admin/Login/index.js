@@ -228,8 +228,15 @@ class Login extends React.Component {
       
 
 
+<<<<<<< HEAD
 <div style={{backgroundImage:`url('https://res.cloudinary.com/startupprojectventuresph/image/upload/v1596784148/BackgroundImg/loginBackground_ndyvsi.jpg')`,height:'100vh',backgroundSize:"cover",backgroundAttachment:"fixed",backgroundPosition:"center",backgroundRepeat:"no-repeat",textAlign:"center"}}>
 <ThemeProvider theme={theme}>
+=======
+<div
+          style={{backgroundImage:`url(${img})`,height:'100vh',backgroundSize:"cover",backgroundAttachment:"fixed",backgroundPosition:"center",backgroundRepeat:"no-repeat",textAlign:"center"}}
+          >
+
+>>>>>>> f3594f462a53229aa54d440e97b147be21a08f82
 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
        <Alert  severity="error">
        {this.state.snackbarerror }
