@@ -13,7 +13,7 @@ import Register from '../components/Customer/RegisterS/UserForm';
 import SupAdminDrawer from '../components/SuperAdmin';
 import MiniDrawer from '../components/SuperAdmin/drawer.js';
 import AccessDist from '../components/Customer/AccessDistributor';
-
+import TTechHomepage from '../components/home';
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -26,7 +26,8 @@ class App extends React.Component {
 					<Router>
 						<Switch>
 							{/* JUST ADD Additional Routes here */}
-							<Route exact path="/" component={Login} />
+							<Route exact path="/" component={TTechHomepage} />
+							<Route exact path="/AdminLogin" component={Login} />
 							<Route path="/Admin" component={AdminDrawer} />
 							<Route path="/SuperAdmin" component={SupAdminDrawer} />
 							<Route path="/Login" component={CustLogin} />

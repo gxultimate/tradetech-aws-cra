@@ -93,8 +93,8 @@ const invoiceTotal =invoiceSubtotal;
          
           </Grid>
           <Grid item xs={2} sm={2} >
-  <Typography variant='subtitle2'>DATE: {order.orderDate}</Typography>
-  <Typography variant='subtitle2'>INVOICE #: {order.orderID}</Typography>
+  <Typography variant='subtitle2'><span style={{fontWeight:'bold'}}>DATE : </span>{order.orderDate}</Typography>
+  <Typography variant='subtitle2'><span style={{fontWeight:'bold'}}>INVOICE #: </span>{order.orderID}</Typography>
   </Grid>
   </Grid>
         </Grid>
@@ -153,7 +153,7 @@ const invoiceTotal =invoiceSubtotal;
 
         <Grid item xs={6} sm={6}>
         <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="spanning table">
+      <Table className={classes.table} aria-label="spanning table" size='small'>
         <TableHead>
           
           <TableRow style={{backgroundColor:'#208769',color:'white'}}>

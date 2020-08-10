@@ -8,16 +8,18 @@ import { withRouter } from 'react-router-dom';
 import logo from './../../Logo/logowhite.png'
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import Badge from '@material-ui/core/Badge';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import Tooltip from '@material-ui/core/Tooltip';
 class DrawerList extends React.Component{
-       componentDidMount(){
+      
 
-              let {staffStore:{getOrder}}=this.props;
-             
-              getOrder();
-          
-            }
+              componentDidMount(){
+                     let{staffStore:{getOrder,getMessage}}=this.props;
+                     getOrder();
+                     getMessage()
+                     }
 render(){
-       let {staffStore:{listOfOrder}}=this.props;
+       let {staffStore:{listOfOrder,listOfMessage}}=this.props;
 let getuserId = JSON.parse(sessionStorage.getItem('userData'))
 
 let filterOrder = listOfOrder.filter(order =>{
@@ -36,6 +38,7 @@ let filterOrder = listOfOrder.filter(order =>{
 //   let {startingStore:{ getProducts}}=this.props;
 
 let count =filterOrder.length
+let messages = listOfMessage.filter (msg => msg.recipient_ID === getuserId.account_ID).length
 return (
 
 
@@ -54,7 +57,7 @@ return (
 
          this.props.history.push("/Staff");
  
-  }}><Badge color="secondary" badgeContent={count}><ListAltIcon/></Badge></ListItemIcon>
+  }}><Tooltip title={`${count} order(s) assigned`} placement="right" arrow><Badge color="secondary" badgeContent={count}><ListAltIcon/></Badge></Tooltip></ListItemIcon>
      <ListItemText style={{color:"white"}} onClick={()=>{
          
          this.props.history.push("/Staff");
@@ -62,7 +65,20 @@ return (
   }}> My Orders</ListItemText> 
     </ListItem>
     <Divider  />
+    <ListItem button  style={{color:"white"}}>
 
+<ListItemIcon style={{color:"white"}} onClick={()=>{
+   
+   this.props.history.push("/Staff/Messaging");
+
+}}><Tooltip title={`${messages} unread message(s)`} placement="right" arrow><Badge color="secondary" badgeContent={messages}><MailOutlineIcon/></Badge></Tooltip></ListItemIcon>
+<ListItemText onClick={()=>{
+   
+   this.props.history.push("/Staff/Messaging");
+
+}}> Messaging</ListItemText> 
+</ListItem>
+ <Divider />
     <ListItem button  style={{color:"white"}}>
       <ListItemIcon style={{color:"white"}} onClick={()=>{
       
@@ -83,7 +99,7 @@ return (
          
          this.props.history.push("/Staff/OrderHistory");
  
-  }}><LibraryBooksOutlinedIcon/></ListItemIcon>
+  }}><MailOutlineIcon/></ListItemIcon>
      <ListItemText onClick={()=>{
          
          this.props.history.push("/Staff/OrderHistory");
@@ -91,6 +107,9 @@ return (
   }}> Order History</ListItemText> 
     </ListItem>
     <Divider />
+
+   
+
 
 
     <ListItem button  style={{color:"white"}}>

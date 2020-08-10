@@ -14,7 +14,7 @@ import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import logo from './../../Logo/logowhite.png';
+
 import AddDist from './addDistributor';
 class MyDistributor extends React.Component {
 
@@ -155,7 +155,7 @@ function DistGrid() {
 
 <AppBar position="fixed" style={{backgroundColor:"#208769"}}>
         <Toolbar style={{textAlign:"center"}}>
-            <img src={logo} style={{height:"120px",margin:"auto"}}></img>
+            <img src='https://res.cloudinary.com/startupprojectventuresph/image/upload/v1597019714/BackgroundImg/logowhite_ulnfx4.png' style={{height:"120px",margin:"auto"}}></img>
         </Toolbar>
       </AppBar>
       <Toolbar />

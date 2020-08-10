@@ -11,8 +11,9 @@ import RegisterDialog from './Customer/RegisterCustomer'
 class CRMGrid extends Component{
 
   componentDidMount() {
-    let {crmStore:{getAccounts }}=this.props;
-        getAccounts();   
+    let {crmStore:{getAccounts,getcLogs }}=this.props;
+        getAccounts();  
+        getcLogs(); 
   }
 
 
@@ -26,7 +27,7 @@ render(){
       <Grid container direction="row" lg={12} sm={12} xs={12}>
         <Grid item lg={12} sm={12} xs={12}>
         <Typography variant="h5" >
-           Customer Relationship Management
+           Customer Management
         </Typography>
         </Grid>
   

@@ -66,10 +66,10 @@ const useStyles = makeStyles((theme) => ({
           
             <Grid container xs={12} sm={12}>
 
-            <Grid item sm={12} style={{width:'100%',marginBottom:"16px"}}>
+            <Grid item sm={12} style={{width:'100%',marginBottom:"12px"}}>
    <Paper className={classes.paper}>
    <Grid container direction="row" sm={12}>
-  <Grid item xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Payments Received as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
+  <Grid item xs={9} style={{textAlign:"left"}}> <Typography variant="subtitle2"> Payments Received as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
   <Grid item xs={3} >     
   <Paper component="form" className={classes.search} >
    

@@ -33,14 +33,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import ProfileInfo from './../CustomerProfile'
-
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 class CustlogsTBL extends React.Component {
 
 
-  componentDidMount() {
-    let {crmStore:{getcLogs}}=this.props;
-    getcLogs()
-  }
+
 
 
   
@@ -197,7 +194,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
     color:'white'
-  },
+  },excel:{
+    backgroundColor:'#009688',
+    padding:'4px',
+    marginBottom:'8px',
+    color:'white',
+    borderRadius:'5px',
+  
+    
+  }
 }));
 
 function CLogTable() {
@@ -347,6 +352,16 @@ function CLogTable() {
 
   return (
     <div className={classes.root}>
+        <div style={{textAlign:'right'}}>
+      <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className={classes.excel}
+                    table="table-to-xls"
+                    filename="CustomerLogs"
+                    sheet="tablexls"
+                   
+                    buttonText="Export to Excel"/>
+                     </div>
       <Paper className={classes.paper}>
       
         <TableContainer>
@@ -355,6 +370,7 @@ function CLogTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            id="table-to-xls"
           >
             <CLogTableHead
               classes={classes}

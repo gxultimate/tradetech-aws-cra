@@ -107,10 +107,10 @@ const useStyles = makeStyles((theme) => ({
       
           <Grid container xs={12} sm={12}>
 
-          <Grid item sm={12} style={{width:'100%',marginBottom:"16px"}}>
+          <Grid item sm={12} style={{width:'100%',marginBottom:"12px"}}>
  <Paper className={classes.paper}>
  <Grid container direction="row" sm={12}>
- <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Sales order as of &nbsp; 
+ <Grid item  sm={9} xs={9} style={{textAlign:"left"}}> <Typography variant="subtitle2"> Sales order as of &nbsp; 
 
 <MuiPickersUtilsProvider utils={DateFnsUtils} >
    

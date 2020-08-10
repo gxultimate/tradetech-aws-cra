@@ -1,10 +1,11 @@
-import { action, observable, decorate, computed } from "mobx";
+import { action, decorate, observable } from "mobx";
 import Account from "../models/Account";
-import Report from '../models/Report'
 import Distributor from "../models/Distributor";
-import Order from './../models/Order'
-import Notification from '../models/Notification'
-class IssuesStore {
+import Message from '../models/Messaging';
+import Notification from '../models/Notification';
+import Report from '../models/Report';
+import Order from './../models/Order';
+class ManagerStore {
 
   report = new Report();
   account =new Account();
@@ -15,7 +16,8 @@ class IssuesStore {
   listOfOrder =[];
   listOfUsers = [];
   listOfUserDocs = [];
-
+  message = new Message();
+  listOfMessage=[];
   notif =new  Notification();
   listOfNotif =[];
   api = undefined
@@ -220,10 +222,39 @@ getDistributors = () => {
                         })
                       }
 
+
+                      addMessage = () => {
+                        this.api.addmessage(this.message)
+                        .then(resp => {
+                       this.listOfMessage=resp.data;
+                    
+                         
+                        })
+                      }
+
+    
+                      
+    getMessage = () => { 
+      return new Promise((resolve, reject) => {   
+        this.api.getmessage()
+        .then(resp => {    
+           this.listOfMessage= resp.data
+     
+           if (resp.data !== false ) {   
+                    resolve(resp.data);       
+                    }  
+           else {         
+             resolve(false);      
+             }  
+             });
+            })
+      }
+
+
 }
 
 
-decorate(IssuesStore, {
+decorate(ManagerStore, {
  
   listOfUsers:observable,
   account:observable,
@@ -248,7 +279,11 @@ decorate(IssuesStore, {
     addNotif:action,
     getNotif:action,
 
+    message:observable,
+    listOfMessage:observable,
+    addMessage:action,
+  getMessage:action,
   
 });
 
-export default IssuesStore;
+export default ManagerStore;

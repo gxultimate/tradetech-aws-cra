@@ -42,14 +42,7 @@ function createData(shop, name, address, contact, email,status,action) {
   return { shop, name, address, contact, email ,status,action};
 }
 
-const profile = custprof => {
-  console.log(custprof.account_ID,'getaccount')
-  setTimeout(() => {
-  
-   this.props.history.push({"pathname":"/Admin/CustomerProfile", state:{ id: custprof.account_ID}} )
- }, 500);
-  
- };
+
 
 
 
@@ -210,7 +203,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   };
 
 
-  const profile = custprof => {
+  let profile = custprof => {
     account.setProperty('account_ID',custprof.account_ID)
      
        setOpenI(true);

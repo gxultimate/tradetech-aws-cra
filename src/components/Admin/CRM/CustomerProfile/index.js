@@ -36,10 +36,11 @@ import ActivityTable from './ActivityLogs'
 class CustProfile extends React.Component {
 
   componentWillMount(){
-    let{crmStore:{getOrderD,order}}=this.props;
+    let{crmStore:{getOrderD,order,getDistributors}}=this.props;
    
     order.setProperty('account_ID',this.props.accId)
     getOrderD();
+    getDistributors()
   
   }
  
@@ -256,17 +257,18 @@ Voucher
 </ListSubheader>
   }
   >
+
         <ListItem button>
         <ListItemText>TTECHXMAS</ListItemText>
-        <ListItemText>50% OFF</ListItemText>
+        <ListItemText style={{textAlign:'right'}}>50% OFF</ListItemText>
         </ListItem>
         <ListItem button>
         <ListItemText>TTECHSUMMER</ListItemText>
-        <ListItemText>25% OFF</ListItemText>
+        <ListItemText style={{textAlign:'right'}}>25% OFF</ListItemText>
         </ListItem>
         <ListItem button>
         <ListItemText>TTECHHOLLOWEEN</ListItemText>
-        <ListItemText>35% OFF</ListItemText>
+        <ListItemText style={{textAlign:'right'}}>35% OFF</ListItemText>
         </ListItem>
       </List>
             </Grid>
@@ -341,15 +343,15 @@ Voucher
      </Grid>
    
 
-     <Grid container direction='row' style={{float:"right"}} alignItems='flex-end' justify='flex-end'  xs={6} sm={6}  >
+     {/* <Grid container direction='row' style={{float:"right"}} alignItems='flex-end' justify='flex-end'  xs={6} sm={6}  >
      <Grid item xs={3} sm={3} className={classes.button} >
-            <Button variant='contained' color='secondary' style={{width:"95%"}}>cancel</Button>
+            <Button variant='outlined' color='secondary' style={{width:"95%"}}>cancel</Button>
             </Grid>
             <Grid item xs={3} sm={3} className={classes.button} >
             <Button variant='contained' color='primary' style={{width:"95%"}}>save</Button>
 
           </Grid>
-       </Grid>
+       </Grid> */}
        </ThemeProvider>
         </Grid>
 

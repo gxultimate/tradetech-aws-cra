@@ -17,7 +17,7 @@ import MyOrders from './MyOrder'
 import MyProfile from './MyProfile'
 import OrderHistory from './OrderHistory'
 
-
+import Messaging from './Messaging'
 
 class staffpage extends React.Component {
   state = {  }
@@ -135,6 +135,7 @@ function StaffGrid(props) {
      {/* Content */}
      <Switch>
           <Route exact path="/Staff" render={()=><MyOrders/>} />
+          <Route exact path="/Staff/Messaging" render={()=><Messaging/>} />
           <Route  path="/Staff/MyProfile" render={()=><MyProfile/>} />
           <Route  path="/Staff/OrderHistory" render={()=><OrderHistory/>} />
      </Switch>

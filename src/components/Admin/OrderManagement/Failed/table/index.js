@@ -338,7 +338,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                     <TableRow
                       hover
                       // onClick={(event) => handleClick(event, row.ref)}
-                      onClick={()=>{handleClickOpen(row.orderInfo)}}
+                      // onClick={()=>{handleClickOpen(row.orderInfo)}}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -368,7 +368,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                     <TableRow
                     hover
                     // onClick={(event) => handleClick(event, row.ref)}
-                    onClick={()=>{handleClickOpen(row.orderInfo)}}
+                    // onClick={()=>{handleClickOpen(row.orderInfo)}}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}

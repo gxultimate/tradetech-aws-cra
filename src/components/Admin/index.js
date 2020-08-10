@@ -38,6 +38,7 @@ import InventorySummary from './Reports/Inventory/Summary'
 import EvalReport from './Reports/Inventory/Evaluation'
 import ProdSales from './Reports/Inventory/ProdSalesReport'
 import StockSummary from './Reports/Inventory/StockReport'
+import DeliveryHistory from './Reports/Inventory/Deliver'
 
 import CustBalance from './Reports/Payments&Receivables/CustomerBalance'
 import Invoice from './Reports/Payments&Receivables/InvoiceDetails'
@@ -57,6 +58,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+
+import MessagingDrawer from './Messaging'
 
 class adDrawer extends Component{
 
@@ -331,7 +334,7 @@ const useStyles = makeStyles(theme => ({
       <Route  path="/Admin/Accounting" render={()=><Accounting/>}/>
       <Route  path="/Admin/AdminUserManagement" render={()=><AdminUserManagement/>}/>
       <Route  path="/Admin/Setting" render={()=><SettingGrid/>}/>
-     
+      <Route  path="/Admin/Messaging" render={()=><MessagingDrawer/>}/>
     
       {/* Report Routes */}
       <Route  path="/Admin/Reports" render={()=><ReportGrid/>}/>
@@ -345,6 +348,7 @@ const useStyles = makeStyles(theme => ({
       <Route  path="/Admin/EvalReport" render={()=><EvalReport/>}/>
       <Route  path="/Admin/ProdSales" render={()=><ProdSales/>}/>
       <Route  path="/Admin/StockSummary" render={()=><StockSummary/>}/>
+      <Route  path="/Admin/DeliveryHistory" render={()=><DeliveryHistory/>}/>
 
       <Route  path="/Admin/CustBalance" render={()=><CustBalance/>}/>
       <Route  path="/Admin/Invoice" render={()=><Invoice/>}/>

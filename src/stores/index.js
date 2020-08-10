@@ -11,6 +11,7 @@ import StaffStore from "./StaffStore";
 import ReportStore from "./ReportStore";
 import NotificationStore from "./NotificationStore";
 import SupAdminStore from "./SupAdminStore";
+import MessageStore from "./MessageStore";
 import Api from './Api'
 
 export {
@@ -28,5 +29,6 @@ export {
   ReportStore,
   NotificationStore,
   SupAdminStore,
+  MessageStore,
 
 };

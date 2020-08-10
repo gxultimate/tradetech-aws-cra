@@ -1,6 +1,6 @@
 import "antd/dist/antd.css";
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
+import { HashRouter as Router, Route,Switch } from "react-router-dom";
 import { Provider } from "mobx-react";
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
@@ -15,6 +15,7 @@ import Register from "./Customer/RegisterS/UserForm"
 import SupAdminDrawer from "./SuperAdmin";
 import MiniDrawer from './SuperAdmin/drawer.js'
 import AccessDist from './Customer/AccessDistributor'
+import TTechHomepage from './home'
 
 // Store Init
 import { 
@@ -31,6 +32,7 @@ import {
   ReportStore,
   NotificationStore,
   SupAdminStore,
+  MessageStore,
   Api
 } from "./../stores/";
 
@@ -52,6 +54,7 @@ const staffStore = new StaffStore(api);
 const reportStore = new ReportStore(api);
 const notificationStore = new  NotificationStore(api);
 const supadminStore = new  SupAdminStore(api);
+const messageStore = new  MessageStore(api);
 
 const stores = {
   startingStore,
@@ -67,6 +70,7 @@ const stores = {
   reportStore,
   notificationStore,
   supadminStore,
+  messageStore,
   
 };
 
@@ -79,7 +83,8 @@ class App extends Component {
         <Provider {...stores}>
           <Switch>
              {/* JUST ADD Additional Routes here */}
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={TTechHomepage} />
+          <Route exact path="/AdminLogin" component={Login} />
           <Route path="/Admin"    component={AdminDrawer}/>
           <Route path="/SuperAdmin"    component={SupAdminDrawer}/>
           <Route  path="/Login" component={CustLogin} />

@@ -97,10 +97,10 @@ export default function  CRMTab() {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Messages" {...a11yProps(0)} />
-          <Tab label="Customers" {...a11yProps(1)} />
-          <Tab label="Customer Logs" {...a11yProps(2)} />
-          <Tab label="Deactivated" {...a11yProps(3)} />
+          {/* <Tab label="Messages" {...a11yProps(0)} /> */}
+          <Tab label="Customers" {...a11yProps(0)} />
+          <Tab label="Customer Logs" {...a11yProps(1)} />
+          <Tab label="Deactivated" {...a11yProps(2)} />
      
         
         </Tabs>
@@ -111,10 +111,10 @@ export default function  CRMTab() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
+        {/* <TabPanel value={value} index={0} dir={theme.direction}>
          <CrmMessages/>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction} >
+        </TabPanel> */}
+        <TabPanel value={value} index={0} dir={theme.direction} >
           <Grid container direction="row" xs={12} sm={12}>
       <Grid item sm={12} xs={12} style={{textAlign:"right",float:"right",marginBottom:"10px"}}>
         
@@ -141,10 +141,10 @@ export default function  CRMTab() {
           </Grid>
           </Grid>
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
+        <TabPanel value={value} index={1} dir={theme.direction}>
           <CustomerLog/>
         </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
+        <TabPanel value={value} index={2} dir={theme.direction}>
           <Archived/>
         </TabPanel>
     

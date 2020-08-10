@@ -14,6 +14,7 @@ import {
 	ReportStore,
 	NotificationStore,
 	SupAdminStore,
+	MessageStore,
 	Api
 } from './stores';
 import * as serviceWorker from './serviceWorker';
@@ -33,7 +34,7 @@ const staffStore = new StaffStore(api);
 const reportStore = new ReportStore(api);
 const notificationStore = new NotificationStore(api);
 const supadminStore = new SupAdminStore(api);
-
+const messageStore = new  MessageStore(api);
 const stores = {
 	startingStore,
 	issuesStore,
@@ -47,7 +48,8 @@ const stores = {
 	staffStore,
 	reportStore,
 	notificationStore,
-	supadminStore
+	supadminStore,
+	messageStore,
 };
 
 ReactDOM.render(

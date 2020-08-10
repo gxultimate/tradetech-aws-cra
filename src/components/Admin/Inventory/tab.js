@@ -146,6 +146,7 @@ export default function InventoryTab() {
         >
        <option aria-label="None" value="" />
           <optgroup label="Beverages">
+          <option value='Chocolate drink'>Chocolate drink</option>
             <option value='Coffee'>Coffee</option>
             <option value='Tea'>Tea</option>
             <option value='Juice'>Juice</option>
@@ -208,6 +209,11 @@ export default function InventoryTab() {
           <optgroup label="Paper Goods">
             <option value='Toilet Paper'>Toilet Paper</option>
             <option value='Table Napkin'>Table Napkin</option>
+          </optgroup>
+          <optgroup label="Pasta & Noodles">
+            <option value='Pancit Canton'>Pancit Canton</option>
+            <option value='Pasta'>Pasta</option>
+            <option value='Noodles'>Noodles</option>
           </optgroup>
           <optgroup label="Personal Care">
             <option value='Soap'>Soap</option>

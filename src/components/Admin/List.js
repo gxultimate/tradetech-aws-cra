@@ -14,22 +14,24 @@ import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import Badge from '@material-ui/core/Badge';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
-
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 class DrawerList extends React.Component{
 
    componentDidMount(){
-      let{startingStore:{getOrder}}=this.props;
+      let{startingStore:{getOrder,getMessage}}=this.props;
       getOrder();
+      getMessage()
      
     }
   
     render() { 
-  let {startingStore:{listOfOrder}}=this.props;
+       let myAccount = JSON.parse(sessionStorage.getItem('userData'))
+  let {startingStore:{listOfOrder,listOfMessage}}=this.props;
 
    
 //   let {startingStore:{ getProducts}}=this.props;
 let count =listOfOrder.filter(order => order.orderStatus ==='Pending').length;
-
+let messages = listOfMessage.filter (msg => msg.recipient_ID === myAccount.distributor_ID).length
 return (
 
 
@@ -59,7 +61,7 @@ return (
          
          this.props.history.push("/Admin/CRM");
  
-  }}> CRM </ListItemText> 
+  }}> Customer Management </ListItemText> 
     </ListItem>
     <Divider />
     <ListItem button >
@@ -156,6 +158,25 @@ return (
  
   }}> Reports</ListItemText> 
     </ListItem>
+
+    <Divider />
+
+    <ListItem button >
+      <ListItemIcon onClick={()=>{
+
+         this.props.history.push("/Admin/Messaging");
+ 
+  }}> <Tooltip title={`${messages} unread message(s)`} placement="right"  arrow TransitionComponent={Zoom}> 
+   <Badge color="secondary" badgeContent={messages}> <MailOutlineIcon  style={{color:"white"}}/>
+  </Badge>
+  </Tooltip> </ListItemIcon>
+     <ListItemText onClick={()=>{
+         
+         this.props.history.push("/Admin/Messaging");
+ 
+  }}> Messaging</ListItemText> 
+    </ListItem>
+
     <Divider />
 
     <ListItem button >

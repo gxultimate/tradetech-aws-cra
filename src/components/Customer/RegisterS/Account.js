@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import {Grid,Typography,Paper,Toolbar,AppBar} from '@material-ui/core';
 import React, { Component } from 'react';
 import ThirdStep from './ThirdStep'
-import logo from './../../Logo/logowhite.png'
+
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Link, withRouter } from 'react-router-dom';
@@ -60,7 +60,7 @@ import {inject,observer} from 'mobx-react'
                 <React.Fragment>
                 <AppBar position="fixed" style={{backgroundColor:"#208769"}}>
         <Toolbar style={{textAlign:"center"}}>
-            <img src={logo} style={{height:"120px",margin:"auto"}}></img>
+            <img src='https://res.cloudinary.com/startupprojectventuresph/image/upload/v1597019714/BackgroundImg/logowhite_ulnfx4.png' style={{height:"120px",margin:"auto"}}></img>
         </Toolbar>
       </AppBar>
       <Toolbar />

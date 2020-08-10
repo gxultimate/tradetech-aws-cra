@@ -93,8 +93,8 @@ const invoiceTotal =invoiceSubtotal;
          
           </Grid>
           <Grid item xs={2} sm={2} >
-  <Typography variant='subtitle2'>DATE: {order.orderDate}</Typography>
-  <Typography variant='subtitle2'>INVOICE #: {order.orderID}</Typography>
+  <Typography variant='subtitle2'><span style={{fontWeight:'bold'}}>DATE :</span>{order.orderDate}</Typography>
+  <Typography variant='subtitle2'><span style={{fontWeight:'bold'}}>INVOICE # : </span>{order.orderID}</Typography>
   </Grid>
   </Grid>
         </Grid>
@@ -199,27 +199,27 @@ const invoiceTotal =invoiceSubtotal;
         <Grid container xs={12} sm={12}>
              <Grid item xs={12} sm={12} style={{backgroundColor:'#208769',padding:'3px',color:'white',fontWeight:'bold',paddingBottom:'5px'}}>Order Information</Grid>
              <Grid item xs={12} sm={12} >
-  <span>MOP :{order.modeOfPayment}</span>
+  <span style={{fontWeight:'bold'}}>MOP :</span>{order.modeOfPayment}
   
              </Grid>
              <Grid item xs={12} sm={12} >
-  <span>Order Status :{order.orderStatus
+  <span style={{fontWeight:'bold'}}>Order Status :</span>{order.orderStatus
 
-}</span>
+}
   
              </Grid>
              <Grid item xs={12} sm={12} >
-  <span>Payment Status: {order.paymentStatus
-}</span>
+  <span style={{fontWeight:'bold'}}>Payment Status:</span> {order.paymentStatus
+}
              </Grid>
              <Grid item xs={12} sm={12} >
-  <span>Total Amount Due :&#8369;{order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+  <span style={{fontWeight:'bold'}}>Total Amount Due :</span>&#8369;{order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
              </Grid>
              <Grid item xs={12} sm={12} >
-  <span>Total Payment :&#8369;{order.order_totalPayment.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+  <span style={{fontWeight:'bold'}}>Total Payment :</span>&#8369;{order.order_totalPayment.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
              </Grid>
              <Grid item xs={12} sm={12} >
-             <span>Date Completed :{order.orderDateCompleted}</span> 
+             <span style={{fontWeight:'bold'}}>Date Completed :</span> {order.orderDateCompleted}
              </Grid>
          
          </Grid>

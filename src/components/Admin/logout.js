@@ -25,7 +25,7 @@ export default function LogoutButton() {
 
 function  logout() {
     sessionStorage.clear();
-    window.location.href = '/';
+    window.location.href = '/AdminLogin';
 }
 
 function setting(){

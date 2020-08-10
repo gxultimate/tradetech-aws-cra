@@ -15,10 +15,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { Button } from '@material-ui/core';
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
-
-
-
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 class SBC extends React.Component {
   componentDidMount(){
     let {reportStore:{getOrder,getAccounts}}=this.props;
@@ -27,7 +36,7 @@ class SBC extends React.Component {
    
   }
   render() {
-  let {reportStore:{listOfUsers,listOfOrder}}=this.props;
+  let {reportStore:{listOfUsers,listOfOrder,account,getOrderD,order}}=this.props;
 
 function createData(usrid,name,mname,lname, nvoice, total) {
   return {usrid, name,mname,lname, nvoice, total };
@@ -36,7 +45,7 @@ function createData(usrid,name,mname,lname, nvoice, total) {
 let rows =listOfUsers.filter(user => user.account_accessType ==='customer').map( usr=>{
 
   return(createData(
-    usr.account_id,`${usr.account_fName}`,`${usr.account_mName}`,`${usr.account_lName}`,Number(listOfOrder.filter(order => order.account_ID === usr.account_ID).length),Number(listOfOrder.filter((total) => total.account_ID === usr.account_ID)
+    usr.account_ID,`${usr.account_fName}`,`${usr.account_mName}`,`${usr.account_lName}`,Number(listOfOrder.filter(order => order.account_ID === usr.account_ID).length),Number(listOfOrder.filter((total) => total.account_ID === usr.account_ID)
          .reduce((sum, record) => Number(sum) + Number(record.orderTotalAmount)
          , 0))
   ))
@@ -87,7 +96,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 
 function SBCTablesHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, onSelectAllClick, orders, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -101,17 +110,17 @@ function SBCTablesHead(props) {
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            sortDirection={orderBy === headCell.id ? orders : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? orders : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {orders === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -127,7 +136,7 @@ SBCTablesHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  orders: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
@@ -155,32 +164,59 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  } , appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+    color:'white'
   },excel:{
     backgroundColor:'#009688',
     padding:'5px',
     marginBottom:'8px',
     color:'white',
-  
+    borderRadius:'5px',
     
   }
 }));
-let mysearch = props =>{
-  return this.props.mysearch
-}
+let filter = this.props.mysearch;
+ 
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 function SBCTables() {
   const classes = useStyles();
-  const [order, setOrder] = React.useState('asc');
+  const [orders, setOrders] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const filter = mysearch();
+  const [openI, setOpenI] = React.useState(false);
+  
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && orders === 'asc';
+    setOrders(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+
+  const profile = custprof => {
+
+    // account.setProperty('account_ID',custprof)
+    // order.setProperty('account_ID',custprof)
+    
+    //    setOpenI(true);
+     
+      
+     
+     }
+     const handleClose = () => {
+  
+      setOpenI(false);
+    };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -253,33 +289,37 @@ function SBCTables() {
             <SBCTablesHead
               classes={classes}
               numSelected={selected.length}
-              order={order}
+              order={orders}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(rows, getComparator(orders, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.usrid);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
+                
                   
                   if(filter.length !== 0){
                                   if( row.name.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) || 
                                   row.mname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase()) ||
                                   row.lname.toLocaleLowerCase().startsWith(filter.toLocaleLowerCase())){
+
+
+                                 
                                 return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.usrid)}
+                      // onClick={(event) => handleClick(event, row.usrid)}
+                       onClick={()=>{profile(row.usrid)}}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.usrid}
-                      selected={isItemSelected}
+                      // selected={isItemSelected}
                     >
                      
                       <TableCell component="th" id={labelId} scope="row">
@@ -299,12 +339,13 @@ function SBCTables() {
 
                                             <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.usrid)}
+                                            // onClick={(event) => handleClick(event, row.usrid)}
+                                             onClick={()=>{profile(row.usrid)}}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
                                             key={row.usrid}
-                                            selected={isItemSelected}
+                                            // selected={isItemSelected}
                                           >
                                            
                                             <TableCell component="th" id={labelId} scope="row">
@@ -339,6 +380,9 @@ function SBCTables() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+
+
+
     </div>
   );
 }

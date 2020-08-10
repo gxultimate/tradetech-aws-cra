@@ -181,6 +181,7 @@ const useStyles = makeStyles((theme) => ({
     padding:'4px',
     marginBottom:'8px',
     color:'white',
+    borderRadius:'5px',
   
     
   }
@@ -281,6 +282,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   const handleClose = () => {
     setOpen(false);
   };
+  let print =()=>{
+    window.print()
+  }
 
 
   const handleChangePage = (event, newPage) => {
@@ -467,7 +471,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
             <Typography variant="h6" noWrap style={{fontWeight:"bold",color:"white",padding:'5px'}} className={classes.title} >
             <span style={{color:"orange"}}>TRADE</span>TECH
           </Typography>
-            <Button autoFocus startIcon={<PrintIcon/>}  onClick={handleClose} variant='contained' style={{backgroundColor:'#208769',color:'white',marginRight:'12px'}}>
+            <Button autoFocus startIcon={<PrintIcon/>} onClick={()=>print()} variant='contained' style={{backgroundColor:'#208769',color:'white',marginRight:'12px'}}>
               Print
             </Button>
             <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close" variant='contained'>

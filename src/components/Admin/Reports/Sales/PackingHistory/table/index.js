@@ -160,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
     padding:'4px',
     marginBottom:'8px',
     color:'white',
-  
+    borderRadius:'5px',
     
   }
 }));
@@ -237,7 +237,7 @@ function PackingHTable() {
                     id="test-table-xls-button"
                     className={classes.excel}
                     table="table-to-xls"
-                    filename="TotalSales"
+                    filename="PackingHistory"
                     sheet="tablexls"
                    
                     buttonText="Export to Excel"/>

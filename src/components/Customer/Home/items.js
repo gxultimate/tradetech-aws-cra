@@ -28,6 +28,7 @@ import moment from 'moment'
 import Quantity from './quantity'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -54,13 +55,7 @@ class AllProd extends Component {
 
     
 
-  componentDidMount(){
-   
-    let {customerStore:{getProducts}}=this.props;
-  
-    getProducts();
-    
-  }
+
 
 constructor(props){
   super(props)
@@ -76,6 +71,9 @@ constructor(props){
     snackbarE:"Incorrect username or password.",
     snackbaropenC:'',
     snackbarC:"Item already on cart.",
+
+
+    dialogS:false,
 
   }
  
@@ -94,13 +92,21 @@ priceChange(totalValue){
 handleClose =()=>{
   const {open}=this.state;
     this.setState({
-      open:false
+      open:false,
+      dialogS:false,
     });
   
 
 }
 
   render() { 
+    let handleClose=()=>{
+      
+      this.setState({
+      
+        dialogS:false,
+      });
+    }
     let getId = JSON.parse(sessionStorage.getItem('userData'))
     let getdist = JSON.parse(sessionStorage.getItem('distData'))
 
@@ -129,7 +135,7 @@ handleClose =()=>{
       cart.setProperty("product_Category",prod.product_Category)
       cart.setProperty("product_Price",prod.product_Price)
       cart.setProperty("product_UoM",prod.product_UoM)
-      
+      cart.setProperty("product_Variant",prod.product_Variant)
       cart.setProperty("product_Img",prod.product_Img)
       cart.setProperty("product_Barcode",prod.product_Barcode)
       cart.setProperty("product_Brand",prod.product_Brand)
@@ -164,10 +170,10 @@ setTimeout(() => {
 
     this.setState({
       open:false,
-      snackbaropen:true
+      dialogS:true
     });
   
-  }, 1000);
+  }, 500);
 
 
 
@@ -297,8 +303,36 @@ setTimeout(() => {
     return (
       
   <Grid item xs={6} sm={1}>
+
+
+<Dialog
+        open={this.state.dialogS}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        {/* cart.setProperty('distributor_ID',getdist.distributor_ID)
+      cart.setProperty("product_Name",prod.product_Name)
+      cart.setProperty("product_Category",prod.product_Category)
+      cart.setProperty("product_Price",prod.product_Price)
+      cart.setProperty("product_UoM",prod.product_UoM)
+      
+      cart.setProperty("product_Img",prod.product_Img)
+      cart.setProperty("product_Barcode",prod.product_Barcode)
+      cart.setProperty("product_Brand",prod.product_Brand)
+      cart.setProperty("product_Stocks",prod.product_Stocks) */}
+        <DialogTitle id="alert-dialog-title"><Typography variant='body2'><span style={{color:'#208769'}}><CheckCircleIcon/></span> {cart.product_Name} {cart.product_UoM} {cart.product_Variant} have been added to your cart </Typography></DialogTitle>
+    
+     
+          <Button onClick={handleClose} style={{backgroundColor:'#F7A31C',color:'white'}} variant="outlined" size='small'>
+           Close
+          </Button>
+       
+     
+      </Dialog>
+
   
-  <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
+  <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose} >   
        <Alert  severity="success">
        {this.state.snackbar}
         </Alert></Snackbar>

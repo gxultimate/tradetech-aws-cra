@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography';
 import {Grid,Paper,TextField,AppBar,Toolbar} from '@material-ui/core';
-import logo from './../../Logo/logowhite.png'
+
 import FirstStep from './FirstStep'
 import { FormControl, InputLabel, MenuItem, Select} from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -98,7 +98,7 @@ import {inject,observer} from 'mobx-react'
                 <AppBar position="fixed" style={{backgroundColor:"#208769"}}>
                {/* <Button style={{width:'100px',fontSize:''}}> <span style={{color:'white',textAlign:'right',marginRight:'8px',marginTop:'5px',textDecoration:'underlined'}}>Login account?</span></Button> */}
         <Toolbar style={{textAlign:"center"}}>
-            <img src={logo} style={{height:"120px",margin:"auto"}}></img>
+            <img src='https://res.cloudinary.com/startupprojectventuresph/image/upload/v1597019714/BackgroundImg/logowhite_ulnfx4.png' style={{height:"120px",margin:"auto"}}></img>
         </Toolbar>
       </AppBar>
       <Toolbar />

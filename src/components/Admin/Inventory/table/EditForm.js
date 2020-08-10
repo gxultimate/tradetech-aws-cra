@@ -379,7 +379,21 @@ class EditForm extends Component{
 
 
       <Grid item  xs={6} style={{margin:"5px"}}>
-      <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
+
+      <TextField 
+      
+      id="outlined-basic" 
+      style={{width:"100%"}}
+      label="Variant" 
+      variant="outlined" 
+      defaultValue={product.product_Variant}
+  
+      
+ 
+      onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
+      />
+
+      {/* <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
         <InputLabel htmlFor="grouped-native-select">Variant</InputLabel>
         <Select native  defaultValue={product.product_Variant} id="grouped-native-select" label="Variant"
         onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
@@ -421,7 +435,7 @@ class EditForm extends Component{
           </optgroup>
           
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       </Grid>
  

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {inject,observer} from 'mobx-react'
 import {Bar} from 'react-chartjs-2'
-export class StatBar extends Component {
+ class StatBar extends Component {
     render() {
 
 

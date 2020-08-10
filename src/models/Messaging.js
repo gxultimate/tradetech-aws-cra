@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { decorate, observable } from "mobx";
 import Model from "./Model";
+import { observer } from "mobx-react";
 
 class Message extends Model {
   constructor(props) {
@@ -11,8 +12,10 @@ class Message extends Model {
         message_Body :"",
         sender_Name:"",
         recipient_Name:"",
-        distributor_ID:"",
-        account_ID:"",
+        sender_ID:"",
+        recipient_ID:"",
+        message_ID :"",
+        message_Status:"",
        
 
     };
@@ -29,8 +32,10 @@ decorate(Message, {
         message_Body :observable,
         sender_Name:observable,
         recipient_Name:observable,
-        distributor_ID:observable,
-        account_ID:observable,
+        sender_ID:observable,
+        recipient_ID:observable,
+        message_ID :observable,
+        message_Status:observable,
         
 
 });

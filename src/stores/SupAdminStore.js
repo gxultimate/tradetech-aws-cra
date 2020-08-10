@@ -1,31 +1,12 @@
-import { action, observable, decorate, computed } from "mobx";
-import Distributor from "../models/Distributor";
+import { decorate } from 'mobx';
 class SupAdminStore {
+	api = undefined;
 
-
-  api = undefined
-  
-
-  constructor(api) {
-    this.api = api
-  }
-
-
-
-
-
-
-
-
+	constructor(api) {
+		this.api = api;
+	}
 }
 
-
-decorate(SupAdminStore, {
- 
-
-  
-
-  
-});
+decorate(SupAdminStore, {});
 
 export default SupAdminStore;

@@ -11,6 +11,12 @@ class CHeader extends React.Component {
   state = {  }
   render() { 
 
+    let mymsg=()=>{
+      setTimeout(()=>{
+     this.props.history.push("/Customer/Messages");
+      },500)
+    }
+
     let mycart=()=>{
       setTimeout(()=>{
      this.props.history.push("/Customer/MyCart");
@@ -71,7 +77,7 @@ return(
 
       
 <div style={{textAlign:"center",marginTop:"-2px"}}>
-<IconButton style={{backgroundColor:"#1E7A60",marginRight:"12px"}}>
+<IconButton onClick={mymsg} style={{backgroundColor:"#1E7A60",marginRight:"12px"}}>
   <MailOutlineIcon style={{color:"white"}}/>
 </IconButton>
 

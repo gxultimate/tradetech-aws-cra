@@ -170,8 +170,8 @@ export default function FullWidthTabs() {
 
    <Grid item lg={12} sm={12} xs={12}>
    <Paper className={classes.paper}>
-   <Grid container direction="row" lg={12} sm={12} xs={12}>
-  <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Transaction as of &nbsp; 
+   <Grid container direction="row" spacing={2} sm={12} xs={12}>
+  <Grid item  sm={9} xs={9} > <Typography variant="subtitle2"> Transaction as of &nbsp; 
 
   <MuiPickersUtilsProvider utils={DateFnsUtils} >
      
@@ -251,8 +251,8 @@ export default function FullWidthTabs() {
  <Grid container lg={12} sm={12} xs={12} style={{marginTop:"10px"}} >
  <Grid item lg={12} sm={12} xs={12} >
 <Paper className={classes.paper}>
-  <Grid container lg={12} sm={12} xs={12}>
-  <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Delivery Collection as of &nbsp; 
+  <Grid container spacing={2} lg={12} sm={12} xs={12}>
+  <Grid item sm={9} xs={9} style={{textAlign:"left"}}> <Typography variant="subtitle2"> Delivery Collection as of &nbsp; 
 
 <MuiPickersUtilsProvider utils={DateFnsUtils} >
    
@@ -336,8 +336,8 @@ export default function FullWidthTabs() {
 
    <Grid item lg={12} sm={12} xs={12} style={{width:'100%'}}>
    <Paper className={classes.paper}>
-   <Grid container direction="row" lg={12} sm={12} xs={12}>
-   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Sales as of &nbsp; 
+   <Grid container direction="row" spacing={2} lg={12} sm={12} xs={12}>
+   <Grid item  sm={9} xs={9} > <Typography variant="subtitle2"> Sales as of &nbsp; 
 
   <MuiPickersUtilsProvider utils={DateFnsUtils} >
      
@@ -422,8 +422,8 @@ export default function FullWidthTabs() {
 
    <Grid item lg={12} sm={12} xs={12} style={{width:'100%'}}>
    <Paper className={classes.paper}>
-   <Grid container direction="row"lg={12} sm={12} xs={12}>
-   <Grid item lg={8} sm={8} xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Invoice and Receipt as of &nbsp; 
+   <Grid container direction="row" spacing={2} lg={12} sm={12} xs={12}>
+   <Grid item  sm={9} xs={9} > <Typography variant="subtitle2"> Invoice and Receipt as of &nbsp; 
 
 <MuiPickersUtilsProvider utils={DateFnsUtils} >
    

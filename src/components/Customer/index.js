@@ -17,7 +17,7 @@ import MyPurchases from './MyPurchases';
 import Register from './Register';
 import UserForm from './RegisterS/UserForm.js';
 import CustomizedSteppers from './Stepper';
-
+import Messaging from './Messaging'
  class CustRoute extends Component {
 
   handleChange = event => {
@@ -49,7 +49,7 @@ import CustomizedSteppers from './Stepper';
         <Route path="/Customer/ItemInfo" render={()=><ItemInfo/>}/>
        <Route path="/Customer/Stepper" render={()=><CustomizedSteppers/>}/>
        <Route path="/Customer/RegisterS" render={()=><UserForm/>}/>
-   
+       <Route path="/Customer/Messages" render={()=><Messaging/>}/>
       <Route  path="/Customer/MyCart" render={()=><MyCart/>}/>
       <Route path="/Customer/CheckOut" render={()=><CheckOutGrid/>}/>
       <Route path="/Customer/MyAccount" render={()=><MyAccountGrid/>}/>

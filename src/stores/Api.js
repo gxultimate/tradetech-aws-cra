@@ -1,5 +1,5 @@
 import axios from "axios";
-import { action, observable, decorate, computed } from "mobx";
+import { action, decorate } from "mobx";
 
 // import multer from 'multer'
 
@@ -287,7 +287,28 @@ class Api {
 
   }
 
+  addmessage = (data)=>{
+    return this.api.post("message",{
+      mode: 'cors',
+      data:data,
+
+
+    })
+
+  }
+  getmessage = () =>{
+    return this.api.get(`message/`)
+
+  }
   
+  addstockout = (data ,product_ID)=>{
+   
+    return this.api.post(`stockout/${product_ID}`,{
+    mode:'cors',
+    data:data,
+  })
+  }
+
 }
 
 
@@ -334,6 +355,8 @@ decorate(Api, {
   addmembership:action,
   getmembership:action,
   gettokenR:action,
+  addmessage:action,
+  getmessage:action
 
 
 });

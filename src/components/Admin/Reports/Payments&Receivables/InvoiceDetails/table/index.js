@@ -169,7 +169,7 @@ const useStyles = makeStyles((theme) => ({
     padding:'4px',
     marginBottom:'8px',
     color:'white',
-  
+    borderRadius:'5px',
     
   }
 }));

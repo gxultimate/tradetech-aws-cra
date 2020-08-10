@@ -14,22 +14,22 @@ const tutorialSteps = [
   {
    
     imgPath:
-      ads1,
+    'https://res.cloudinary.com/startupprojectventuresph/image/upload/v1596783830/CutomerAds/ads1_b2dndm.jpg',
   },
   {
  
     imgPath:
-    ads2,
+    'https://res.cloudinary.com/startupprojectventuresph/image/upload/v1596783843/CutomerAds/ads2_wx0gsm.jpg',
   },
   {
   
     imgPath:
-    ads3,
+    'https://res.cloudinary.com/startupprojectventuresph/image/upload/v1596783844/CutomerAds/ads3_pu13vw.jpg',
   },
   {
  
     imgPath:
-    ads4,
+    'https://res.cloudinary.com/startupprojectventuresph/image/upload/v1596783844/CutomerAds/ads4_lzy1dm.jpg',
   },
   // {
   

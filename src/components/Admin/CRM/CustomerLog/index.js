@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} xs={12} sm={12}>
+      <Grid container spacing={2} xs={12} sm={12}>
         <Grid item xs={12} sm={12} style={{textAlign:"right"}} >
     <Grid container  xs={12} sm={12} direction="row" justify="flex-end" alignItems="center">
     <Grid item xs={4} sm={4} style={{textAlign:"right"}} >

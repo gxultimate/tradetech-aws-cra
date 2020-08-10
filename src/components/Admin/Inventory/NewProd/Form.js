@@ -494,7 +494,19 @@ componentWillUnmount(){
 
 
       <Grid item  xs={6} style={{margin:"5px"}}>
-      <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
+
+      <TextField 
+      id="outlined-basic" 
+      style={{width:"100%"}}
+      label="Variant" 
+      variant="outlined" 
+  
+      
+ 
+      onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
+      />
+
+      {/* <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
         <InputLabel htmlFor="grouped-native-select">Variant</InputLabel>
         <Select native defaultValue="" id="grouped-native-select"
         label="Variant"
@@ -537,7 +549,7 @@ componentWillUnmount(){
           </optgroup>
           
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       </Grid>
  

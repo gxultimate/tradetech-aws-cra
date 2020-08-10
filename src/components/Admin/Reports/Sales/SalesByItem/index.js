@@ -74,7 +74,7 @@ function CenteredGrid() {
         <Grid item xs={12} sm={12}>
         
             <Grid container xs={12} sm={12}>
-            <Grid item sm={12} style={{marginBottom:"16px"}}>
+            <Grid item sm={12} >
    <Paper className={classes.paper}>
    <Grid container direction="row" sm={12}>
    <Grid item xs={9} style={{textAlign:'left'}}><Typography variant='h6'>Sales by item</Typography>  </Grid>

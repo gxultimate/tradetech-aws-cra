@@ -5,21 +5,23 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import logo from './../../Logo/logowhite.png'
+
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import Badge from '@material-ui/core/Badge';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Tooltip from '@material-ui/core/Tooltip';
 class DrawerList extends React.Component{
 
        componentDidMount(){
-       let{managerStore:{getOrder}}=this.props;
+       let{managerStore:{getOrder,getMessage}}=this.props;
        getOrder();
+       getMessage()
        }
       
 render(){
        let getId = JSON.parse(sessionStorage.getItem('userData'))
-       let{managerStore:{listOfOrder}}=this.props;
+       let{managerStore:{listOfOrder,listOfMessage}}=this.props;
        let orders = listOfOrder.filter((order) => {
   
   
@@ -39,6 +41,7 @@ render(){
             })
 
             let count =orders.length
+            let messages = listOfMessage.filter (msg => msg.recipient_ID === getId.account_ID).length
        function  logout() {
               sessionStorage.clear();
               window.location.href = '/';
@@ -51,7 +54,7 @@ return (
 
     <List >
            <ListItem style={{textAlign:"center"}} > 
-           <img src={logo} style={{height:"60px",margin:"auto"}} /> 
+           <img src='https://res.cloudinary.com/startupprojectventuresph/image/upload/v1597019714/BackgroundImg/logowhite_ulnfx4.png' style={{height:"60px",margin:"auto"}} /> 
      
  
     </ListItem>
@@ -66,7 +69,7 @@ return (
 
          this.props.history.push("/Manager");
  
-  }}> <Tooltip title={`${count} order(s) assigned`} placement="right"><Badge color="secondary" badgeContent={count}><ListAltIcon/></Badge></Tooltip></ListItemIcon> 
+  }}> <Tooltip title={`${count} unassigned order(s)`} placement="right" arrow><Badge color="secondary" badgeContent={count}><ListAltIcon/></Badge></Tooltip></ListItemIcon> 
    
      <ListItemText style={{color:"white"}} onClick={()=>{
          
@@ -92,6 +95,23 @@ return (
     }}> My Staff</ListItemText> 
     
       </ListItem>
+
+      <Divider  />
+
+
+    <ListItem button  style={{color:"white"}}>
+      <ListItemIcon style={{color:"white"}} onClick={()=>{
+      
+         this.props.history.push("/Manager/Messaging");
+ 
+  }}><Tooltip title={`${messages} unread message(s)`} placement="right" arrow><Badge color="secondary" badgeContent={messages}><MailOutlineIcon/></Badge></Tooltip></ListItemIcon>
+     <ListItemText onClick={()=>{
+         
+         this.props.history.push("/Manager/Messaging");
+ 
+  }}> Messaging</ListItemText> 
+    </ListItem>
+
       <Divider  />
 
 

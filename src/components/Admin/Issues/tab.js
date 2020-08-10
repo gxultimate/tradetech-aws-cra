@@ -118,10 +118,10 @@ export default function FullWidthTabs() {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
         <Grid container spacing={3} lg={12} sm={12} xs={12}style={{width:'100%'}}>
-      <Grid item lg={12} sm={12} xs={12} style={{width:'100%',marginBottom:"16px"}}>
+      <Grid item lg={12} sm={12} xs={12} style={{width:'100%',marginBottom:"12px"}}>
              <Paper className={classes.paper}>
-   <Grid container direction="row" sm={12}>
-  <Grid item xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Issues as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
+   <Grid container direction="row" spacing={2} sm={12}>
+  <Grid item xs={9} > <Typography variant="subtitle2"> Issues as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
   <Grid item xs={3} >     
      
   <Paper component="form" className={classes.search} >
@@ -151,10 +151,10 @@ export default function FullWidthTabs() {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
         <Grid container spacing={3}  lg={12} sm={12} xs={12} style={{width:'100%'}}>
-      <Grid item  lg={12} sm={12} xs={12} style={{width:'100%',marginBottom:"16px"}}>
+      <Grid item  lg={12} sm={12} xs={12} style={{width:'100%',marginBottom:"12px"}}>
              <Paper className={classes.paper}>
-   <Grid container direction="row"  lg={12} sm={12} xs={12}>
-  <Grid item xs={8} style={{textAlign:"left",margin:"8px"}}> <Typography variant="subtitle2"> Issues as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
+   <Grid container direction="row" spacing={2}  lg={12} sm={12} xs={12}>
+  <Grid item xs={9} > <Typography variant="subtitle2"> Issues as of &nbsp; <MaterialUIPickers/>&nbsp; to &nbsp;  <MaterialUIPickers/></Typography> </Grid>
   <Grid item xs={3} >     
      
   <Paper component="form" className={classes.search} >

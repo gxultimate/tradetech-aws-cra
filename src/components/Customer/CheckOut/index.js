@@ -29,7 +29,7 @@ class CheckOut extends React.Component {
       getProducts()
     }
     render() { 
-let {customerStore:{listOfUsers,addOrder,order,listOfCart,addNotif,notif,addStockC,stock,product,editProduct,listofProducts}}=this.props;
+let {customerStore:{listOfUsers,addOrder,order,listOfCart,addNotif,notif,addStockC,stock,product,editProduct,listofProducts,addStockOut}}=this.props;
 let dist = JSON.parse(sessionStorage.getItem('distData'))
 
 
@@ -154,7 +154,8 @@ function Alert(props) {
     return item.product_ID
     
   })
-
+  let numItem = cartFiler.length
+console.log(numItem,'itemID')
 
   let placeOrder = ()=>{
 
@@ -185,10 +186,8 @@ function Alert(props) {
     notif.setProperty('notif_date',moment().format('MMM/DD/YYYY,h:mm:ssa'))
     notif.setProperty('notif_status','unread')
     
-  //   stock.setProperty('stock_ID',`${ Math.floor(1000 + Math.random() * 9000)}` )
-  //   stock.setProperty("product_ID", getitemID)
-  //   stock.setProperty("stock_Detail", 'stockOut')
-  //   stock.setProperty("stock_Out", getq)
+
+
 
   // product.setProperty('product_ID',getitemID)
   // product.setProperty('product_Stocks',getq)
@@ -196,9 +195,45 @@ function Alert(props) {
       setOpen(false);
       setOpens(true);
     }else{
+      // getitemID.forEach(function (value,index) {
+      //        console.log(value,index,'vx')
+        product.setProperty("product_ID", getitemID)
+        // product.setProperty("product_Stocks", products.product_Stocks)
+        // product.setProperty("product_Name", products.product_Name)
+        // product.setProperty("product_Category", products.product_Category)
+        // product.setProperty("product_UoM", products.product_UoM)
+        // // product.setProperty("product_Stocks", products.product_Stocks)
+        // product.setProperty("product_Brand", products.product_Brand)
+        
+        // product.setProperty("product_Barcode",products.product_Barcode)
+
+         stock.setProperty('stock_ID',`${ Math.floor(1000 + Math.random() * 9000)}` )
+        stock.setProperty("product_ID", getitemID)
+        stock.setProperty('product_Name',getitem[0])
+        stock.setProperty("stock_Detail", 'stockOut')
+        stock.setProperty("stock_Out", Number(getq[0]))
+        stock.setProperty('distributor_ID',getd[0])
+        stock.setProperty('product_Category','Chocolate drink')
+        stock.setProperty('product_Brand','Oishi')
+        stock.setProperty('product_UoM','100g')
+      
+  
+      
+ 
+
+    
+
+        addStockOut();
+      // });
+    
+       
+      
+    
+  
+      
 addNotif();
     addOrder();
-    // addStockC();
+   
     // editProduct();
      setOpen(true);
     }

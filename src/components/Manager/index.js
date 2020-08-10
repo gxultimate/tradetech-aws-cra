@@ -17,7 +17,7 @@ import MyStaff from './MyStaff'
 import MyProfile from './MyProfile'
 import OrderHistory from './OrderHistory'
 import MyOrder from './MyOrder'
-
+import Messaging from './Messaging'
 
 
 class Managerpage extends React.Component {
@@ -160,6 +160,7 @@ function StaffGrid(props) {
      <Switch>
           <Route exact path="/Manager" render={()=><MyOrder/>} />
           <Route  path="/Manager/MyProfile" render={()=><MyProfile/>} />
+          <Route  path="/Manager/Messaging" render={()=><Messaging/>} />
           <Route  path="/Manager/MyStaff" render={()=><MyStaff/>} />
           <Route  path="/Manager/OrderHistory" render={()=><OrderHistory/>} />
      </Switch>

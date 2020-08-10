@@ -2,10 +2,12 @@ import React from 'react';
 import {inject,observer} from 'mobx-react'
 import { Paper,  Grid, TextField, Button, FormControlLabel, Checkbox,CssBaseline } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
-import logogreen from './../../Logo/logogreen.png'
-import img from './loginBackground.jpg'
+
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './../theme'
+import moment from 'moment'
 class Login extends React.Component {
 
 
@@ -81,7 +83,7 @@ class Login extends React.Component {
 
 
     login = () => {
-
+     
       const { pass,user, rememberMe } = this.state;
   localStorage.setItem('rememberMe', rememberMe);
   localStorage.setItem('user', rememberMe ? user : '');
@@ -91,14 +93,47 @@ class Login extends React.Component {
         let {startingStore:{loginAccount}} = this.props;
         loginAccount().then(res => {
 
+          let date = new Date();
+          function getHash (input)  {
+            let hash = 0, len = input.length;
+            for (let i = 0; i < len; i++) {
+              hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+              hash |= 0; // to 32bit integer
+            }
+          
+                    
+          
+            return hash;
+          }
+
+          
+          let {startingStore:{cLogs,addcLogs}} = this.props;
+
+
        
           if (res === 1){
+            let getId= JSON.parse(sessionStorage.getItem('userData'))
+          cLogs.setProperty("log_ID",`${date.getFullYear()}-${getHash(date.getDay())}-${ Math.floor(1000 + Math.random() * 9000)}`)
+          cLogs.setProperty("account_ID",getId.account_ID)
+
+          cLogs.setProperty("log_activity","Account Login")
+          cLogs.setProperty("log_Date",moment().format('MMM/DD/YYYY,h:mm:ssa'))
+
+          addcLogs();
             setTimeout(() => {
            
             this.props.history.push("/SuperAdmin")
           }, 500);
           }
           else if (res === 2){
+            let getId= JSON.parse(sessionStorage.getItem('userData'))
+          cLogs.setProperty("log_ID",`${date.getFullYear()}-${getHash(date.getDay())}-${ Math.floor(1000 + Math.random() * 9000)}`)
+        
+          cLogs.setProperty("distributor_ID",getId.distributor_ID)
+          cLogs.setProperty("log_activity","Account Login")
+          cLogs.setProperty("log_Date",moment().format('MMM/DD/YYYY,h:mm:ssa'))
+
+          addcLogs();
 
          setTimeout(()  =>{
 
@@ -108,6 +143,14 @@ class Login extends React.Component {
           }
 
           else if (res === 3){
+            let getId= JSON.parse(sessionStorage.getItem('userData'))
+          cLogs.setProperty("log_ID",`${date.getFullYear()}-${getHash(date.getDay())}-${ Math.floor(1000 + Math.random() * 9000)}`)
+          cLogs.setProperty("account_ID",getId.account_ID)
+          cLogs.setProperty("distributor_ID",getId.distributor_ID)
+          cLogs.setProperty("log_activity","Account Login")
+          cLogs.setProperty("log_Date",moment().format('MMM/DD/YYYY,h:mm:ssa'))
+
+          addcLogs();
 
             setTimeout(()  =>{
    
@@ -116,7 +159,16 @@ class Login extends React.Component {
             },500)
              }
              else if (res === 4){
+              let getId= JSON.parse(sessionStorage.getItem('userData'))
+          cLogs.setProperty("log_ID",`${date.getFullYear()}-${getHash(date.getDay())}-${ Math.floor(1000 + Math.random() * 9000)}`)
+          cLogs.setProperty("account_ID",getId.account_ID)
+          cLogs.setProperty("distributor_ID",getId.distributor_ID)
+          cLogs.setProperty("log_activity","Account Login")
+          cLogs.setProperty("log_Date",moment().format('MMM/DD/YYYY,h:mm:ssa'))
 
+          addcLogs();
+          
+          
               setTimeout(()  =>{
      
                    this.props.history.push("/Staff")
@@ -124,6 +176,14 @@ class Login extends React.Component {
               },500)
                }
                else if (res === 5){
+                let getId= JSON.parse(sessionStorage.getItem('userData'))
+          cLogs.setProperty("log_ID",`${date.getFullYear()}-${getHash(date.getDay())}-${ Math.floor(1000 + Math.random() * 9000)}`)
+          cLogs.setProperty("account_ID",getId.account_ID)
+          cLogs.setProperty("distributor_ID",getId.distributor_ID)
+          cLogs.setProperty("log_activity","Account Login")
+          cLogs.setProperty("log_Date",moment().format('MMM/DD/YYYY,h:mm:ssa'))
+
+          addcLogs();
 
                 setTimeout(()  =>{
        
@@ -132,10 +192,12 @@ class Login extends React.Component {
                 },500)
                  }
                  else if(res===6){
+                   
+      
                   this.setState({ snackbaropenD: true });
                   setTimeout(() => {
                 
-                    this.props.history.push("/")
+                    this.props.history.push("/AdminLogin")
                    
                   }, 500);
                  }
@@ -145,7 +207,7 @@ class Login extends React.Component {
             this.setState({ snackbaropen: true });
             setTimeout(() => {
           
-              this.props.history.push("/")
+              this.props.history.push("/AdminLogin")
              
             }, 500);
          
@@ -166,8 +228,8 @@ class Login extends React.Component {
       
 
 
-<div style={{backgroundImage:`url(${img})`,height:'100vh',backgroundSize:"cover",backgroundAttachment:"fixed",backgroundPosition:"center",backgroundRepeat:"no-repeat",textAlign:"center"}}>
-
+<div style={{backgroundImage:`url('https://res.cloudinary.com/startupprojectventuresph/image/upload/v1596784148/BackgroundImg/loginBackground_ndyvsi.jpg')`,height:'100vh',backgroundSize:"cover",backgroundAttachment:"fixed",backgroundPosition:"center",backgroundRepeat:"no-repeat",textAlign:"center"}}>
+<ThemeProvider theme={theme}>
 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
        <Alert  severity="error">
        {this.state.snackbarerror }
@@ -187,7 +249,7 @@ class Login extends React.Component {
           <Grid item sm={12} style={{marginTop:"10px"}}>
 
     
-          <img src={logogreen} style={{height:"160px"}}></img>
+          <img src='https://res.cloudinary.com/startupprojectventuresph/image/upload/v1597019655/BackgroundImg/logogreen_uqfjwy.png' style={{height:"160px"}}></img>
       
 
           </Grid>
@@ -235,7 +297,7 @@ class Login extends React.Component {
                         </Grid>
                         </Paper>
                         </Grid>
-            
+                        </ThemeProvider>
                         </div>
 </div>
         );

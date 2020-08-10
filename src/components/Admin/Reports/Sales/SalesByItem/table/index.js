@@ -167,6 +167,7 @@ const useStyles = makeStyles((theme) => ({
     padding:'5px',
     marginBottom:'8px',
     color:'white',
+    borderRadius:'5px',
   }
 }));
 let filter =this.props.mysearch;

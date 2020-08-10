@@ -13,8 +13,8 @@ class StaffIndex extends React.Component {
   
 
   componentDidMount(){
-    let {employeeStore:{getAccounts}}=this.props;
-
+    let {employeeStore:{getAccounts,getcLogs}}=this.props;
+getcLogs()
     getAccounts();
   }
   render() { 
