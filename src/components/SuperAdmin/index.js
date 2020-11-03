@@ -137,8 +137,8 @@ const useStyles = makeStyles(theme => ({
             <span style={{color:"orange"}}>TRADE</span>TECH
           </Typography>
      
-          <div style={{position:"absolute",right:0}}
-                 >
+          <div style={{position:"absolute",right:0}}>
+            
           <Grid >
            
              <IconButton style={{backgroundColor:"#1E7A60",marginRight:"10px"}}>

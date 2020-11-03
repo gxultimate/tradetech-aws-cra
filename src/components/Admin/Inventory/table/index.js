@@ -50,7 +50,7 @@ class InventoryTable extends React.Component{
   render(){
     
     let getId = JSON.parse(sessionStorage.getItem('userData'))
-    let {inventoryStore:{product,editProduct,getStock ,listofProducts,stock,productStocks,addStock,getProducts }}=this.props;
+    let {inventoryStore:{product,editProduct,getStock ,listofProducts,stock,productStocks,addStock,getProducts,addPriceHistory }}=this.props;
 
 
 
@@ -268,6 +268,7 @@ let filter =this.props.mysearch;
         const handleOk = () => {
        
         editProduct();
+        addPriceHistory()
     
     };
     const handleOkReplenish = () => {
@@ -493,7 +494,7 @@ let filter =this.props.mysearch;
           <DialogTitle id="responsive-dialog-title" style={{backgroundColor:"#208769"}}><Typography variant="h5" style={{color:"white"}}>Edit Product Information</Typography></DialogTitle>
           <Divider/>
           <DialogContent >
-          <EditForm 
+          <EditForm price={product.product_Price}
           />
           </DialogContent>
           <DialogActions>

@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 let {startingStore:{listOfUsers}}=this.props;
-function createData(id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password){
-  return{id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password}
+function createData(id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password,tCondition){
+  return{id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password,tCondition}
 
 }
 let myID = JSON.parse(sessionStorage.getItem('userData'));
@@ -47,7 +47,7 @@ return(createData(
   account.account_ID,account.account_fName,account.account_mName,account.account_lName,
   account.account_suffix,account.account_address,account.account_emailAddress,
   account.account_contactNo,account.account_birthday,account.account_username,
-  account.account_password
+  account.account_password,account.termsCondition
 
 
 ));
@@ -216,6 +216,16 @@ function Alert(props) {
           />
             </Grid>
           </Grid>
+          </Grid>
+          <Typography variant="h6" style={{marginBottom:"18px"}}>Terms and Condition </Typography>
+          <Grid item sm={12} xs={12}>    
+          <TextField rows={12} variant='outlined' fullWidth='true' multiline
+ 
+  
+  defaultValue={row.tCondition} 
+  >
+
+          </TextField>
           </Grid>
           <Grid item sm={12} xs={12}  style={{marginTop:'18px'}}>
           <Button variant="contained" startIcon={<UpdateIcon/>} style={{backgroundColor:"#208769",color:"white"}} onClick={()=>{update(row)}}>

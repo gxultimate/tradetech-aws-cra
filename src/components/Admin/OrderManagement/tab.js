@@ -13,6 +13,7 @@ import ProcessPage from './Processing/index.js'
 import CompletedPage from './Completed'
 import SummaryGrid from './Summary'
 import FailedGrid from './Failed'
+import Delivered from './Delivered'
 import { Grid } from '@material-ui/core';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,9 +83,9 @@ export default function OrderTab() {
           <Tab label="Summary" {...a11yProps(0)} />
           <Tab label="Processing" {...a11yProps(1)} />
         
-       
-          <Tab label="Completed" {...a11yProps(2)} />
-          <Tab label="Failed" {...a11yProps(3)} />
+          <Tab label="Delivered" {...a11yProps(2)} />
+          <Tab label="Completed" {...a11yProps(3)} />
+          <Tab label="Failed" {...a11yProps(4)} />
         
         </Tabs>
       </AppBar>
@@ -104,17 +105,26 @@ export default function OrderTab() {
          <ProcessPage/>
          </Grid>
         </TabPanel>
+
         <TabPanel value={value} index={2} dir={theme.direction}>
+        <Grid item sm={12} xs={12}>
+          <Delivered/>
+          </Grid>
+        </TabPanel>
+
+        <TabPanel value={value} index={3} dir={theme.direction}>
         <Grid item sm={12} xs={12}>
           <CompletedPage/>
           </Grid>
         </TabPanel>
  
-        <TabPanel value={value} index={3} dir={theme.direction}>
+        <TabPanel value={value} index={4} dir={theme.direction}>
         <Grid item sm={12} xs={12}>
           <FailedGrid/>
           </Grid>
         </TabPanel>
+
+     
       
       </SwipeableViews>
       </Grid>

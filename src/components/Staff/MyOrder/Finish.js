@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button';
+  import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -22,7 +22,7 @@ class Done extends React.Component {
       
     }
   }
-  render() { 
+  render() {    
     let acID =JSON.parse(sessionStorage.getItem('userData'))
     let date = new Date();
     function getHash(input){
@@ -59,7 +59,7 @@ class Done extends React.Component {
     },500)
       }else {
         order.setProperty("orderID",this.props.orderid)
-        order.setProperty("orderStatus",'Completed')
+      
        
         order.setProperty("orderDateCompleted",moment().format('MMM/DD/YYYY,h:mm:ssa'))
         
@@ -159,17 +159,18 @@ function Finish() {
             
             margin="dense"
             id="payment"
-            defaultValue={tAmount}
+            autoComplete='off'
+            // defaultValue={tAmount}
             // inputRef={ref => { this.tAmount = ref; }}
-            inputRef={ref => { order.setProperty("order_totalPayment", tAmount) 
-            setbal(Number(tAmount) - Number(tAmount));
-            order.setProperty("orderCustomerBalance",Number(tAmount) - Number(tAmount))
-            if (Number(tAmount) - Number(tAmount) === 0){
-              order.setProperty("paymentStatus",'Fully paid')
-              }else{
-                order.setProperty("paymentStatus",'Partially paid')
-              }
-          }}
+          //   inputRef={ref => { order.setProperty("order_totalPayment", tAmount) 
+          //   setbal(Number(tAmount) - Number(tAmount));
+          //   order.setProperty("orderCustomerBalance",Number(tAmount) - Number(tAmount))
+          //   if (Number(tAmount) - Number(tAmount) === 0){
+          //     order.setProperty("paymentStatus",'Fully paid')
+          //     }else{
+          //       order.setProperty("paymentStatus",'Partially paid')
+          //     }
+          // }}
             // value={tAmount}
             label="Enter Payment"
            
@@ -179,8 +180,10 @@ function Finish() {
                     order.setProperty("orderCustomerBalance",Number(tAmount) - Number(order_totalPayment.target.value))
                     if (Number(tAmount) - Number(order_totalPayment.target.value) === 0){
                     order.setProperty("paymentStatus",'Fully paid')
+                    order.setProperty("orderStatus",'Completed')
                     }else{
                       order.setProperty("paymentStatus",'Partially paid')
+                      order.setProperty("orderStatus",'Delivered')
                     }
           }}
           />
@@ -191,7 +194,7 @@ function Finish() {
             id="payment"
             defaultValue={Number(bal)}
             value={Number(bal)}
-            label="balance"
+            label="Balance"
             type="number"
           InputLabelProps={{
             shrink: true,

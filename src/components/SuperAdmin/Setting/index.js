@@ -51,6 +51,7 @@ Setting
        <Grid item sm={12} xs={12} >
          <MyProfile/>
          </Grid>
+         
         </Grid>
         </Grid>
         </Grid>

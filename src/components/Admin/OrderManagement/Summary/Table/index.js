@@ -25,7 +25,13 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import InfoTable from './../../Info';
+import EditOrder from './../EditOrder';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import EditIcon from '@material-ui/icons/Edit';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 class SummaryTBL extends React.Component {
 componentDidMount(){
   let {orderStore:{getOrder,getAccounts,getDistributors}}=this.props;
@@ -35,23 +41,13 @@ componentDidMount(){
 }
 
   render() { 
-let {orderStore:{listOfOrder,listOfUsers,order}}=this.props;
+let {orderStore:{listOfOrder,listOfUsers,order,account,loginAccount}}=this.props;
 
-function createData(orderInfo,ref, date, cust, packer, dist, orderstat, paymethod, paystat, bal) {
-  return { orderInfo,ref, date, cust, packer, dist, orderstat, paymethod, paystat, bal };
+function createData(orderInfo,ref, date, cust, packer, dist, orderstat, paymethod, paystat, bal, edit) {
+  return { orderInfo,ref, date, cust, packer, dist, orderstat, paymethod, paystat, bal, edit };
 }
 
-let rows =listOfOrder.map(order =>{
-  return(createData(
 
-
-order,order.orderID,order.orderDate,<span> {listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span> {listOfUsers.filter(accs => accs.account_ID === order.packer_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span> {listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,order.orderStatus,
-order.modeOfPayment,order.paymentStatus, <span>{order.orderCustomerBalance.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
-
-
-  ))
-
-})
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -89,6 +85,7 @@ const headCells = [
   { id: 'paymethod', numeric: true, disablePadding: false, label: 'Payment Method' },
   { id: 'paystat', numeric: true, disablePadding: false, label: 'Payment Status' },
   { id: 'bal', numeric: true, disablePadding: false, label: 'Balance' },
+  { id: 'edit', numeric: true, disablePadding: false, label: 'Action' },
 ];
 
 
@@ -203,6 +200,87 @@ function SummaryTable() {
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+  const [editOpen, setEditOpen] = React.useState(false);
+
+  const handleClickOpen = (orderinfo) => {
+    order.setProperty('orderItems',orderinfo.orderItems)
+    order.setProperty('orderPrice',orderinfo.orderPrice)
+    order.setProperty('order_Quantity',orderinfo.order_Quantity)
+    order.setProperty('orderID',orderinfo.orderID)
+    order.setProperty('modeOfPayment',orderinfo.modeOfPayment)
+    order.setProperty('orderDate',orderinfo.orderDate)
+    order.setProperty('orderStatus',orderinfo.orderStatus)
+    order.setProperty('paymentStatus',orderinfo.paymentStatus)
+    order.setProperty('orderTotalAmount',orderinfo.orderTotalAmount)
+    order.setProperty('account_ID',orderinfo.account_ID)
+    order.setProperty('distributor_ID',orderinfo.distributor_ID)
+    order.setProperty('packer_ID',orderinfo.packer_ID)
+    order.setProperty('dispatcher_ID',orderinfo.dispatcher_ID)
+    order.setProperty('order_addedInfo',orderinfo.order_addedInfo)
+    order.setProperty('order_totalPayment',orderinfo.order_totalPayment)
+    order.setProperty('orderReturnDate  ',orderinfo.orderReturnDate)
+    order.setProperty('orderDateCompleted',orderinfo.orderDateCompleted)
+    order.setProperty('orderCustomerBalance',orderinfo.orderCustomerBalance)
+    order.setProperty('orderDueDate',orderinfo.orderDueDate)
+    setOpen(true);
+  };
+
+  
+  const handleClickOpen2 = (orderinfo) => {
+    order.setProperty('orderItems',orderinfo.orderItems)
+    order.setProperty('orderPrice',orderinfo.orderPrice)
+    order.setProperty('order_Quantity',orderinfo.order_Quantity)
+    order.setProperty('orderID',orderinfo.orderID)
+    order.setProperty('modeOfPayment',orderinfo.modeOfPayment)
+    order.setProperty('orderDate',orderinfo.orderDate)
+    order.setProperty('orderStatus',orderinfo.orderStatus)
+    order.setProperty('paymentStatus',orderinfo.paymentStatus)
+    order.setProperty('orderTotalAmount',orderinfo.orderTotalAmount)
+    order.setProperty('account_ID',orderinfo.account_ID)
+    order.setProperty('distributor_ID',orderinfo.distributor_ID)
+    order.setProperty('packer_ID',orderinfo.packer_ID)
+    order.setProperty('dispatcher_ID',orderinfo.dispatcher_ID)
+    order.setProperty('order_addedInfo',orderinfo.order_addedInfo)
+    order.setProperty('order_totalPayment',orderinfo.order_totalPayment)
+    order.setProperty('orderReturnDate  ',orderinfo.orderReturnDate)
+    order.setProperty('orderDateCompleted',orderinfo.orderDateCompleted)
+    order.setProperty('orderCustomerBalance',orderinfo.orderCustomerBalance)
+    order.setProperty('orderDueDate',orderinfo.orderDueDate)
+    setOpen2(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setOpen2(false);
+    setEditOpen(false);
+  }; 
+  
+  let rows =listOfOrder.map(order =>{
+    return(createData(
+  
+  
+  order,order.orderID,order.orderDate,<span> {listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span> {listOfUsers.filter(accs => accs.account_ID === order.packer_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span> {listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,order.orderStatus,
+  order.modeOfPayment,order.paymentStatus, <span>{order.orderCustomerBalance.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>,<div><IconButton  onClick={()=>{handleClickOpen2(order)}}  size="medium" style={{backgroundColor:"#31AF91"}} > <EditIcon /> </IconButton></div>
+  
+  
+    ))
+  
+  })
+
+  let submitCredentials =()=>{
+    loginAccount().then(res =>{
+     if(res === 4 || res === 5){
+       setEditOpen(true)
+     }else{
+        setOpen2(false)
+     }
+    })
+  }
+
+
+
+
 
 
   const filter = mysearch();
@@ -241,32 +319,7 @@ function SummaryTable() {
     setSelected(newSelected);
   };
 
-  const handleClickOpen = (orderinfo) => {
-    order.setProperty('orderItems',orderinfo.orderItems)
-    order.setProperty('orderPrice',orderinfo.orderPrice)
-    order.setProperty('order_Quantity',orderinfo.order_Quantity)
-    order.setProperty('orderID',orderinfo.orderID)
-    order.setProperty('modeOfPayment',orderinfo.modeOfPayment)
-    order.setProperty('orderDate',orderinfo.orderDate)
-    order.setProperty('orderStatus',orderinfo.orderStatus)
-    order.setProperty('paymentStatus',orderinfo.paymentStatus)
-    order.setProperty('orderTotalAmount',orderinfo.orderTotalAmount)
-    order.setProperty('account_ID',orderinfo.account_ID)
-    order.setProperty('distributor_ID',orderinfo.distributor_ID)
-    order.setProperty('packer_ID',orderinfo.packer_ID)
-    order.setProperty('dispatcher_ID',orderinfo.dispatcher_ID)
-    order.setProperty('order_addedInfo',orderinfo.order_addedInfo)
-    order.setProperty('order_totalPayment',orderinfo.order_totalPayment)
-    order.setProperty('orderReturnDate  ',orderinfo.orderReturnDate)
-    order.setProperty('orderDateCompleted',orderinfo.orderDateCompleted)
-    order.setProperty('orderCustomerBalance',orderinfo.orderCustomerBalance)
-    order.setProperty('orderDueDate',orderinfo.orderDueDate)
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -331,7 +384,7 @@ function SummaryTable() {
                     <TableRow
                       hover
                       // onClick={(event) => handleClick(event, row.ref)}
-                      onClick={()=>{handleClickOpen(row.orderInfo)}}
+                     
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -339,17 +392,18 @@ function SummaryTable() {
                       // selected={isItemSelected}
                     >
                      
-                      <TableCell component="th" id={labelId} scope="row" >
+                      <TableCell component="th" id={labelId} scope="row"  onClick={()=>{handleClickOpen(row.orderInfo)}}>
                         {row.ref}
                       </TableCell>
-                      <TableCell align="right">{row.date}</TableCell>
-                      <TableCell align="right">{row.cust}</TableCell>
-                      <TableCell align="right">{row.packer}</TableCell>
-                      <TableCell align="right">{row.dist}</TableCell>
-                      <TableCell align="right">{row.orderstat}</TableCell>
-                      <TableCell align="right">{row.paymethod}</TableCell>
-                      <TableCell align="right">{row.paystat}</TableCell>
-                      <TableCell align="right">{row.bal}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.date}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.cust}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.packer}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.dist}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.orderstat}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.paymethod}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.paystat}</TableCell>
+                      <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.bal}</TableCell>
+                      <TableCell align="right"  >{row.edit}</TableCell>
                     </TableRow>
                   )
                      }
@@ -361,7 +415,7 @@ function SummaryTable() {
                     <TableRow
                     hover
                     // onClick={(event) => handleClick(event, row.ref)}
-                    onClick={()=>{handleClickOpen(row.orderInfo)}}
+                   
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -369,17 +423,18 @@ function SummaryTable() {
                     // selected={isItemSelected}
                   >
                    
-                    <TableCell component="th" id={labelId} scope="row" >
+                    <TableCell component="th" id={labelId} scope="row"  onClick={()=>{handleClickOpen(row.orderInfo)}}>
                       {row.ref}
                     </TableCell>
-                    <TableCell align="right">{row.date}</TableCell>
-                    <TableCell align="right">{row.cust}</TableCell>
-                    <TableCell align="right">{row.packer}</TableCell>
-                    <TableCell align="right">{row.dist}</TableCell>
-                    <TableCell align="right">{row.orderstat}</TableCell>
-                    <TableCell align="right">{row.paymethod}</TableCell>
-                    <TableCell align="right">{row.paystat}</TableCell>
-                    <TableCell align="right">{row.bal}</TableCell>
+                    <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.date}</TableCell>
+                    <TableCell align="right"  onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.cust}</TableCell>
+                    <TableCell align="right"   onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.packer}</TableCell>
+                    <TableCell align="right"   onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.dist}</TableCell>
+                    <TableCell align="right"   onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.orderstat}</TableCell>
+                    <TableCell align="right"   onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.paymethod}</TableCell>
+                    <TableCell align="right"   onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.paystat}</TableCell>
+                    <TableCell align="right"   onClick={()=>{handleClickOpen(row.orderInfo)}}>{row.bal}</TableCell>
+                    <TableCell align="right"   >{row.edit}</TableCell>
                   </TableRow>
                   );
                 })}
@@ -428,6 +483,61 @@ function SummaryTable() {
 <InfoTable/>
      </DialogContent>
       </Dialog>
+
+
+      <Dialog
+        open={open2}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="responsive-dialog-title" style={{backgroundColor:"#208769"}}><Typography variant="h5" style={{color:"white"}}>Enter Credentials</Typography></DialogTitle>
+        <DialogContent>
+
+        <TextField  label="Username" variant="outlined" style={{marginRight:'5px'}} 
+        onChange={(username)=>{account.setProperty('account_username',username.target.value)}}/>
+        <TextField  label="Password" variant="outlined" type='password'
+        onChange={(password)=>{account.setProperty('account_password',password.target.value)}}
+        />
+
+        </DialogContent>
+        <DialogActions>
+       <Button autoFocus onClick={()=>{submitCredentials()}} style={{backgroundColor:"#208769",color:"white"}}>
+            <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
+            </Button>
+      
+            <Button  onClick={handleClose} style={{backgroundColor:"#F7A31C",color:"white"}}>
+            <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Close</span>
+            </Button>
+        </DialogActions>
+      </Dialog> 
+
+
+      
+      <Dialog fullScreen open={editOpen} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+              <InfoIcon/>
+            </IconButton>
+            <Typography variant="h6" noWrap style={{fontWeight:"bold",color:"white",padding:'5px'}} className={classes.title} >
+            <span style={{color:"orange"}}>TRADE</span>TECH
+          </Typography>
+            <Button autoFocus startIcon={<PrintIcon/>}  onClick={handleClose} variant='contained' style={{backgroundColor:'#208769',color:'white',marginRight:'12px'}}>
+              Print
+            </Button>
+            <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close" variant='contained'>
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+     <DialogContent>
+<EditOrder/>
+     </DialogContent>
+      </Dialog>
+
     </div>
   );
 }

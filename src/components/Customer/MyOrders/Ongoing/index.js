@@ -1,33 +1,20 @@
-import React from 'react';
-import { makeStyles,ThemeProvider } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import {Divider,Grid,Typography,Button, IconButton, DialogContent} from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import InfoIcon from '@material-ui/icons/Info';
-import Table from './table'
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-
-import ViewModuleIcon from '@material-ui/icons/ViewModule';
-import {inject,observer} from 'mobx-react'
-import theme from './../../../theme'
-
-
-
-import CancelBtn from './CancelBtn'
-import  TrackBtn from './TrackBtn'
-
-import Slide from '@material-ui/core/Slide';
-import Dialog from '@material-ui/core/Dialog';
-import CloseIcon from '@material-ui/icons/Close';
+import { Button, DialogContent, Divider, Grid, IconButton, Typography } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
+import Dialog from '@material-ui/core/Dialog';
+import Paper from '@material-ui/core/Paper';
+import Slide from '@material-ui/core/Slide';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import InfoIcon from '@material-ui/icons/Info';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import theme from './../../../theme';
+import CancelBtn from './CancelBtn';
+import Orderinfo from './Info';
+import TrackBtn from './TrackBtn';
 
-import Orderinfo from './Info'
+
 class OngoingOrder extends React.Component {
   state = {  }
 componentDidMount(){
@@ -36,6 +23,8 @@ componentDidMount(){
   getOrder();
   getDistributors();
 }
+
+
   render() { 
 let {customerStore:{listOfOrder,listOfUsers,order}}=this.props;
 

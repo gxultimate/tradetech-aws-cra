@@ -24,10 +24,10 @@ class HomeTab extends React.Component {
 
   componentWillMount() {
       
-    let {customerStore:{getProducts,getDistributors,getAccounts }}=this.props;
+    let {customerStore:{getProducts,getDistributors,getAccounts,getPriceHistory }}=this.props;
 
  
-   
+    getPriceHistory()
     getDistributors();
     getAccounts();
 

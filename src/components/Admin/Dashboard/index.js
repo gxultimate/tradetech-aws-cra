@@ -153,13 +153,13 @@ const useStyles = makeStyles(theme => ({
 
    color:"white",
     backgroundColor:"#208769",
-    height:"160px",
+    height:"auto",
   },
   card2:{
 
     color:"white",
     backgroundColor:"#F7A31C",
-    height:"160px",
+    height:"auto",
    },
     input: {
     marginLeft: theme.spacing(1),
@@ -468,7 +468,7 @@ let salesYTD =  listOfOrder.map(product => {
           </Card>
         </Grid>
 
-        <Grid item xs={9}>
+        <Grid item xs={9} >
         <Card>
             <CardContent>
               <Grid container>
@@ -488,21 +488,7 @@ let salesYTD =  listOfOrder.map(product => {
           </Card>
         </Grid>
         <Grid item xs={3}>
-        {/* <Card>
-            <CardContent>
-              <Grid container>
-                <Grid item xs={6}> 
-              <Typography variant="h5" style={{color :"grey"}}>Top 5 Locations</Typography>
-              </Grid>
-          
-              </Grid>
-             
-            </CardContent>
-            <Divider/>
-            <CardContent>
-         
-            </CardContent>
-          </Card> */}
+      
               <Card>
             <CardContent>
               <Grid container sm={12} xs={12}>
@@ -544,25 +530,7 @@ let salesYTD =  listOfOrder.map(product => {
           </Card>
         </Grid>
         <Grid item xs={3}>
-        {/* <Card>
-            <CardContent>
-              <Grid container sm={12} xs={12}>
-                <Grid item xs={12} sm={12}> 
-              <Typography variant="h5" style={{color :"grey"}}>Top 5 Customers</Typography>
-              </Grid>
-          
-              <Grid item xs={12} sm={12}> 
-             <TopCust/>
-              </Grid>
 
-              </Grid>
-             
-            </CardContent>
-            <Divider/>
-            <CardContent>
-         
-            </CardContent>
-          </Card> */}
            <Card>
             <CardContent>
               <Grid container sm={12} xs={12}>
@@ -618,25 +586,7 @@ let salesYTD =  listOfOrder.map(product => {
           </Card>
         </Grid>
         <Grid item xs={3} sm={3}>
-        {/* <Card>
-            <CardContent>
-              <Grid container sm={12} xs={12}>
-                <Grid item xs={12} sm={12}> 
-              <Typography variant="h5" style={{color :"grey"}}> Bottom 5 Customers</Typography>
-              </Grid>
 
-              <Grid item xs={12} sm={12}> 
-              <BottomCust/>
-              </Grid>
-          
-              </Grid>
-             
-            </CardContent>
-            <Divider/>
-            <CardContent>
-         
-            </CardContent>
-          </Card> */}
         </Grid>
 
         <Grid item xs={9}>
@@ -673,21 +623,7 @@ let salesYTD =  listOfOrder.map(product => {
           </Card>
         </Grid>
         <Grid item xs={3}>
-        {/* <Card>
-            <CardContent>
-              <Grid container>
-                <Grid item xs={6}> 
-              <Typography variant="h5" style={{color :"grey"}}> Bottom 5 Locations</Typography>
-              </Grid>
-          
-              </Grid>
-             
-            </CardContent>
-            <Divider/>
-            <CardContent>
-         
-            </CardContent>
-          </Card> */}
+
         </Grid>
 
         <Grid item xs={9}>

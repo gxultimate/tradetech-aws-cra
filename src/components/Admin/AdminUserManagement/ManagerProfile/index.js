@@ -2,11 +2,7 @@ import React from 'react';
 import { makeStyles ,ThemeProvider} from '@material-ui/core/styles';
 import {Paper,Typography,Divider, Badge} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import {
-  HashRouter as Router,withRouter,
- 
-
-} from "react-router-dom";
+import { HashRouter as Router,withRouter} from "react-router-dom";
 import {inject,observer} from 'mobx-react'
 import TransactionTable from './TransactionsTable'
 import user from './user.png'

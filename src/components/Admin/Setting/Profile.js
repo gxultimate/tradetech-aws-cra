@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password){
-  return{id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password}
+function createData(id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password,termsCondition){
+  return{id,fname,mname,lname,suffix,address,emailAddress,contactNo,birthday,username,password,termsCondition}
 
 }
 let myID = JSON.parse(sessionStorage.getItem('userData'));
@@ -48,7 +48,7 @@ return(createData(
   distributor.distributor_ID,distributor.distributor_fName,distributor.distributor_mName,distributor.distributor_lName,
   distributor.distributor_suffix,distributor.distributor_address,distributor.distributor_emailAddress,
   distributor.distributor_contactNo,distributor.distributor_birthday,distributor.distributor_username,
-  distributor.distributor_password
+  distributor.distributor_password,distributor.termsCondition
 
 
 ));
@@ -107,7 +107,7 @@ function Alert(props) {
      
         <Grid item xs={12} sm={12}>
           <Paper className={classes.paper}>
-            <Typography variant="h6" style={{marginBottom:"25px"}}>Personal Information </Typography>
+            <Typography variant="h6" style={{marginBottom:"25px",textAlign:'left',fontWeight:'bold'}}>Personal Information </Typography>
             <Grid container direction="row"  sm={12} xs={12}>
 
 
@@ -190,7 +190,7 @@ function Alert(props) {
             </Grid>
           </Grid>
           </Grid>
-          <Typography variant="h6" style={{marginBottom:"20px"}}>distributor Details </Typography>
+          <Typography variant="h6" style={{marginBottom:"20px",fontWeight:'bold'}}>Distributor Account </Typography>
           <Grid item sm={12} xs={12}>    
           <Grid container direction='row'  sm={12} xs={12}>
           <Grid item sm={6} xs={6}> 
@@ -219,6 +219,27 @@ function Alert(props) {
             </Grid>
           </Grid>
           </Grid>
+
+          <Typography variant="h6" style={{marginBottom:"20px",fontWeight:'bold'}}>My Terms & Condition </Typography>
+          <Grid item sm={12} xs={12}>    
+          <Grid container direction='row'  sm={12} xs={12}>
+          <Grid item sm={12} xs={12}> 
+          <TextField id="outlined-basic" label="Terms and Condition..."  
+          defaultValue={row.termsCondition} variant="outlined" 
+          multiline
+          fullWidth='true'
+          rows={12}
+          style={{marginBottom:"8px",width:"98%",marginRight:"8px"}}
+          onChange={termsCondition=>{
+            distributor.setProperty('termsCondition',termsCondition.target.value)
+
+          }}
+          />
+         </Grid>
+      
+          </Grid>
+          </Grid>
+
           <Grid item sm={12} xs={12}  style={{marginTop:'18px'}}>
           <Button variant="contained" startIcon={<UpdateIcon/>} style={{backgroundColor:"#208769",color:"white"}} onClick={()=>{update(row)}}>
           Update

@@ -18,32 +18,12 @@ class Distributor extends Model {
         distributor_status: "",
         distributor_dateRegistered :"",
         distributor_tierNo :"",
-        distributor_accessType:""
+        distributor_accessType:"",
+        termsCondition:""
     };
     super({ ...defaults, ...props });
   }
 
-//   static get schema() {
-//     return {
-//       _id: Joi.string()
-//         .hex()
-//         .length(20),
-//       firstName: Joi.string().required(),
-//       lastName: Joi.string().required(),
-//       email: Joi.email().required(),
-//       password: Joi.string().required(),
-//       phone: Joi.string().required(),
-//       address: Joi.object().keys({
-//         street: Joi.string(),
-//         city: Joi.string(),
-//         state: Joi.string(),
-//         postalCode: Joi.number()
-//       }),
-//       date: Joi.date()
-//         .iso()
-//         .required()
-//     };
-//   }
 }
 
 decorate(Distributor, {
@@ -60,6 +40,7 @@ decorate(Distributor, {
     distributor_dateRegistered :observable,
     distributor_tierNo:observable,
     distributor_accessType:observable,
+    termsCondition:observable,
    
 });
 

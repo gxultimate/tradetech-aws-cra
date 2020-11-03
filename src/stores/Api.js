@@ -5,7 +5,6 @@ import { action, decorate } from "mobx";
 
 class Api {
   api = axios.create({
-    // baseURL: "https://1487a803d130.ngrok.io",
     baseURL: "/api"
   });
 
@@ -309,6 +308,22 @@ class Api {
   })
   }
 
+  addpricehistory = (data)=>{
+    console.log(data,'dataprice')
+    return this.api.post("pricehistory",{
+      mode: 'cors',
+      data:data,
+
+
+    })
+
+  }
+
+  getpricehistory = () =>{
+    return this.api.get(`getpricehistory/`)
+
+  }
+
 }
 
 
@@ -356,7 +371,9 @@ decorate(Api, {
   getmembership:action,
   gettokenR:action,
   addmessage:action,
-  getmessage:action
+  getmessage:action,
+  addpricehistory:action,
+  getpricehistory:action,
 
 
 });

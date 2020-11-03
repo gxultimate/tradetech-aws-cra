@@ -26,11 +26,11 @@ const styles={
   };
 
   componenDidMount() {
-    let {customerStore:{getProducts,getDistributors, getCart,listofProducts  }}=this.props;
+    let {customerStore:{getProducts,getDistributors, getCart,listofProducts,getPriceHistory  }}=this.props;
   
         getDistributors();
         getCart();
-        
+        getPriceHistory();
         getProducts().then(res => {
         
 

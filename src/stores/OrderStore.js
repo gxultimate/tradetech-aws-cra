@@ -1,136 +1,216 @@
-import { action, decorate, observable } from 'mobx';
-import Account from '../models/Account';
-import Distributor from '../models/Distributor';
-import Product from '../models/Product';
-import Order from './../models/Order';
-import Report from './../models/Report';
+import { action, observable, decorate, computed } from "mobx";
+import Account from "../models/Account";
+import Order from './../models/Order'
+import Product from "../models/Product";
+import Distributor from "../models/Distributor";
+import Report from './../models/Report'
 class OrderStore {
-	account = new Account();
-	product = new Product();
-	distributor = new Distributor();
-	order = new Order();
-	report = new Report();
-	listOfReport = [];
-	listOfUsers = [];
-	listOfDistributors = [];
-	listofProducts = [];
-	listOfOrder = [];
 
-	api = undefined;
+    account =new Account();
+    product = new Product();
+    distributor = new Distributor();
+    order = new Order();
+    report = new Report();
+    listOfReport= [];
+    listOfUsers = [];
+    listOfDistributors =[];
+    listofProducts =[];
+    listOfOrder =[];
 
-	constructor(api) {
-		this.api = api;
-	}
+  api = undefined
+  
 
-	getAccounts = () => {
-		this.api.getaccounts().then((resp) => {
-			this.listOfUsers = resp.data;
-			this.listOfUserDocs = resp.data;
-		});
-	};
+  constructor(api) {
+    this.api = api
+  }
 
-	getProducts = () => {
-		return new Promise((resolve, reject) => {
-			let getId = JSON.parse(sessionStorage.getItem('userData'));
 
-			this.api.getproducts(getId.distributor_ID).then((resp) => {
-				this.listofProducts = resp.data;
+  getAccounts = () => {
+    this.api.getaccounts()
+    .then(resp => {
 
-				if (resp.data !== false) {
-					resolve(resp.data);
-				} else {
-					resolve(false);
-				}
-			});
-		});
-	};
+     this.listOfUsers=resp.data
+     this.listOfUserDocs = resp.data
+  
+    })
+  }
+ 
 
-	getDistributors = () => {
-		return new Promise((resolve, reject) => {
-			this.api.getdistributors().then((resp) => {
-				this.listOfDistributors = resp.data;
+  loginAccount = () => { 
+    return new Promise((resolve, reject) => {   
+         this.api.loginaccount(this.account)
+         .then(resp => {        
+          
+           
+        
+         
+          let access = resp.data.account_accessType ? resp.data.account_accessType : resp.data.distributor_accessType
+            if (access === "superadmin"  && resp.data.account_status === "active") {   
+                     resolve(1);       
+                     } 
+              else if (access === "distributor" && resp.data.distributor_status ==="active"){
 
-				if (resp.data !== false) {
-					resolve(resp.data);
-				} else {
-					resolve(false);
-				}
-			});
-		});
-	};
-	getOrder = () => {
-		return new Promise((resolve, reject) => {
-			let getuserId = JSON.parse(sessionStorage.getItem('userData'));
+                resolve(2);
+              }
+              else if (access === "customer" && resp.data.account_status === "active"){
+                resolve(3);
+              }
+              else if (access === "Staff" && resp.data.account_status === "active"){
+               
+                resolve(4);
+              }else if (access === 'manager' && resp.data.account_status === "active"){
+                
+                resolve(5);
+              }else if(resp.data.account_status === "archived" || resp.data.distributor_status ==="archived"    ){
+                resolve(6);
+              }
 
-			this.api.getorder(getuserId.account_ID ? getuserId.account_ID : getuserId.distributor_ID).then((resp) => {
-				this.listOfOrder = resp.data;
+            else {         
+              resolve(false);      
+              }  
+              });
+        });
+      }
 
-				if (resp.data !== false) {
-					resolve(resp.data);
-				} else {
-					resolve(false);
-				}
-			});
-		});
-	};
+  getProducts = () => { 
+   
+    return new Promise((resolve, reject) => {   
+      let getId = JSON.parse(sessionStorage.getItem('userData'))
+            
+     
 
-	staffAssigned = () => {
-		return new Promise((resolve, reject) => {
-			let getuserId = JSON.parse(sessionStorage.getItem('userData'));
+    
+      this.api.getproducts(getId.distributor_ID)
+      .then(resp => {    
+         this.listofProducts = resp.data
+   
+         if (resp.data !== false ) {   
+                  resolve(resp.data);       
+                  } 
+         else {         
+           resolve(false);      
+           }  
+           });
+          })
+    }
 
-			this.api.staffassigned(getuserId.account_ID, getuserId.distributor_ID).then((resp) => {
-				this.listOfOrder = resp.data;
+getDistributors = () => { 
+  return new Promise((resolve, reject) => {   
+    this.api.getdistributors()
+    .then(resp => {    
+       this.listOfDistributors = resp.data
+ 
+       if (resp.data !== false ) {   
+                resolve(resp.data);       
+                }  
+       else {         
+         resolve(false);      
+         }  
+         });
+        })
+  }
+  getOrder = () => {
+       
+    return new Promise ((resolve,reject) =>{
+    let getuserId = JSON.parse(sessionStorage.getItem('userData'))
 
-				if (resp.data !== false) {
-					resolve(resp.data);
-				} else {
-					resolve(false);
-				}
-			});
-		});
-	};
+    
+    this.api.getorder(getuserId.account_ID ? getuserId.account_ID  : getuserId.distributor_ID)
+    .then(resp =>{
+      this.listOfOrder =resp.data
+    
+      if (resp.data !== false){
+        resolve(resp.data);
+   
+      }
+      else{
+        resolve(false);
+      }
+    });
+  } )
+  }
+  
+  staffAssigned = () => {
+    return new Promise ((resolve,reject) =>{
+    let getuserId = JSON.parse(sessionStorage.getItem('userData'))
+  
+    this.api.staffassigned(getuserId.account_ID,getuserId.distributor_ID)
+    .then(resp =>{
+   
+      this.listOfOrder =resp.data
+          
+      if (resp.data !== false){
+        resolve(resp.data);
+    
+      }
+      else{
+        resolve(false);
+      }
+    });
+  } )
+  }
 
-	// getReport = () => {
-	//   this.api.getreport()
-	//   .then(resp => {
 
-	//    this.listOfReport=resp.data
+  // getReport = () => {
+  //   this.api.getreport()
+  //   .then(resp => {
 
-	//   })
-	// }
+  //    this.listOfReport=resp.data
+    
+  
+  //   })
+  // }
 
-	getReport = () => {
-		return new Promise((resolve, reject) => {
-			this.api.getreport(this.report.order_ID).then((resp) => {
-				this.listOfReport = resp.data;
+  
+  getReport = () => {
+           
+    return new Promise ((resolve,reject) =>{
+    
+      
+      
+      this.api.getreport(this.report.order_ID)
+      .then(resp =>{
+        this.listOfReport =resp.data
 
-				if (resp.data !== false) {
-					resolve(resp.data);
-				} else {
-					resolve(false);
-				}
-			});
-		});
-	};
+        if (resp.data !== false){
+          resolve(resp.data);
+     
+        }
+        else{
+          resolve(false);
+        }
+      });
+    } )
+
+  }
+
+
 }
 
 decorate(OrderStore, {
-	report: observable,
-	account: observable,
-	product: observable,
-	distributor: observable,
-	order: observable,
-	listOfUsers: observable,
-	listOfDistributors: observable,
-	listofProducts: observable,
-	listOfOrder: observable,
-	listOfReport: observable,
-	staffAssigned: action,
-	getOrder: action,
-	getDistributors: action,
-	getProducts: action,
-	getAccounts: action,
-	getReport: action
+
+    report:observable,
+    account :observable,
+    product:observable,
+    distributor:observable,
+    order :observable,
+    listOfUsers :observable,
+    listOfDistributors :observable,
+    listofProducts :observable,
+    listOfOrder :observable,
+    listOfReport:observable,
+    staffAssigned:action,
+    getOrder:action,
+    getDistributors:action,
+    getProducts:action,
+    getAccounts:action,
+    getReport:action,
+    loginAccount:action,
+ 
+ 
+
+
+  
 });
 
 export default OrderStore;

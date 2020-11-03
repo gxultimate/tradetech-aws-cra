@@ -24,7 +24,8 @@ import pr from './pr.png';
 
 // import ProfileManagement from './ProfileManagement';
 import SettingGrid from './Setting'
-import ReportGrid from './Reports'
+import ReportGrid from './ReportsV2/index'
+import ReportGridV3 from './Report'
 import ProfileGrid from './CRM/CustomerProfile'
 
 // report
@@ -46,18 +47,12 @@ import SalesOrder from './Reports/Payments&Receivables/SalesOrder'
 import PaymentReceived from './Reports/Payments&Receivables/PaymentsReceived'
 
 import IssuesGrid from './Issues'
-import Notif from './notification'
 
 
 
 
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 
-import ListItemText from '@material-ui/core/ListItemText';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 import MessagingDrawer from './Messaging'
 
@@ -337,7 +332,8 @@ const useStyles = makeStyles(theme => ({
       <Route  path="/Admin/Messaging" render={()=><MessagingDrawer/>}/>
     
       {/* Report Routes */}
-      <Route  path="/Admin/Reports" render={()=><ReportGrid/>}/>
+      <Route  path="/Admin/Reports" render={()=><ReportGridV3/>}/>
+      {/* <Route  path="/Admin/Reports" render={()=><ReportGrid/>}/> */}
       <Route  path="/Admin/SalesByCustomer" render={()=><SalesByCustomer/>}/>
       <Route  path="/Admin/SalesByItem" render={()=><SalesByItem/>}/>
       <Route  path="/Admin/OFByItem" render={()=><OFByItem/>}/>
@@ -360,7 +356,7 @@ const useStyles = makeStyles(theme => ({
 
       
   </Switch>
-        
+          
         
        
       </main>

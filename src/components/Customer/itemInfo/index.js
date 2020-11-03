@@ -1,17 +1,26 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,ThemeProvider } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-import {Typography,Button} from '@material-ui/core'
+import {Typography,Button,IconButton} from '@material-ui/core'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import {inject,observer} from 'mobx-react'
+import InfoIcon from '@material-ui/icons/Info';
 import Quantity from './quantity.js'
 import moment from 'moment';
+import theme from './../../theme'
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import HistTable from './PriceHistory'
 import {
   HashRouter as Router,withRouter,
  
@@ -41,14 +50,14 @@ class IInfo extends React.Component{
   }
   
   state = {
-   
+    histmodal:false,
     favorites: false
   };
   componentDidMount(){
     let {customerStore:{getProductsR,getDistributors,getCart,getAccounts,product}}=this.props
     product.setProperty('distributor_ID',this.props.location.state.dis_id)
     getProductsR();  
-    
+   
     getDistributors();
     getCart();
     getAccounts();
@@ -66,18 +75,48 @@ handleChange(totalValue){
     const totalPrice = {product_price}
   let diz=this.props.location.state.dis_id;
 
-let {customerStore:{cart,editProduct,product,favorite,addFavorite}}=this.props;
+let {customerStore:{cart,favorite,addFavorite}}=this.props;
 let getId = JSON.parse(sessionStorage.getItem('userData'))
 let getdist = JSON.parse(sessionStorage.getItem('distData'))
    
-    let {customerStore:{listofProducts}}= this.props;
+    let {customerStore:{listofProducts,listOfPriceHist,pricehist}}= this.props;
     let filteredProducts = listofProducts.filter(prod => {
       if (prod.product_ID === this.props.location.state.prod_id){
         return prod
       }
     })
 
+ 
 
+    let handleClickPrice = (itmPrice)=>{
+    console.log(itmPrice,'sadsadsa')
+let filhist = listOfPriceHist.filter(hist => hist.product_ID === itmPrice.product_ID).map(prod => prod)
+
+if (filhist.length !== 0){
+  pricehist.setProperty('product_ID',filhist[0].product_ID)
+  pricehist.setProperty('priceHistID',filhist[0].priceHistID)
+  pricehist.setProperty('priceFrom',filhist[0].priceFrom)
+  pricehist.setProperty('priceTo',filhist[0].priceTo)
+  pricehist.setProperty('dateCreated',filhist[0].dateCreated)
+  
+  this.setState({
+    histmodal: true
+  });
+
+}else{
+  console.log('nopricechange')
+}
+
+
+    }
+
+   let handleClose =  () => {
+     
+  
+      this.setState({
+        histmodal: false
+      });
+    }
       
    let filprod =filteredProducts.map(product =>{
     const { favorites } = this.state;
@@ -139,11 +178,35 @@ let getdist = JSON.parse(sessionStorage.getItem('distData'))
           }, 2000);
         
       }
+
     
 
 
 return(
   
+<React.Fragment>
+
+
+<Dialog
+        open={this.state.histmodal}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Product Price History"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+{/* <p>{pricehist.dateCreated} - {pricehist.priceFrom} - {pricehist.priceTo}</p> */}
+  <HistTable data={pricehist}/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+         
+          <Button onClick={handleClose} color="primary" autoFocus>
+           Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
   <Grid container sm={6} xs={12}  >
         
@@ -185,6 +248,13 @@ return(
 
   <Grid item sm={6} xs={6}>
 <Typography variant="p" style={{color:"#208769"}}> &#8369; {product.product_Price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</Typography> 
+<ThemeProvider theme={theme}>
+<IconButton aria-label="settings" size='small' 
+          onClick={()=>{handleClickPrice(product)}} 
+          color='secondary' >
+            <InfoIcon  size='small'/>
+          </IconButton>
+          </ThemeProvider>
   </Grid>
 
   <Grid item sm={6} xs={6} style={{textAlign:"right"}}>
@@ -246,6 +316,9 @@ return(
 </Grid>
  </Grid>
 </Grid>
+
+</React.Fragment>
+
 
 )
         

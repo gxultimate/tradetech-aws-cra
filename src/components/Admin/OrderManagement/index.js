@@ -7,7 +7,7 @@ import React, { Component,Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import OrderTab from './tab.js';
 import DashGrid from './OrderDashboard'
-
+import AddOrder from './AddOrder'
 
 
 
@@ -35,8 +35,14 @@ render(){
         </Grid>
  
         <Divider style ={{marginBottom:"5px"}}/> 
-        <Grid container style={{marginTop:"1%"}} lg={12} sm={12} xs={12}>
+        <Grid container sm={12} xs={12} direction="row" alignItems="right" justify="right" lg={12} sm={12} xs={12} style={{textAlign:'right',float:'right',marginTop:"1%"}}>
+          <Grid item sm={12} xs={12} style={{marginBottom:'5px'}}>
+            <AddOrder />
+          </Grid>
+         <Grid item sm={12} xs={12}>
+         
         <OrderTab/>
+        </Grid> 
         </Grid >
         
        

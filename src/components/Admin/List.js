@@ -4,7 +4,7 @@ import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+
 import ReportOutlinedIcon from '@material-ui/icons/ReportOutlined';
 import { inject, observer } from 'mobx-react';
 import React from 'react';

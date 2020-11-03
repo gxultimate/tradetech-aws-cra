@@ -95,6 +95,7 @@ class App extends Component {
           <Route path="/Staff" component={StaffGrid} />
           <Route path="/Manager" component={ManagerGrid} />
          
+         
         </Switch>
         </Provider>
       </Router>

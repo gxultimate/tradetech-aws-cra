@@ -36,8 +36,8 @@ import ActivityTable from './ActivityLogs'
 class CustProfile extends React.Component {
 
   componentWillMount(){
-    let{crmStore:{getOrderD,order,getDistributors}}=this.props;
-   
+    let{crmStore:{getOrderD,order,getDistributors,getAccounts}}=this.props;
+   getAccounts()
     order.setProperty('account_ID',this.props.accId)
     getOrderD();
     getDistributors()
@@ -65,6 +65,7 @@ let accountinfo =listOfUsers.filter(user => user.account_ID === AccID).map(info=
   ))
   
 })
+console.log(AccID,'sadsa')
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

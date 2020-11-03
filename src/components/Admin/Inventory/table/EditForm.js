@@ -7,7 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -100,14 +99,14 @@ class EditForm extends Component{
       function handleReceived(date) {
         setSelectedDate(date);
         let dReceive =  moment(date).format('MMMM Do YYYY')
-        console.log(dReceive);
+       
         product.setProperty("product_DateReceived", dReceive)
         }
         function handleExpiration(exDate) {
           exsetSelectedDate(exDate);
           let dExpiration =  moment(exDate).format('MMMM Do YYYY')
           
-          console.log(dExpiration);
+         
           product.setProperty("product_ExpirationDate", dExpiration)
           }
     //   function onChangeaccount_mName(value) {
@@ -120,6 +119,25 @@ class EditForm extends Component{
   
 
   
+    let priceChanged =(newPrice)=>{
+      
+      let {inventoryStore:{pricehist,product}}=this.props;
+   
+    
+   if (newPrice != product.product_Price){
+    product.setProperty("product_Price", newPrice)
+     pricehist.setProperty('priceHistID',`${product.product_ID}-${ Math.floor(100 + Math.random() * 900)}`)
+     pricehist.setProperty('product_ID',product.product_ID)
+     pricehist.setProperty('priceFrom',this.props.price)
+     pricehist.setProperty('priceTo',newPrice)
+     pricehist.setProperty('dateCreated',moment().format('MMM/DD/YYYY'))
+
+
+   }else{
+    product.setProperty("product_Price", newPrice)
+     console.log('nochange')
+   }
+    }
   
       
     return (
@@ -327,7 +345,7 @@ class EditForm extends Component{
       type='number'
       defaultValue={product.product_Price}
  
-      onChange={product_Price=>{product.setProperty("product_Price", product_Price.target.value)}}
+      onChange={(newPrice)=>priceChanged(newPrice.target.value)}
       />
       </Grid>
       <Grid xs={5} item style={{margin:"5px"}}>

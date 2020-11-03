@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
             Welcome to <br/><span style={{ fontWeight: 'bold'}}>TRADETECH</span>
         </div>
         <div className="tt-1b-content">
-          TradeTech, your number one source for all grocery items needed for your retail store. We're dedicated to give you the very best service of delivering your order in your area. By just one app, you can easily order your grocery products from our distributor partners.
+        TradeTech, the MSME enterprise resource planner that gives you, and your customers the convenience that B2C platforms can provide. We're dedicated to giving you the most efficient way to manage your sales, inventory, and fulfillment through our platform.
         </div>
       </Grid>
       </Grid>
@@ -112,8 +112,8 @@ const useStyles = makeStyles((theme) => ({
               <Grid item sm={7}>
                 <div className="tt-3-title">About Us</div>
                  <div className="tt-3-content">
-                 We create an eCommerce that will help our partners, the retail stores to have a convenient way of ordering grocery items that they need. By creating a system, we offer solutions that are capable of catering to numerous retail store owners.<br/><br/>
-                 As a Service platform, we will meet clients' satisfaction through seamless user experience. We intend to offer it to the remote areas and far-flung from the center of businesses. Not just giving them our services but help them bring their business in Digital platform.  Tradetech have multiple warehouses all over Cebu. We envision by 2025, Cebu will be a top city of digital business in our country. We are the partner in building and achieving the digital world we visualize.
+                 Co founded in 2019 by Aaron Espina, a distributor of fast moving consumer goods, together with Ace Velarde and Tara Mae Flores of Startup Venture Projects Philippines. Tradetech aims to solve the issues in the current traditional supplier and distributor market of the Philippines.<br/><br/>
+                 With 4 years of experience in trying to make the product journey more efficient, Tradetech was formulated as a B2B Inventory management system that provides eCommerce convenience to your customers. As a service and data platform, we meet clients' satisfaction through our seamless user experience. Sales data analysis, inventory management, and customer relationship management. With our platform, your business will be able to get the necessary data real time, with the tech needed to automate your product sales journey, gather real time data on sales, and manage your inventory with ease.
                  </div>
             </Grid>
             </Grid>

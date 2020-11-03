@@ -20,8 +20,8 @@ class MyDistributor extends React.Component {
 
   
   componentDidMount(){
-    let {customerStore:{ getMembership,getToken}}=this.props;
-    // getProducts();
+    let {customerStore:{ getMembership,getToken,getDistributors}}=this.props;
+    getDistributors()
     getToken();
     getMembership();
   }
@@ -77,7 +77,7 @@ class MyDistributor extends React.Component {
 
 
     accessDistributor().then(res =>{
-console.log(res,'ress')
+
 
     if (res === undefined){
       
