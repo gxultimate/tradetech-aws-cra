@@ -11,7 +11,7 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const addCustomers = (props) => {
+const AddCustomers = (props) => {
 	const [ open, setOpen ] = React.useState(false);
 	const [ snackbaropen, setSnackBar ] = React.useState(false);
 	const [ snackbarmessage, setSnackBarMessage ] = React.useState('Account Successfully Added!');
@@ -99,4 +99,4 @@ const addCustomers = (props) => {
 	);
 };
 
-export default inject('startingStore')(observer(addCustomers));
+export default inject('startingStore')(observer(AddCustomers));
