@@ -11,72 +11,54 @@ import React, { Component } from 'react';
 import AddProductForm from './Form.js';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-const useStyles = makeStyles(theme => ({
-  appBar: {
-    position: 'relative',
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
-}));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 
 
-class addProducts extends Component{
-  constructor(props) {
-    super(props);
- 
-  
-    this.state = {
-        image: '',
-        submitted  : false,
-       
-        snackbaropen:false,
-        snackbarmessage:"Product Successfully Added!",
-    }
-    this.addProd  = this.addProd.bind(this);
-    this.uploadRef = React.createRef()
-  
-  }
-
-  snackbarClose =(event)=>{
-    this.setState({snackbaropen:false});
-  }
-
-  addProd = (e) => {
-    this.setState({submitted: true })
-
-    this.setState({ loading: true });
-    let {startingStore:{product}}=this.props;
-
-
-    let getDisId = JSON.parse(sessionStorage.getItem('userData'))
-    product.setProperty("distributor_ID", getDisId.distributor_ID)
-    product.setProperty("product_Status", 'active')
-
-  setTimeout(()=>{
-
- 
-      this.setState({ snackbaropen: true });
-
-    },1500)
- 
-   
-     
-    
-  };
-
-   AddButton = () => {
+  const AddProducts = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
- 
+    const [image, setImage] = React.useState('');
+    const [submitted, setSubmitted] = React.useState(false);
+    const [snackbaropen, setSnackbaropen] = React.useState(false);
+    const [snackbarmessage, setSnackbarmessage] = React.useState("Product Successfully Added!");
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    let {product}=props.startingStore;
+
+    const useStyles = makeStyles(theme => ({
+      appBar: {
+        position: 'relative',
+      },
+      title: {
+        marginLeft: theme.spacing(2),
+        flex: 1,
+      },
+    }));
+    
+    const Transition = React.forwardRef(function Transition(props, ref) {
+      return <Slide direction="up" ref={ref} {...props} />;
+    });
+
+   let snackbarClose =(event)=>{
+      setSnackbaropen(false);
+    }
+  
+   let addProd = (e) => {
+      setSubmitted( true )
+
+      let getDisId = JSON.parse(sessionStorage.getItem('userData'))
+      product.setProperty("distributor_ID", getDisId.distributor_ID)
+      product.setProperty("product_Status", 'active')
+  
+    setTimeout(()=>{
+  
+   
+       setSnackbaropen( true );
+  
+      },1500) 
+    }
+
+
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -91,9 +73,9 @@ class addProducts extends Component{
    
     return (                  
       <div>
-       <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}  open={this.state.snackbaropen} autoHideDuration={3000} onClose={this.snackbarClose}  >   
+       <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}  open={snackbaropen} autoHideDuration={3000} onClose={snackbarClose}  >   
        <Alert  severity="success">
-       {this.state.snackbarmessage }
+       {snackbarmessage }
         </Alert></Snackbar>
     
             <Button variant="outlined" size='small'  onClick={handleClickOpen} style={{margin:"8px",backgroundColor:"#208769",color:"white"}}>
@@ -109,10 +91,10 @@ class addProducts extends Component{
           <DialogTitle id="responsive-dialog-title" style={{backgroundColor:"#208769"}}><Typography variant="h5" style={{color:"white"}}>Add New Product</Typography></DialogTitle>
           <Divider/>
           <DialogContent >
-      <AddProductForm submitted={this.state.submitted}  />
+      <AddProductForm submitted={submitted}  />
           </DialogContent>
           <DialogActions>
-          <Button autoFocus onClick={() => {this.addProd()}} style={{backgroundColor:"#208769",color:"white"}}>
+          <Button autoFocus onClick={() => {()=>addProd()}} style={{backgroundColor:"#208769",color:"white"}}>
             <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
             </Button>
       
@@ -129,20 +111,4 @@ class addProducts extends Component{
 
 
 
-
-
-  
-render(){
-
-
-
-
-return(
-
- <this.AddButton></this.AddButton>
-
-
-);
-}
-}
-export default inject("startingStore")(observer(addProducts));
+export default inject("startingStore")(observer(AddProducts));

@@ -131,17 +131,16 @@ let rows2 =  listOfCart.map(cart => {
     let getuname = JSON.parse(sessionStorage.getItem('userData'))
   
   
-  
-      // addOrder();
-      //  deleteCart();
+
      
       setTimeout(() => {
-        // openNotificationSucess();
+ 
         this.props.history.push({"pathname":"/Customer/CheckOut", state:{ 
           account_id: getuname.account_ID,
           distributor_id:getuname.distributor_ID,
            order_items:rows2,
-          order_quantity:qty[0] }} )
+          order_quantity:qty[0]
+         }} )
       }, 500);
   
    }

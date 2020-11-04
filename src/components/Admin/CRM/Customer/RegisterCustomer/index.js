@@ -10,61 +10,45 @@ import RegistrationForm from './Form.js';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-class addCustomers extends React.Component {
-  state = {  }
- 
-
-  constructor(props) {
-    super(props);
- 
-  
-    this.state = {
-        image: '',
-        submitted  : false,
-       
-        snackbaropen:false,
-        snackbaropenE:false,
-     
-        snackbarS:"Account Added!",
-        snackbarerror:"Error!",
-    }
-    this.addCustomer  = this.addCustomer.bind(this);
-  
-  
-  }
-  snackbarClose =(event)=>{
-    this.setState({snackbaropen:false});
-    this.setState({snackbaropenE:false});
-  }
-addCustomer = (e) => {
-  let {startingStore:{addAccount,account}}=this.props;
-  let getDisId = JSON.parse(sessionStorage.getItem('userData'))
-  account.setProperty("distributor_ID", getDisId.distributor_ID)
-  account.setProperty("account_accessType", "customer")
-  account.setProperty('account_status','active')
-    addAccount().then(res =>{
-   if (res != null){
-    this.setState({ snackbaropen: true });
-   }else{
-    this.setState({ snackbaropenE: true });
-   }
-
-    })
- 
-this.setState({submitted: true })
-
-  this.setState({ loading: true });
-
-  setTimeout(() => {
-    this.setState({ loading: false, visible: false });
-  }, 3000);
-};
 
 
- RegisterDialog = () => {
+const addCustomers = (props) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  let [image,setImage]=React.useState([]);
+  let [submitted,setSubmitted]=React.useState(false);
+  let [snackbaropen,setSnackbaropen]=React.useState(false);
+  let [snackbaropenE,setSnackbaropenE]=React.useState(false);
+  let [snackbaropenE,setSnackbaropenE]=React.useState(false);
+  let [snackbarS,setSnackbarS]=React.useState("Account Added!");
+  let [snackbarerror,setSnackbarerror]=React.useState("Error!");
+  let {addAccount,account}=props.startingStore;
+
+ let addCustomer = (e) => {
+  
+    let getDisId = JSON.parse(sessionStorage.getItem('userData'))
+    account.setProperty("distributor_ID", getDisId.distributor_ID)
+    account.setProperty("account_accessType", "customer")
+    account.setProperty('account_status','active')
+      addAccount().then(res =>{
+     if (res != null){
+      setSnackbaropen( true );
+     }else{
+      setSnackbaropenE( true );
+     }
+  
+      })
+   
+  setSubmitted( true )
+  
+  
+  }
+
+ let snackbarClose =(event)=>{
+    setSnackbaropen(false);
+    setSnackbaropenE(false);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -79,14 +63,14 @@ this.setState({submitted: true })
   
   return (
     <div>
-      <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropen} autoHideDuration={2000} onClose={this.snackbarClose}  >   
+      <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={snackbaropen} autoHideDuration={2000} onClose={snackbarClose}  >   
        <Alert  severity="success">
-       {this.state.snackbarS }
+       {snackbarS }
         </Alert></Snackbar>
 
-        <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={this.state.snackbaropenE} autoHideDuration={2000} onClose={this.snackbarClose}  >   
+        <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}    open={snackbaropenE} autoHideDuration={2000} onClose={snackbarClose}  >   
        <Alert  severity="error">
-       {this.state.snackbarerror }
+       {snackbarerror }
         </Alert></Snackbar>
 
       <Button variant="outlined" color="primary" onClick={handleClickOpen} style={{marginTop:"8px",backgroundColor:"#208769",color:"white"}}>
@@ -106,7 +90,7 @@ this.setState({submitted: true })
         </DialogContent>
         <DialogActions>
           <Divider/>
-          <Button autoFocus onClick={() => {this.addCustomer()}} style={{backgroundColor:"#208769",color:"white"}}>
+          <Button autoFocus onClick={() => {()=>addCustomer()}} style={{backgroundColor:"#208769",color:"white"}}>
             <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
             </Button>
     
@@ -119,11 +103,6 @@ this.setState({submitted: true })
     </div>
   );
 }
-render() { 
-return (  
-  <this.RegisterDialog/>
-);
-}
-}
+
 
 export default inject("startingStore")(observer(addCustomers));

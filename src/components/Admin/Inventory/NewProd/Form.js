@@ -19,139 +19,106 @@ import React, { Component } from 'react';
 import Resizer from 'react-image-file-resizer';
 import PropTypes from 'prop-types';
 import theme from './../../theme'
-import Autocomplete from '@material-ui/lab/Autocomplete';
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      
-    },
-  },
-    input: {
-      display: 'none',
-    },
-    
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
- 
-}));
-
-function getHash(input){
-  var hash = 0, len = input.length;
-  for (var i = 0; i < len; i++) {
-    hash  = ((hash << 5) - hash) + input.charCodeAt(i);
-    hash |= 0; // to 32bit integer
-  }
-
-          
-
-  return hash;
-}
-
-class AddProduct extends Component {
-  constructor(props) {
-    super(props);
-  
-    // this.onFileChange = this.onFileChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
- 
-
-    this.state = {
-        image: '',
-        loading: false,
-        selectedFile : undefined,
-        props : false,
-        
-    }
-    // this.addProd = this.addProd.bind(this)
-
-    
-  }
 
 
-
-componentWillReceiveProps(nexProps){
-  this.state.props = !this.state.props
-  if (nexProps.submitted && this.state.props){
-    let {startingStore:{addProductImg,product}}=this.props;
-    let formData = new FormData();
-    formData.append('productImg' , this.state.selectedFile)
-    // formData.append('product_Img' , this.state.selectedFile)
-    formData.append('type', 'product')
-    console.log(formData,"file")
-      addProductImg(formData);
-
-    // console.log("roaw")
-  }
-
-}
-
-
-componentWillUnmount(){
-  this.setState({props : !this.state.props})
-}
-
-
-
-  onFileChange = (e) => {
-
-  this.setState({ loading: true });
-  let {startingStore:{product}}=this.props;
-  
-      this.setState({selectedFile:e.target.files[0]})
-    
-    Resizer.imageFileResizer(
-      e.target.files[0],
-      100,
-      100,
-      'JPEG',
-      100,
-      0,
-      uri => {
-        this.setState({image:uri})
-        product.setProperty('product_Img',uri)
-      },
-      'URI'
-     
-  )
-
- 
-  setTimeout(() => {
-        
-    this.setState({ loading: false });
-        }, 2000); 
-}
-
-
-
-
-
-
-
-//  AddProd = (e) => {
-//   let {startingStore:{addProductImg ,product}}=this.props;
- 
-
-  
-
-//   setTimeout(() => {
-//     this.setState({ loading: false, visible: false });
-//   }, 3000);
-// };
-
-
-
- AddProductForm = () => {
-  // const [image,fileUpload]= React.useState(0);
+const AddProduct = (props) => {
+  const [image,setImage]= React.useState('');
+  const [loading,setLoading]= React.useState(false);
+  const [selectedFile,setSelectedFile]= React.useState(undefined);
+  const[props,setProps]=React.useState(false)
   const [labelWidth, setLabelWidth] = React.useState(0);   
   const [selectedDate, setSelectedDate] = React.useState(new Date('08-18-2019'));
   const [exselectedDate, exsetSelectedDate] = React.useState(new Date('08-18-2020'));
-  let {startingStore:{product}}=this.props;
+  let {addProductImg,product}=props.startingStore;
   const [values, setValues] = React.useState({
  
     numberformat: '',
   });
+
+
+
+  const useStyles = makeStyles(theme => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        
+      },
+    },
+      input: {
+        display: 'none',
+      },
+      
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+   
+  }));
+  
+  function getHash(input){
+    var hash = 0, len = input.length;
+    for (var i = 0; i < len; i++) {
+      hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+      hash |= 0; // to 32bit integer
+    }
+  
+            
+  
+    return hash;
+  }
+
+
+  React.useEffect((nextProps)=>{
+    props = !props
+    if (nextProps.submitted && props){
+  
+      let formData = new FormData();
+      formData.append('productImg' , selectedFile)
+  
+      formData.append('type', 'product')
+      console.log(formData,"file")
+        addProductImg(formData);
+ 
+    }
+  
+  },[])
+  
+  
+  React.useEffect(()=>{
+    setProps(props)
+  },[])
+  
+  
+  
+   let onFileChange = (e) => {
+  
+    setLoading(true );
+  
+    
+       setSelectedFile(e.target.files[0])
+      
+      Resizer.imageFileResizer(
+        e.target.files[0],
+        100,
+        100,
+        'JPEG',
+        100,
+        0,
+        uri => {
+         setImage(uri)
+          product.setProperty('product_Img',uri)
+        },
+        'URI'
+       
+    )
+  
+   
+    setTimeout(() => {
+          
+      setLoading( false );
+          }, 2000); 
+  }
+
+
 
   const handleChange = (event) => {
     setValues({
@@ -233,11 +200,11 @@ componentWillUnmount(){
         multiple
         type="file"
         style={{display:"none"}}
-        onChange={e=> this.onFileChange(e)}
+        onChange={e=>onFileChange(e)}
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained"  component="span"  style={{height:"100%",width:"100%",color:"white",backgroundColor:"#208769"}}>
-    {this.state.loading ?  <CircularProgress color="secondary" style={{margin:"5px"}}/>: <PhotoCamera style={{margin:"5px"}}/>} Upload Image
+    {loading ?  <CircularProgress color="secondary" style={{margin:"5px"}}/>: <PhotoCamera style={{margin:"5px"}}/>} Upload Image
         </Button>
       </label>
 
@@ -247,7 +214,7 @@ componentWillUnmount(){
       </Grid>
       <Grid item xs={6} style={{textAlign:"center"}}>
 
- <img src={this.state.image} ></img>
+ <img src={image} ></img>
 
 
       </Grid>
@@ -311,32 +278,7 @@ componentWillUnmount(){
     
       
       
-      {/* <FormControl variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-          Category
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          labelWidth={labelWidth}
-          onChange={product_Category=>{product.setProperty("product_Category", product_Category.target.value)}}
-          
-        >
-          <MenuItem value="">
-            <em></em>
-          </MenuItem>
-          <MenuItem value="Beverages">Beverages</MenuItem>
-          <MenuItem value="Bread/Bakery">Bread/Bakery</MenuItem>
-          <MenuItem value="Canned/Jarred Goods">Canned/Jarred Goods</MenuItem>
-          <MenuItem value="Cleaning">Cleaning</MenuItem>
-          <MenuItem value="Dry/Baking Goods">Dry/Baking Goods </MenuItem>
-          <MenuItem value="Liquor">Liquor</MenuItem>
-          <MenuItem value="Produce">Produce </MenuItem>
-          <MenuItem value="Paper Goods">Paper Goods </MenuItem>
-          <MenuItem value="Personal Care">Personal Care</MenuItem>
-         
-        </Select>
-      </FormControl> */}
+
 
       <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
         <InputLabel htmlFor="outlined-age-native-simple">Category</InputLabel>
@@ -447,35 +389,7 @@ componentWillUnmount(){
       </Grid>
       <Grid xs={5} item style={{margin:"5px"}}>
         
-            {/* <FormControl variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-          Standard UoM
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          maxWidth="100"
-          onChange={product_UoM=>{product.setProperty("product_UoM", product_UoM.target.value)}}
-          labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em></em>
-          </MenuItem>
-          <MenuItem value="10/Order">10/Order</MenuItem>
-          <MenuItem value="12/Order">12/Order</MenuItem>
-          <MenuItem value="15/Order">15/Order</MenuItem>
-          <MenuItem value="20/Order">20/Order</MenuItem>
-          <MenuItem value="24/Order">24/Order</MenuItem>
-          <MenuItem value="30/Order">30/Order</MenuItem>
-          <MenuItem value="36/Order">36/Order</MenuItem>
-          <MenuItem value="40/Order">40/Order</MenuItem>
-          <MenuItem value="48/Order">48/Order</MenuItem>
-          <MenuItem value="50/Order">50/Order</MenuItem>
-          <MenuItem value="72/Order">72/Order</MenuItem>
-          <MenuItem value="80/Order">80/Order</MenuItem>
-          <MenuItem value="100/Order">100/Order</MenuItem>
-        </Select>
-      </FormControl> */}
+
 
       <TextField 
       id="outlined-basic" 
@@ -506,50 +420,7 @@ componentWillUnmount(){
       onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
       />
 
-      {/* <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-        <InputLabel htmlFor="grouped-native-select">Variant</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select"
-        label="Variant"
-        onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
-        >
-          <option aria-label="None" value="" />
-          <optgroup label="Color">
-            <option value='Blue'>Blue</option>
-            <option value='Green'>Green</option>
-            <option value='Red'>Red</option>
-            <option value='Orange'>Orange</option>
-            <option value='Yellow'>Yellow</option>
-            <option value='Violet'>Violet</option>
-          </optgroup>
-          <optgroup label="Flavor">
-            <option value='Calamansi'>Calamansi</option>
-            <option value='Spicy'>Spicy</option>
-            <option value='Original'>Original</option>
-            <option value='Sweet'>Sweet</option>
-            <option value='Sweet&Spicy'>Sweet&Spicy</option>
-            <option value='Extra Hot'>Extra Hot</option>
-            <option value='Squid'>Squid</option>
-            <option value='Orange'>Orange</option>
-            <option value='Chocolate'>Chocolate</option>
-            <option value='Lemon'>Lemon</option>
-            <option value='Butter'>Butter</option>
-            <option value='Lime'>Lime</option>
-            <option value='Mango'>Mango</option>
-            <option value='Pineapple'>Pineapple</option>
-            <option value='Grapes'>Grapes</option>
-            <option value='4 Season'>4 Season</option>
-          </optgroup>
-          <optgroup label="Size">
-          <option value='XXS'>XXS</option>
-            <option value='XS'>XS</option>
-            <option value='SM'>SM</option>
-            <option value='L'>L</option>
-            <option value='XL'>XL</option>
-            <option value='XXL'>XXL</option>
-          </optgroup>
-          
-        </Select>
-      </FormControl> */}
+
 
       </Grid>
  
@@ -693,21 +564,5 @@ componentWillUnmount(){
 
 
   
-  render() { 
 
- 
-  
-  
-  return(
-  <div>
-
- <this.AddProductForm/>
-
-  </div>     
- 
-  
-
- );
-}
-}
 export default inject('startingStore')(observer(AddProduct));

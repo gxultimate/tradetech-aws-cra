@@ -17,130 +17,104 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import Resizer from 'react-image-file-resizer';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      
-    },
-  },
-    input: {
-      display: 'none',
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
- 
-}));
-
-function getHash(input){
-  var hash = 0, len = input.length;
-  for (var i = 0; i < len; i++) {
-    hash  = ((hash << 5) - hash) + input.charCodeAt(i);
-    hash |= 0; // to 32bit integer
-  }
-
-          
-
-  return hash;
-}
-
-class AddProduct extends Component {
-  constructor(props) {
-    super(props);
-  
-    // this.onFileChange = this.onFileChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
- 
-
-    this.state = {
-        image: '',
-        loading: false,
-        selectedFile : undefined,
-        props : false
-        
-    }
-    // this.addProd = this.addProd.bind(this)
-
-    
-  }
-
-
-
-componentWillReceiveProps(nexProps){
-  this.state.props = !this.state.props
-  if (nexProps.submitted && this.state.props){
-    let {startingStore:{addProductImg}}=this.props;
-    let formData = new FormData();
-    formData.append('productImg' , this.state.selectedFile)
-    formData.append('type', 'product')
-      addProductImg(formData);
-
-    // console.log("roaw")
-  }
-
-}
-
-
-componentWillUnmount(){
-  this.setState({props : !this.state.props})
-}
-
-
-
-  onFileChange = (e) => {
-
-  this.setState({ loading: true });
-  let {startingStore:{product}}=this.props;
-  
-      this.setState({selectedFile:e.target.files[0]})
-    
-    Resizer.imageFileResizer(
-      e.target.files[0],
-      100,
-      100,
-      'JPEG',
-      100,
-      0,
-      uri => {
-        this.setState({image:uri})
-        product.setProperty('product_Img',uri)
-      },
-      'URI'
-     
-  )
-
- 
-  setTimeout(() => {
-        
-    this.setState({ loading: false });
-        }, 2000); 
-}
 
 
 
 
-
-//  AddProd = (e) => {
-//   let {startingStore:{addProductImg ,product}}=this.props;
- 
-
-  
-
-//   setTimeout(() => {
-//     this.setState({ loading: false, visible: false });
-//   }, 3000);
-// };
-
- AddProductForm = () => {
-  // const [image,fileUpload]= React.useState(0);
+const AddProduct = (props) => {
+  const [image, setImage] = React.useState('');   
+  const [loading, setLoading] = React.useState(false); 
+  const [selectedFile, setSelectedFile] = React.useState(undefined);   
+  const [props2, setProps2] = React.useState(undefined);  
   const [labelWidth, setLabelWidth] = React.useState(0);   
   const [selectedDate, setSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
   const [exselectedDate, exsetSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
-  let {startingStore:{product}}=this.props
-  // const handleDateChange = date => {
-    // setSelectedDate(date);
-  // };
+  let {product,addProductImg}=props.startingStore
+
+
+
+  const useStyles = makeStyles(theme => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        
+      },
+    },
+      input: {
+        display: 'none',
+      },
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+   
+  }));
+  
+  function getHash(input){
+    var hash = 0, len = input.length;
+    for (var i = 0; i < len; i++) {
+      hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+      hash |= 0; // to 32bit integer
+    }
+  
+            
+  
+    return hash;
+  }
+
+
+
+  React.useEffect((nextProps)=>{
+    props2 = !props2
+    if (nextProps.submitted && props2){
+  
+      let formData = new FormData();
+      formData.append('productImg' , selectedFile)
+      formData.append('type', 'product')
+        addProductImg(formData);
+  
+      // console.log("roaw")
+    }
+  
+  }, [])
+  
+  
+  React.useEffect(()=>{
+    setProps2(!props2)
+  },[])
+  
+
+
+  
+ let onFileChange = (e) => {
+
+    setLoading(true );
+  
+    
+       setSelectedFile(e.target.files[0])
+      
+      Resizer.imageFileResizer(
+        e.target.files[0],
+        100,
+        100,
+        'JPEG',
+        100,
+        0,
+        uri => {
+          setImage(uri)
+          product.setProperty('product_Img',uri)
+        },
+        'URI'
+       
+    )
+  
+   
+    setTimeout(() => {
+          
+     setLoading( false );
+          }, 2000); 
+  }
+
+  
   const inputLabel = React.useRef(null);
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
@@ -162,11 +136,6 @@ componentWillUnmount(){
       }
 
 
-  //  function onFileChange (e){
-  //       // ({ image: e.target.files[0] })
-
-       
-  //   }
   return (
     <form className={classes.root} noValidate autoComplete="off">
         
@@ -182,11 +151,11 @@ componentWillUnmount(){
         multiple
         type="file"
         style={{display:"none"}}
-        onChange={e=> this.onFileChange(e)}
+        onChange={(e)=>onFileChange(e)}
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained"  component="span" color="primary" style={{height:"100%",width:"100%",color:"white"}}>
-    {this.state.loading ?  <CircularProgress color="secondary" style={{margin:"5px"}}/>: <PhotoCamera style={{margin:"5px"}}/>} Upload Image
+    {loading ?  <CircularProgress color="secondary" style={{margin:"5px"}}/>: <PhotoCamera style={{margin:"5px"}}/>} Upload Image
         </Button>
       </label>
 
@@ -196,7 +165,7 @@ componentWillUnmount(){
       </Grid>
       <Grid item xs={6} style={{textAlign:"center"}}>
 
- <img src={this.state.image} ></img>
+ <img src={image} ></img>
 
 
       </Grid>
@@ -504,22 +473,5 @@ componentWillUnmount(){
 }
 
 
-  
-  render() { 
 
-  // const RegForm = ((props) => {    
-  
-  
-  return(
-  <div>
-
- <this.AddProductForm/>
-
-  </div>     
- 
-  
-
- );
-}
-}
 export default inject('startingStore')(observer(AddProduct));

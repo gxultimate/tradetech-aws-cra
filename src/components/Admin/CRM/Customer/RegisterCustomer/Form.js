@@ -11,59 +11,51 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const useStyles = makeStyles(theme => ({
-  
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 220,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    formControl2: {
-      margin: theme.spacing(1),
-      minWidth: 220,      },
-  },
-}));
 
 
-  function getHash(input){
-    var hash = 0, len = input.length;
-    for (var i = 0; i < len; i++) {
-      hash  = ((hash << 5) - hash) + input.charCodeAt(i);
-      hash |= 0; // to 32bit integer
-    }
-  
-            
-  
-    return hash;
-  }
-class RegForm extends Component{
 
-  constructor(){
-   super()
-   this.state={
-     disabled :true,
-   }
-  }
-
-
-  RegistrationForm = () => {
+ const RegForm = (props) => {
     const classes = useStyles();
-    let {startingStore:{account}}=this.props
+    let {account}=props.startingStore;
     const [value, setValue] = React.useState('');
 
-    // const handleChange = (event) => {
-    //   setValue(event.target.value);
-    //   account.setProperty("account_address", event.target.value);
-    //   account.setProperty("account_storeAddress", event.target.value)
-    // };
 
+
+    const useStyles = makeStyles(theme => ({
+  
+      root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          width: 200,
+        },
+        formControl: {
+          margin: theme.spacing(1),
+          minWidth: 220,
+        },
+        selectEmpty: {
+          marginTop: theme.spacing(2),
+        },
+        formControl2: {
+          margin: theme.spacing(1),
+          minWidth: 220,      },
+      },
+    }));
+    
+    
+      function getHash(input){
+        var hash = 0, len = input.length;
+        for (var i = 0; i < len; i++) {
+          hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+          hash |= 0; // to 32bit integer
+        }
+      
+                
+      
+        return hash;
+      }
+
+
+ 
    
     let date = new Date();
   
@@ -304,18 +296,7 @@ class RegForm extends Component{
   
 
 
-  render(){
 
-
-
-return ( 
-       
-  <this.RegistrationForm/>
-
-
- );
-
-}}
 
 
 export default inject("startingStore")(observer(RegForm));
