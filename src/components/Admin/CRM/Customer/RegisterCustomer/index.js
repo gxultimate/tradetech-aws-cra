@@ -90,7 +90,7 @@ const AddCustomers = (props) => {
         </DialogContent>
         <DialogActions>
           <Divider/>
-          <Button autoFocus onClick={() => {()=>addCustomer()}} style={{backgroundColor:"#208769",color:"white"}}>
+          <Button autoFocus onClick={()=>addCustomer()} style={{backgroundColor:"#208769",color:"white"}}>
             <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
             </Button>
     
