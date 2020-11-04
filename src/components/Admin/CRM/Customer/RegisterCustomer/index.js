@@ -12,7 +12,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 
-const addCustomers = (props) => {
+const AddCustomers = (props) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -105,4 +105,4 @@ const addCustomers = (props) => {
 }
 
 
-export default inject("startingStore")(observer(addCustomers));
+export default inject("startingStore")(observer(AddCustomers));
