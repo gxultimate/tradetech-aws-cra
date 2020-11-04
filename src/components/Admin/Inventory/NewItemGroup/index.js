@@ -23,7 +23,7 @@ import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
     let {product}=props.startingStore;
 
-    addProd = (e) => {
+    let addProd = (e) => {
       setSubmitted( true )
 
     
