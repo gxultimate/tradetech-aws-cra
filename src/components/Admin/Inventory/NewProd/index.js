@@ -94,7 +94,7 @@ import MuiAlert from '@material-ui/lab/Alert';
       <AddProductForm submitted={submitted}  />
           </DialogContent>
           <DialogActions>
-          <Button autoFocus onClick={() => {()=>addProd()}} style={{backgroundColor:"#208769",color:"white"}}>
+          <Button autoFocus onClick={()=>addProd()} style={{backgroundColor:"#208769",color:"white"}}>
             <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
             </Button>
       
