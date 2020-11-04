@@ -1,8 +1,9 @@
 {
-  "name": "my-app",
+  "name": "own-boilerplate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@appbaseio/reactivesearch": "^3.11.7",
     "@date-io/date-fns": "^1.3.13",
     "@date-io/moment": "^1.3.13",
     "@material-ui/core": "^4.9.11",
@@ -10,30 +11,39 @@
     "@material-ui/lab": "^4.0.0-alpha.50",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.10",
+    "@react-pdf/renderer": "^1.6.10",
+    "antd": "^3.26.15",
     "axios": "^0.18.0",
     "chart.js": "^2.9.3",
     "date-fns": "^2.12.0",
+    "firebase-tools": "^7.16.2",
     "joi": "^14.3.1",
     "material-table": "^1.57.2",
     "material-ui-search-bar": "^0.4.2",
     "material-ui-upload": "^1.2.1",
+    "materialui-daterange-picker": "^1.1.8",
+    "material-auto-rotating-carousel": "^3.0.2",
+    "react-material-ui-carousel": "^1.6.0",
     "mobx": "^5.9.0",
     "mobx-react": "^6.2.2",
     "moment": "^2.24.0",
-    "prop-types": "^15.7.2",
+    "multer": "^1.4.2",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-html-parser": "^2.0.2",
     "react-html-table-to-excel": "^2.0.0",
-    "react-image-file-resizer": "^0.3.1",
+    "react-image-file-resizer": "^0.2.3",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.4.1",
-    "react-scroll": "^1.8.0",
+    "react-scripts": "2.1.8",
+    "react-scroll": "^1.7.16",
+    "react-scroll-section": "^2.1.0",
     "react-swipeable-views": "^0.13.7",
+    "socket.io": "^2.3.0",
     "uniqid": "^5.2.0",
-    "xlsx": "^0.16.3"
+    "xlsx": "^0.15.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,16 +54,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
