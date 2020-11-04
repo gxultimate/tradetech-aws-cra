@@ -85,7 +85,6 @@ import theme from './../../../theme'
      </Grid>
      <Grid item xs={6} style={{textAlign:"center"}}>
 
-<img src={image} ></img>
 
 
      </Grid>
