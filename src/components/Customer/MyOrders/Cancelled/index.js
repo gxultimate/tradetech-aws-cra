@@ -52,7 +52,7 @@ let filOrder = listOfOrder.filter(order => {
 
     return(
   
-      <Grid item xs={12} sm={12} style={{marginTop:"16px",marginBottom:"50px"}}>
+      <Grid item xs={12} sm={5} style={{padding:'14px'}}>
       <Paper className={classes.paper}>
 
           <Grid container xs={12} sm={12}>
@@ -60,11 +60,8 @@ let filOrder = listOfOrder.filter(order => {
                 <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2">Order Date : <span style={{fontWeight:"bold"}}>{myorder.orderDate}</span></Typography></Grid>
           </Grid>
           <Divider style={{marginTop:"8px",marginBottom:"8px"}}/>
-          <Grid container xs={12} sm={12}>
-                <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Packer : <span style={{fontWeight:"bold"}}>{listOfUsers.filter(accs => accs.account_ID === myorder.packer_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span></Typography></Grid>
-                <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Dispatcher : <span style={{fontWeight:"bold"}}>{listOfUsers.filter(accs => accs.account_ID === myorder.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span></Typography></Grid>
-          </Grid>
-          <Divider style={{marginTop:"8px",marginBottom:"8px"}}/>
+     
+     
           <Grid container xs={12} sm={12}>
           <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Order Status : <span style={{fontWeight:"bold"}}>{myorder.orderStatus}</span></Typography></Grid>
           <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Mode Of Payment :<span style={{fontWeight:"bold"}}>{myorder.modeOfPayment}</span></Typography></Grid>
@@ -98,7 +95,7 @@ let filOrder = listOfOrder.filter(order => {
   
   return (
     <div className={classes.root}>
-      <Grid container xs={12} sm={12}>
+      <Grid container xs={12} sm={12} direction='row' justify='center'>
 
       {myOrder}
       </Grid>

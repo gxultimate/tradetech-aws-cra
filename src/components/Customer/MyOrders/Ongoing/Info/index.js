@@ -170,7 +170,7 @@ const invoiceTotal =invoiceSubtotal;
       
           <TableRow>
             <TableCell colSpan={1}>Total</TableCell>
-            <TableCell align="right">&#8369;{invoiceTotal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+            <TableCell align="right">&#8369;{invoiceTotal}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

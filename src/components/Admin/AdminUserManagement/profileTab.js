@@ -11,7 +11,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './../theme'
 
 import StaffGrid from './Staff'
-import AdminGrid from './Admin'
+import AdminGrid from './Admin/index.js'
 import Deactivated from './Deactivated'
 
 function TabPanel(props) {

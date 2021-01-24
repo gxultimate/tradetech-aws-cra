@@ -326,7 +326,7 @@ function SBCTables() {
                         {row.name} {row.mname} {row.lname}
                       </TableCell>
                       <TableCell align="right">{row.nvoice}</TableCell>
-                      <TableCell align="right">&#8369;{row.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                      <TableCell align="right">{Number(row.total).toLocaleString('en')}</TableCell>
               
                     </TableRow>
                  )
@@ -352,7 +352,7 @@ function SBCTables() {
                                             {row.name} {row.mname} {row.lname}
                                             </TableCell>
                                             <TableCell align="right">{row.nvoice}</TableCell>
-                                            <TableCell align="right">&#8369;{row.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                                            <TableCell align="right">{Number(row.total).toLocaleString('en')}</TableCell>
                                     
                                           </TableRow>
 

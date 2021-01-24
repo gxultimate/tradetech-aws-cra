@@ -289,7 +289,7 @@ function PayReceivedTable() {
                       <TableCell align="right">{row.cust}</TableCell>
                       <TableCell align="right">{row.MOP}</TableCell>
                       <TableCell align="right">{row.note}</TableCell>
-                      <TableCell align="right">&#8369;{row.amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                      <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
                     </TableRow>
                   )
                             }
@@ -315,7 +315,7 @@ function PayReceivedTable() {
                             <TableCell align="right">{row.cust}</TableCell>
                             <TableCell align="right">{row.MOP}</TableCell>
                             <TableCell align="right">{row.note}</TableCell>
-                            <TableCell align="right">&#8369;{row.amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                            <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
                           </TableRow>
                           )
                            })}

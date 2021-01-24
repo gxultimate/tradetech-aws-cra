@@ -67,6 +67,7 @@ getDistributors = () => {
 
       addProduct = () => { 
         return new Promise((resolve, reject) => {   
+          console.log(this.product)
           this.api.addproduct(this.product)
           .then(resp => {    
              this.listofProducts = resp.data
@@ -144,6 +145,19 @@ getDistributors = () => {
                        });
                       })
                 }
+
+                addProductImg = (img) => {
+    
+                  this.api.addproductImg(img)
+                  .then(resp => {
+                    this.product.setProperty('product_Status' ,'active')
+                    this.product.setProperty('product_Img' , resp.data.url )
+                    this.addProduct()
+                   
+                  }).catch(err=>{
+                    console.log(err)
+                  }) 
+                }
          
 
 
@@ -170,6 +184,7 @@ decorate(InventoryStore, {
     pricehist:observable,
     listOfPriceHist:observable,
     addPriceHistory:action,
+    addProductImg:action,
 
 
   

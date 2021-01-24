@@ -34,10 +34,7 @@ export default function Stock() {
       setOpen(true);
     };
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
+ 
   const handleClose = () => {
     setOpen(false);
   };

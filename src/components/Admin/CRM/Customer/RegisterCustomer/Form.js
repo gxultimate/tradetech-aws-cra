@@ -11,59 +11,33 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const useStyles = makeStyles(theme => ({
-  
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 220,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    formControl2: {
-      margin: theme.spacing(1),
-      minWidth: 220,      },
-  },
-}));
 
 
-  function getHash(input){
-    var hash = 0, len = input.length;
-    for (var i = 0; i < len; i++) {
-      hash  = ((hash << 5) - hash) + input.charCodeAt(i);
-      hash |= 0; // to 32bit integer
-    }
-  
-            
-  
-    return hash;
-  }
-class RegForm extends Component{
 
-  constructor(){
-   super()
-   this.state={
-     disabled :true,
-   }
-  }
-
-
-  RegistrationForm = () => {
-    const classes = useStyles();
-    let {startingStore:{account}}=this.props
+ const RegForm = (props) => {
+    
+    let {account}=props.startingStore;
     const [value, setValue] = React.useState('');
 
-    // const handleChange = (event) => {
-    //   setValue(event.target.value);
-    //   account.setProperty("account_address", event.target.value);
-    //   account.setProperty("account_storeAddress", event.target.value)
-    // };
 
+
+
+    
+    
+      function getHash(input){
+        var hash = 0, len = input.length;
+        for (var i = 0; i < len; i++) {
+          hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+          hash |= 0; // to 32bit integer
+        }
+      
+                
+      
+        return hash;
+      }
+
+
+ 
    
     let date = new Date();
   
@@ -89,7 +63,7 @@ class RegForm extends Component{
       
     return (
       <div >
-      <form className={classes.root} noValidate autoComplete="off" >
+      <form  noValidate autoComplete="off" >
      
 
   <Grid container direction="row"
@@ -98,15 +72,16 @@ class RegForm extends Component{
    >
 
 
-<Grid item>
-  <Grid container ditection="row" sm={12}>
+<Grid item xs={12}>
+  <Grid container direction="row" sm={12}>
 
-    <Grid item xs={4}>
+    <Grid item xs={3} style={{margin:'4px'}}>
     <TextField
         id="outlined-secondary"
         label="First name"
         variant="outlined"
         color="secondary"
+        size='small'
         style={{height:"50px"
         }}
         onChange={account_fName=>{
@@ -119,22 +94,24 @@ class RegForm extends Component{
         }}
       /> 
 </Grid>
-<Grid item xs={4}>
+<Grid item xs={3} style={{margin:'4px'}}>
   <TextField
         id="outlined-secondary"
         label="Middle name"
         variant="outlined"
         color="secondary"
+        size='small'
         style={{height:"50px"}}
         onChange={account_mName=>{account.setProperty("account_mName", account_mName.target.value)}}
     />
      </Grid>       
- <Grid item xs={4}>
+ <Grid item xs={3} style={{margin:'4px'}}>
       <TextField
         id="outlined-secondary"
         label="Last name"
         variant="outlined"
         color="secondary"
+        size='small'
         style={{height:"50px"}}
         onChange={account_lName=>{account.setProperty("account_lName", account_lName.target.value)
         
@@ -142,19 +119,20 @@ class RegForm extends Component{
       }}
       /> 
       </Grid>
-      </Grid>
-  </Grid>
-  <Grid item xs={3} >
 
 
-<FormControl variant="outlined" className={classes.formControl} style={{width:"100%",marginLeft:"7px",marginTop:"7.5px"}}>
+      <Grid item xs={2} style={{margin:'4px'}}>
+
+
+<FormControl variant="outlined" size='small'	style={{ width: '100%' }}>
           <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
             Suffix
           </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-          
+            
+            
             onChange={account_suffix=>{account.setProperty("account_suffix", account_suffix.target.value)}}
           
         
@@ -172,7 +150,13 @@ class RegForm extends Component{
 
 </Grid>  
 
+      </Grid>
+  </Grid>
 
+
+	<Grid item xs={12}>
+						<Grid container direction="row" sm={12} >
+							<Grid item xs={3} style={{margin:'4px'}}>
 
         <TextField
           id="outlined-secondary"
@@ -180,31 +164,37 @@ class RegForm extends Component{
           variant="outlined"
           color="secondary"
           style={{height:"50px"}}
-     
-          // onChange={handleChange}
+          size='small'
+        
           onChange={account_address=>{account.setProperty("account_address", account_address.target.value)}}
         />
+        </Grid>
+<Grid item xs={3} style={{margin:'4px'}}>
         <TextField
           id="outlined-secondary"
           label="Email"
           variant="outlined"
           color="secondary"
           type='email'
+          size='small'
           style={{height:"50px"}}
           onChange={account_emailAddress=>{account.setProperty("account_emailAddress", account_emailAddress.target.value)}}
         />
-      
+      </Grid>
+<Grid item xs={3} style={{margin:'4px'}}>
       <TextField
           id="outlined-secondary"
           label="Contact No."
           variant="outlined"
           color="secondary"
           inputProps={{maxLength:11}}
+          size='small'
           style={{height:"50px"}}
           onChange={account_contactNo=>{account.setProperty("account_contactNo", account_contactNo.target.value)}}
         />
-
-        <FormControl variant="outlined" className={classes.formControl} style={{width:"25%",marginLeft:"7px",marginTop:"7.5px"}}>
+</Grid>
+<Grid item xs={2} style={{margin:'4px'}}>
+        <FormControl variant="outlined" size='small' style={{ width: '100%' }}>
           <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
             Contract
           </InputLabel>
@@ -227,70 +217,71 @@ class RegForm extends Component{
           </Select>
         </FormControl>
     
-        {/* <TextField
-        id="date"
-        label="Birthday"
-        type="date"
-        defaultValue="2017-05-24"
-       
-        onChange={onchangebday}
-        InputLabelProps={{
-          shrink: true,
-        }}
-          color="secondary"
-          style={{height:"50px"}}
-          
-        />  */}
-        <ThemeProvider theme={theme}>
-<MuiPickersUtilsProvider utils={DateFnsUtils}>
-         <KeyboardDatePicker
-          margin="normal"
-          id="date-picker"
-          label="Date of Birth"
-         format='MMM/dd/yyyy'
-         color='primary'
-         value={selectedDate}
-          style={{height:"50px"}}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-</MuiPickersUtilsProvider>
-</ThemeProvider>
+        </Grid>
+					</Grid>
+					</Grid>
+
+
+
+          <Grid item xs={12}>
+						<Grid container direction="row" sm={12} >
+			
+
+
+<Grid item xs={3} style={{margin:'4px'}}>
   <TextField
           id="outlined-secondary"
           label="Store Name"
           variant="outlined"
           color="secondary"
+          size='small'
           style={{height:"50px"}}
           onChange={account_shopName=>{account.setProperty("account_storeName", account_shopName.target.value)}}
         />
+
+</Grid>
+
+<Grid item xs={3} style={{margin:'4px'}}>
         <TextField
-          id="outlined-secondary"
-          multiline
-          label="Store Address"
-          variant="outlined"
-          // value={value}
-          // onChange={handleChange}
-          color="secondary"
-          style={{height:"50px"}}
+       id="outlined-secondary"
+       label="Store Address"
+       variant="outlined"
+       color="secondary"
+       size='small'
+       style={{height:"50px"}}
         
           onChange={account_shopAddress=>{account.setProperty("account_storeAddress", account_shopAddress.target.value)}}
         />
-      {/* <KeyboardDatePicker
-            margin="normal"
-            id="date-picker-dialog"
-            label="Date picker dialog"
-            format="MM/dd/yyyy"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          /> */}
+ 
   
-  
+  	</Grid>
+
+
+    <Grid item xs={3} style={{marginLeft:'4px'}}>
+
+<ThemeProvider theme={theme}>
+<MuiPickersUtilsProvider utils={DateFnsUtils}>
+ <KeyboardDatePicker
+  margin="normal"
+  id="date-picker"
+  label="Date of Birth"
+ format='MMM/dd/yyyy'
+ color='primary'
+ size='small'
+ value={selectedDate}
+ style={{ marginTop:'-2px'}}
+  onChange={handleDateChange}
+  KeyboardButtonProps={{
+    'aria-label': 'change date',
+  }}
+/>
+</MuiPickersUtilsProvider>
+</ThemeProvider>
+</Grid>
+
+
+					</Grid>
+					</Grid>
   
   
         
@@ -304,18 +295,7 @@ class RegForm extends Component{
   
 
 
-  render(){
 
-
-
-return ( 
-       
-  <this.RegistrationForm/>
-
-
- );
-
-}}
 
 
 export default inject("startingStore")(observer(RegForm));

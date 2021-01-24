@@ -167,8 +167,8 @@ const invoiceTotal =invoiceSubtotal;
           {rows.map((row) => {
              let names = row.desc.map((itm,itmIndex) =>{return itm});
              let qtys = row.qty.map(qties => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{qties}</span><br/>   </React.Fragment>)});
-             let itmprc = row.itmprice.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>&#8369;{prcs.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span><br/>   </React.Fragment>)});
-             let prc = row.price.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>&#8369;{prcs.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span><br/>   </React.Fragment>)});
+             let itmprc = row.itmprice.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{prcs}</span><br/>   </React.Fragment>)});
+             let prc = row.price.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{prcs}</span><br/>   </React.Fragment>)});
           
              let item = names.map( items =>{ return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{items}</span><br/>   </React.Fragment>)})
              return(
@@ -188,7 +188,7 @@ const invoiceTotal =invoiceSubtotal;
       
           <TableRow>
             <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="right">&#8369;{invoiceTotal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+            <TableCell align="right">{invoiceTotal}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -213,10 +213,10 @@ const invoiceTotal =invoiceSubtotal;
 }</span>
              </Grid>
              <Grid item xs={12} sm={12} >
-  <span>Total Amount Due :&#8369;{order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+  <span>Total Amount Due :{order.orderTotalAmount}</span>
              </Grid>
              <Grid item xs={12} sm={12} >
-  <span>Total Payment :&#8369;{order.order_totalPayment.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+  <span>Total Payment :{order.order_totalPayment}</span>
              </Grid>
              <Grid item xs={12} sm={12} >
              <span>Date Completed :{order.orderDateCompleted}</span> 

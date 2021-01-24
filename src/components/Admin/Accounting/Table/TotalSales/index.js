@@ -364,7 +364,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                       </TableCell>
                       <TableCell align="right">{row.customerName} {row.mname} {row.lname}</TableCell>
                       <TableCell align="right">{row.paystat}</TableCell>
-                      <TableCell align="right">{row.amount}</TableCell>
+                      <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
                       
                     </TableRow>
                   );
@@ -395,7 +395,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                     </TableCell>
                     <TableCell align="right">{row.customerName} {row.mname} {row.lname}</TableCell>
                     <TableCell align="right">{row.paystat}</TableCell>
-                    <TableCell align="right">{row.amount}</TableCell>
+                    <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
                     
                   </TableRow>
                 );
@@ -424,7 +424,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                   </TableCell>
                   <TableCell align="right">{row.customerName} {row.mname} {row.lname}</TableCell>
                   <TableCell align="right">{row.paystat}</TableCell>
-                  <TableCell align="right">{row.amount}</TableCell>
+                  <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
                   
                 </TableRow>
                  );

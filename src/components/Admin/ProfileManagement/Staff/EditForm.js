@@ -9,72 +9,63 @@ import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import React, { Component } from 'react';
 
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardTimePicker,
-//   KeyboardDatePicker,
-// } from '@material-ui/pickers';
 
 
-
-const useStyles = makeStyles(theme => ({
-  
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 220,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    formControl2: {
-      margin: theme.spacing(1),
-      minWidth: 220,      },
-  },
-}));
-
-
-  function getHash(input){
-    var hash = 0, len = input.length;
-    for (var i = 0; i < len; i++) {
-      hash  = ((hash << 5) - hash) + input.charCodeAt(i);
-      hash |= 0; // to 32bit integer
-    }
-  
-            
-  
-    return hash;
-  }
-class EditForm extends Component{
-
-  constructor(){
-   super()
-   this.state={
-     disabled :true,
-   }
-  }
-
-   
-  accessType = (value) => {
-    let {startingStore:{account}}=this.props
-
-    if (value ==="staff"){
-      this.setState({disabled: false})
-      account.setProperty("account_accessType", value)
-    }
-    else{
-      this.setState({disabled: true})
-    }
+  const EditForm = (props) => {
     
- 
-  }
-  RegistrationForm = () => {
     const classes = useStyles();
-    let {startingStore:{account}}=this.props
+  const [disabled,setDisabled]=React.useState(false);
+    let {account}=props.startingStore;
+
+
+  let  accessType = (value) => {
+    
+  
+      if (value ==="staff"){
+       setDisabled(false)
+        account.setProperty("account_accessType", value)
+      }
+      else{
+      setDisabled(true)
+      }
+      
+   
+    }
+
+
+    const useStyles = makeStyles(theme => ({
+  
+      root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          width: 200,
+        },
+        formControl: {
+          margin: theme.spacing(1),
+          minWidth: 220,
+        },
+        selectEmpty: {
+          marginTop: theme.spacing(2),
+        },
+        formControl2: {
+          margin: theme.spacing(1),
+          minWidth: 220,      },
+      },
+    }));
+    
+    
+      function getHash(input){
+        var hash = 0, len = input.length;
+        for (var i = 0; i < len; i++) {
+          hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+          hash |= 0; // to 32bit integer
+        }
+      
+                
+      
+        return hash;
+      }
+
 
     let date = new Date();
   
@@ -86,19 +77,6 @@ class EditForm extends Component{
       }
       
 
-    //   function onChangeaccount_mName(value) {
-    //     account.setProperty('account_mName' , value)
-    //     }
-        
-    //      function onChangeaccount_lName(value) {
-    //     account.setProperty('account_lName' , value)
-    //     }
-  
-    // const [selectedDate, setSelectedDate] = React.useState(new Date('1990-08-18T21:11:54'));
-  
-    // const handleDateChange = date => {
-    //   setSelectedDate(date);
-    // };
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
     React.useEffect(() => {
@@ -131,7 +109,7 @@ class EditForm extends Component{
             value={account.account_accessType}
           
             onChange={account_accessType=>{
-              this.accessType(account_accessType.target.value)
+              accessType(account_accessType.target.value)
           }}
             labelWidth={labelWidth}
   
@@ -144,7 +122,7 @@ class EditForm extends Component{
           </Select>
         </FormControl>
       
-  <FormControl disabled={this.state.disabled} variant="outlined" className={classes.formControl2} style={{marginBottom:"22px",width:"21%",marginLeft:"6px",marginTop:"7.5px",}}>
+  <FormControl disabled={disabled} variant="outlined" className={classes.formControl2} style={{marginBottom:"22px",width:"21%",marginLeft:"6px",marginTop:"7.5px",}}>
           <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
             Staff 
           </InputLabel>
@@ -316,18 +294,6 @@ class EditForm extends Component{
   
 
 
-  render(){
-
- 
-
-return ( 
-       
-  <this.RegistrationForm/>
-
-
- );
-
-}}
 
 
 export default inject("startingStore")(observer(EditForm));

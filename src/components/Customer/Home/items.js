@@ -24,11 +24,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import moment from 'moment'
-
+import { Link } from 'react-router-dom';
 import Quantity from './quantity'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import './../Styles/Items.css'
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -195,11 +196,11 @@ setTimeout(() => {
           product.setProperty("product_ID", products.product_ID)
 
            
-          setTimeout(() => {
+          // setTimeout(() => {
           
   
-            this.props.history.push({"pathname":"/Customer/ItemInfo", state:{ prod_id: products.product_ID,dis_id:disId.distributor_ID}} )
-          }, 500);
+          //   this.props.history.push({"pathname":"/Customer/ItemInfo", state:{ prod_id: products.product_ID,dis_id:disId.distributor_ID}} )
+          // }, 500);
         };  
 
 
@@ -220,32 +221,40 @@ setTimeout(() => {
         ){
          
       return (
-      
-  <Grid item xs={6} sm={1} key={product.product_ID}>
-  
-  <Card style={{minHeight:"100%"}}>
-    <ThemeProvider theme={theme}>
+
+         
+        <Grid item className='itemGrid' >
+
+  <Card  className='itemCard'>
+  <ThemeProvider theme={theme}>
   <CardHeader
-   
-    style={{fontSize:'10px',fontWeight:'bold',paddingTop:0,paddingBottom:0}}
+    style={{fontSize:'10px',fontWeight:'bold',paddingTop:0,paddingBottom:0,paddingRight:0}}
     disableTypography
         subheader={product.product_Name}
-  
         action={
-          <IconButton aria-label="settings" onClick={()=>{handleClick(product)}} color='secondary'>
-            <InfoIcon />
+          <Link
+          to={{
+            pathname: `/Customer/ItemInfo/${product.product_ID}`,
+            state: {prod_id:product.product_ID,dis_id:disId.distributor_ID}
+          }}
+        >
+        
+        
+          <IconButton aria-label="settings" size='small 
+          ' onClick={()=>{handleClick(product)}} color='secondary' >
+            <InfoIcon  size='small'/>
           </IconButton>
+          </Link>
         }
       />
   </ThemeProvider>
-  
   
   
   <CardMedia style={{margin:"auto"}}
   
   
   >
-  <img  src={product.product_Img} style={{height:"140px",width:"90%",margin:"auto"}} />
+  <img  src={product.product_Img}  className='itemImg' />
   </CardMedia>
   <CardContent>
   <Grid container xs={12} >
@@ -255,39 +264,17 @@ setTimeout(() => {
   <Grid item xs={6}>
   <Typography style={{textAlign:"right",fontSize:'11px',}}>{product.product_UoM} </Typography>
   </Grid>
-
   <Grid item xs={12}>
   <Typography style={{textAlign:"left",fontSize:'11px',}}>VAR:{product.product_Variant} </Typography>
   </Grid>
 
   
-  
   </Grid>
   </CardContent>
   <CardActions  justify="bottom" style={{margin:"auto"}}>
   
-  <Button  style={{backgroundColor:"#208769",margin:"auto",color:"white"}} size="small" variant="contained" onClick={()=>{addCart(product)}}>Add to Cart</Button>
-  <Dialog
-  open={this.state.open}
-  TransitionComponent={Transition}
-  keepMounted
-  onClose={this.handleClose}
-  aria-labelledby="alert-dialog-slide-title"
-  aria-describedby="alert-dialog-slide-description"
-  >
-  <DialogTitle id="alert-dialog-slide-title">{"Enter Quantity"}</DialogTitle>
-  <DialogContent>
-  <Quantity price={this.state.addCartItem} handleChanges={this.priceChange}/>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={this.handleClose} style={{backgroundColor:"#FFA500",color:"white"}} size='small'>
-      Cancel
-    </Button>
-    <Button onClick={()=>{submitItem()}} style={{backgroundColor:"#208769",color:"white"}} size='small'>
-      Enter
-    </Button>
-  </DialogActions>
-  </Dialog>
+  <Button  style={{backgroundColor:"#208769",margin:"auto",color:"white"}} size="small" variant="contained" onClick={()=>{addCart(product)}}>Add to cart</Button>
+  
   </CardActions>
   
   </Card>
@@ -301,8 +288,9 @@ setTimeout(() => {
       }
     }
     return (
+      <Fragment>
       
-  <Grid item xs={6} sm={1}>
+
 
 
 <Dialog
@@ -311,16 +299,7 @@ setTimeout(() => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        {/* cart.setProperty('distributor_ID',getdist.distributor_ID)
-      cart.setProperty("product_Name",prod.product_Name)
-      cart.setProperty("product_Category",prod.product_Category)
-      cart.setProperty("product_Price",prod.product_Price)
-      cart.setProperty("product_UoM",prod.product_UoM)
-      
-      cart.setProperty("product_Img",prod.product_Img)
-      cart.setProperty("product_Barcode",prod.product_Barcode)
-      cart.setProperty("product_Brand",prod.product_Brand)
-      cart.setProperty("product_Stocks",prod.product_Stocks) */}
+  
         <DialogTitle id="alert-dialog-title"><Typography variant='body2'><span style={{color:'#208769'}}><CheckCircleIcon/></span> {cart.product_Name} {cart.product_UoM} {cart.product_Variant} have been added to your cart </Typography></DialogTitle>
     
      
@@ -348,17 +327,26 @@ setTimeout(() => {
        {this.state.snackbarC }
         </Alert></Snackbar>
 
-  <Card style={{minHeight:"100%"}}>
+        <Grid item className='itemGrid' >
+
+  <Card  className='itemCard'>
   <ThemeProvider theme={theme}>
   <CardHeader
     style={{fontSize:'10px',fontWeight:'bold',paddingTop:0,paddingBottom:0,paddingRight:0}}
     disableTypography
         subheader={product.product_Name}
         action={
+          <Link
+          to={{
+            pathname: `/Customer/ItemInfo/${product.product_ID}`,
+            state: {prod_id:product.product_ID,dis_id:disId.distributor_ID}
+          }}
+        >
           <IconButton aria-label="settings" size='small 
           ' onClick={()=>{handleClick(product)}} color='secondary' >
             <InfoIcon  size='small'/>
           </IconButton>
+          </Link>
         }
       />
   </ThemeProvider>
@@ -368,7 +356,7 @@ setTimeout(() => {
   
   
   >
-  <img  src={product.product_Img} style={{height:"140px",width:"100%",margin:"auto"}} />
+  <img  src={product.product_Img}  className='itemImg' />
   </CardMedia>
   <CardContent>
   <Grid container xs={12} >
@@ -392,6 +380,9 @@ setTimeout(() => {
   </CardActions>
   
   </Card>
+  </Grid>
+
+
   
   <Dialog
   open={this.state.open}
@@ -414,10 +405,10 @@ setTimeout(() => {
     </Button>
   </DialogActions>
   </Dialog>
-  </Grid>
+ 
   
   
-  
+  </Fragment>
     )
     })
 

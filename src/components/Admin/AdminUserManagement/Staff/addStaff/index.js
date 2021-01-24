@@ -47,7 +47,7 @@ const AddCustomers = (props) => {
 		<div>
 			<Snackbar
 				anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-				colo
+				
 				open={snackbaropen}
 				autoHideDuration={3000}
 				onClose={setSnackBar(false)}
@@ -76,7 +76,7 @@ const AddCustomers = (props) => {
 				</DialogTitle>
 				<Divider />
 				<DialogContent>
-					<RegistrationForm />
+					{/* <RegistrationForm /> */}
 				</DialogContent>
 				<DialogActions>
 					<Divider />

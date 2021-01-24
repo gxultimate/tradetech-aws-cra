@@ -1,0 +1,37 @@
+
+@media only screen and (max-width: 399px){
+   
+
+}
+
+
+@media all and (max-width: 768px){
+    
+    .itemCard{
+       
+        width: 165px;
+       
+    }
+    .itemImg{
+        height:140px;
+        width:100%;
+        margin:auto;
+    }
+
+}
+
+@media all and (min-width: 770px){
+
+.itemCard{
+    /* min-height:100%; */
+    width: 150px;
+    
+}
+.itemImg{
+    height:140px;
+    width:100%;
+    margin:auto;
+}
+
+
+}

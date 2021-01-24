@@ -1,0 +1,52 @@
+
+@media only screen and (max-width: 399px){
+   
+
+}
+
+
+@media all and (max-width: 768px){
+    .container{
+        display: block;
+    }
+    
+    .headPaper{
+        width:360px;
+        margin:auto;
+        
+    }
+    .infoPaper{
+        padding-top:15px;
+        margin:auto;
+        border:1px solid grey;
+        width: 360px;
+        margin-left: 25px;
+    }
+
+}
+
+@media all and (min-width: 770px){
+    .container{
+        display: block;
+    }
+
+.headPaper{
+    width:360px;
+    margin:auto;
+   
+}
+.imgPaper{
+    width:360px;
+    margin:auto;
+ 
+}
+.infoPaper{
+    padding-top:15px;
+    margin:auto;
+    border:1px solid grey;
+    width: 460px;
+}
+
+
+
+}

@@ -167,8 +167,8 @@ const invoiceTotal =invoiceSubtotal;
           {rows.map((row) => {
              let names = row.desc.map((itm,itmIndex) =>{return itm});
              let qtys = row.qty.map(qties => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{qties}</span><br/>   </React.Fragment>)});
-             let itmprc = row.itmprice.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>&#8369;{prcs.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span><br/>   </React.Fragment>)});
-             let prc = row.price.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>&#8369;{prcs.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span><br/>   </React.Fragment>)});
+             let itmprc = row.itmprice.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{Number(prcs).toLocaleString('en')}</span><br/>   </React.Fragment>)});
+             let prc = row.price.map(prcs => {return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{Number(prcs).toLocaleString('en')}</span><br/>   </React.Fragment>)});
           
              let item = names.map( items =>{ return (<React.Fragment> <span style={{width:'100%',padding:'5px'}}>{items}</span><br/>   </React.Fragment>)})
              return(
@@ -188,7 +188,7 @@ const invoiceTotal =invoiceSubtotal;
       
           <TableRow>
             <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="right">&#8369;{invoiceTotal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+            <TableCell align="right">{Number(invoiceTotal).toLocaleString('en')}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

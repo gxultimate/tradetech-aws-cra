@@ -1,7 +1,5 @@
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -275,8 +273,8 @@ function EvaluationTable() {
                       {row.item}
                       </TableCell>
                    
-                      <TableCell align="right">{row.stocks.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                      <TableCell align="right">&#8369;{row.asset.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                      <TableCell align="right">{row.stocks}</TableCell>
+                      <TableCell align="right">{row.asset}</TableCell>
                    
                     </TableRow>
                   );

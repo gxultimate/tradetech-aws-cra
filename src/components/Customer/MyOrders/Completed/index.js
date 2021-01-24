@@ -105,7 +105,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   let myOrder = filOrder.map(myorder => {
 
     return(
-      <Grid item xs={12} sm={12} style={{marginTop:"16px",marginBottom:"50px"}}>
+      <Grid item xs={12} sm={5} style={{padding:'14px'}}>
       <Paper className={classes.paper}>
       <Grid container xs={12} sm={12} direction='row' >
         <ThemeProvider theme={theme}>
@@ -153,7 +153,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   
   return (
     <div className={classes.root}>
-      <Grid container xs={12} sm={12}>
+      <Grid container xs={12} sm={12} direction='row' justify='center'>
 
       {myOrder}
       </Grid>

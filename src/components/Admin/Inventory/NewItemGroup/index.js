@@ -11,39 +11,27 @@ import AddProductForm from './Form.js';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
 
-class addItemGroup extends Component{
-  constructor(props) {
-    super(props);
- 
-  
-    this.state = {
-        image: '',
-        submitted  : false
-    }
-    this.addProd  = this.addProd.bind(this);
-    this.uploadRef = React.createRef()
-  
-  }
 
 
-  addProd = (e) => {
-    this.setState({submitted: true })
-
-    this.setState({ loading: true });
-    let {startingStore:{product}}=this.props;
-
-    // addProductImg();
-    let getDisId = JSON.parse(sessionStorage.getItem('userData'))
-    product.setProperty("distributor_ID", getDisId.distributor_ID)
-
-  };
-
-   AddItemGroupBtn = () => {
-
+  const AddItemGroup = (props) => {
+      const[image,setImage]=React.useState('');
+      const[submitted,setSubmitted]=React.useState(false);
     const [open, setOpen] = React.useState(false);
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    let {product}=props.startingStore;
+
+  let  addProd = (e) => {
+      setSubmitted( true )
+
+    
+      let getDisId = JSON.parse(sessionStorage.getItem('userData'))
+      product.setProperty("distributor_ID", getDisId.distributor_ID)
+  
+    };
+
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -68,10 +56,10 @@ class addItemGroup extends Component{
           <DialogTitle id="responsive-dialog-title" style={{backgroundColor:"#208769"}}><Typography variant="h5" style={{color:"white"}}>Add Item Group</Typography></DialogTitle>
           <Divider/>
           <DialogContent >
-      <AddProductForm submitted={this.state.submitted}  />
+      <AddProductForm submitted={submitted}  />
           </DialogContent>
           <DialogActions>
-          <Button autoFocus onClick={() => {this.addProd()}} style={{backgroundColor:"#208769",color:"white"}}>
+          <Button autoFocus onClick={ ()=>addProd()} style={{backgroundColor:"#208769",color:"white"}}>
             <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
             </Button>
       
@@ -91,17 +79,5 @@ class addItemGroup extends Component{
 
 
   
-render(){
 
-
-
-
-return(
-
- <this.AddItemGroupBtn></this.AddItemGroupBtn>
-
-
-);
-}
-}
-export default inject("startingStore")(observer(addItemGroup));
+export default inject("startingStore")(observer(AddItemGroup));

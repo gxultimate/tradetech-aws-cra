@@ -5,16 +5,16 @@ import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
-import AddStaff from './addStaff';
-import StaffTable from './Table';
+
+import StaffTable from './Table/index.js';
 import {  IconButton, Paper ,InputBase} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 class StaffIndex extends React.Component {
   
 
   componentDidMount(){
-    let {employeeStore:{getAccounts,getcLogs}}=this.props;
-getcLogs()
+    let {employeeStore:{getAccounts}}=this.props;
+
     getAccounts();
   }
   render() { 
@@ -101,9 +101,9 @@ const useStyles = makeStyles(theme => ({
    
    </Paper>
             </Grid>
-            <Grid item xs={8} sm={8} style={{textAlign:"right"}} >
-              <AddStaff/>
-            </Grid>
+            <Grid item xs={8} sm={8} >
+         
+        </Grid>
             </Grid>
         </Grid>
         <Grid item xs={12} sm={12} lg={12}>

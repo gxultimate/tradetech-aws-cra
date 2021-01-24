@@ -289,9 +289,9 @@ let filter =this.props.mysearch;
                       <TableCell component="th" id={labelId} scope="row" >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.qty}</TableCell>
-                      <TableCell align="right">&#8369;{row.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                      <TableCell align="right">&#8369;{row.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                      <TableCell align="right">{Number(row.qty).toLocaleString('en')}</TableCell>
+                      <TableCell align="right">{Number(row.price).toLocaleString('en')}</TableCell>
+                      <TableCell align="right">{Number(row.total).toLocaleString('en')}</TableCell>
                      
                     </TableRow>
                    );
@@ -317,9 +317,9 @@ let filter =this.props.mysearch;
                     <TableCell component="th" id={labelId} scope="row" >
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.qty}</TableCell>
-                    <TableCell align="right">&#8369;{row.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                    <TableCell align="right">&#8369;{row.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                    <TableCell align="right">{Number(row.qty).toLocaleString('en')}</TableCell>
+                    <TableCell align="right">{Number(row.price).toLocaleString('en')}</TableCell>
+                    <TableCell align="right">{Number(row.total).toLocaleString('en')}</TableCell>
                    
                   </TableRow>
                    );

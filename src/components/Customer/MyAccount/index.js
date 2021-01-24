@@ -77,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} style={{marginBottom:"8px"}}>
+      <Grid container spacing={3} direction='row' justify='center'>
+        <Grid item xs={12} sm={7} style={{marginBottom:"8px"}}>
           <Paper >
           <Grid container sm={12} >
        <Grid item  sm={1} xs={1} style={{backgroundColor:"#208769",paddingRight:"10px"}}></Grid>

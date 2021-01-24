@@ -85,7 +85,7 @@ return(
 <div style={{marginTop:"20px"}}>
 
     <Grid container direction="row" sm={8} xs={12} justify='center' alignItems='center' style={{margin:'auto',paddingRight:'30px'}}>
-    <Grid item sm={12} xs={12} style={{margin:"auto"}}>
+    <Grid item sm={10} xs={12} style={{margin:"auto"}}>
 <Paper style={{marginLeft:"32px"}}>
     <Grid container sm={12} >
        <Grid item  sm={1} xs={1} style={{backgroundColor:"#208769",paddingRight:"10px"}}></Grid>
@@ -97,7 +97,7 @@ return(
     </Grid>
 
 <Grid container sm={12} xs={12} style={{marginTop:"16px",textAign:"center"}}>
-<Grid item sm={11} xs={11} style={{margin:"auto"}}>
+<Grid item sm={8} xs={11} style={{margin:"auto"}}>
 
 <CartTable/>
 </Grid>

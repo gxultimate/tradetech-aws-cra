@@ -286,8 +286,8 @@ let filter =this.props.mysearch;
                         {row.prod}
                       </TableCell>
                    
-                      <TableCell align="right">&#8369;{row.from.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                      <TableCell align="right">&#8369;{row.to.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                      <TableCell align="right">{Number(row.from).toLocaleString('en')}</TableCell>
+                      <TableCell align="right">{Number(row.to).toLocaleString('en')}</TableCell>
                       <TableCell align="right">{row.date}</TableCell>
                      
                     </TableRow>
@@ -315,8 +315,8 @@ let filter =this.props.mysearch;
                       {row.prod}
                     </TableCell>
                  
-                    <TableCell align="right">&#8369;{row.from.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                    <TableCell align="right">&#8369;{row.to.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                    <TableCell align="right">{Number(row.from).toLocaleString('en')}</TableCell>
+                    <TableCell align="right">{Number(row.to).toLocaleString('en')}</TableCell>
                     <TableCell align="right">{row.date}</TableCell>
                   </TableRow>
                    );

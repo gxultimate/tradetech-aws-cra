@@ -1,11 +1,12 @@
 import axios from "axios";
-import { action, decorate } from "mobx";
+import { action,  decorate } from "mobx";
 
 // import multer from 'multer'
 
 class Api {
   api = axios.create({
-    baseURL: "/api"
+    // baseURL: "https://1487a803d130.ngrok.io",
+    baseURL: "http://localhost:5000/"
   });
 
   getUsers = () => {

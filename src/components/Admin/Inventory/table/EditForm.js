@@ -14,86 +14,86 @@ import Resizer from 'react-image-file-resizer';
 
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      
-    },
-  },
-    input: {
-      display: 'none',
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
- 
-}));
 
 
-  function getHash(input){
-    var hash = 0, len = input.length;
-    for (var i = 0; i < len; i++) {
-      hash  = ((hash << 5) - hash) + input.charCodeAt(i);
-      hash |= 0; // to 32bit integer
-    }
-  
-            
-  
-    return hash;
-  }
-class EditForm extends Component{
-
-  constructor(){
-   super()
-  this.state = {
-    image: '',
-    loading: false,
-}
-  }
 
 
-  onFileChange = (e) => {
-    
-    this.setState({ loading: true });
-      let {inventoryStore:{product}}=this.props;
-    
-      Resizer.imageFileResizer(
-        e.target.files[0],
-        100,
-        100,
-        'JPEG',
-        100,
-        0,
-        uri => {
-          this.setState({image:uri})
-          product.setProperty('product_Img',uri)
-        },
-        'URI'
-       
-    )
-    setTimeout(() => {
-          
-      this.setState({ loading: false });
-          }, 2000);
-  
-      
-  }
 
-  EditForm = () => {
+
+ let EditForm = (props) => {
     const classes = useStyles();
-    let {inventoryStore:{product}}=this.props
-    const [labelWidth, setLabelWidth] = React.useState(0);   
+   
+    const [labelWidth, setLabelWidth] = React.useState(0);  
+    const [image,setImage] = React.useState('')
+    const [loading,setLoading]=React.useState(false)
     const [selectedDate, setSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
     const [exselectedDate, exsetSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
+    let {product,pricehist}=props.inventoryStore;
+   
 
+    const useStyles = makeStyles(theme => ({
+      root: {
+        '& > *': {
+          margin: theme.spacing(1),
+          
+        },
+      },
+        input: {
+          display: 'none',
+        },
+        selectEmpty: {
+          marginTop: theme.spacing(2),
+        },
+     
+    }));
+    
+    
+      function getHash(input){
+        var hash = 0, len = input.length;
+        for (var i = 0; i < len; i++) {
+          hash  = ((hash << 5) - hash) + input.charCodeAt(i);
+          hash |= 0; // to 32bit integer
+        }
+      
+                
+      
+        return hash;
+      }
+
+
+  let  onFileChange = (e) => {
+    
+      setLoading( true );
+    
+      
+        Resizer.imageFileResizer(
+          e.target.files[0],
+          100,
+          100,
+          'JPEG',
+          100,
+          0,
+          uri => {
+            setImage(uri)
+            product.setProperty('product_Img',uri)
+          },
+          'URI'
+         
+      )
+      setTimeout(() => {
+            
+        setLoading( false );
+            }, 2000);
+    
+        
+    }
 
 
     const inputLabel = React.useRef(null);
     React.useEffect(() => {
       setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
-      console.log(product,"prod")
+    
 
 
       function handleReceived(date) {
@@ -109,19 +109,13 @@ class EditForm extends Component{
          
           product.setProperty("product_ExpirationDate", dExpiration)
           }
-    //   function onChangeaccount_mName(value) {
-    //     account.setProperty('account_mName' , value)
-    //     }
-        
-    //      function onChangeaccount_lName(value) {
-    //     account.setProperty('account_lName' , value)
-    //     }
+
   
 
   
     let priceChanged =(newPrice)=>{
       
-      let {inventoryStore:{pricehist,product}}=this.props;
+    
    
     
    if (newPrice != product.product_Price){
@@ -216,33 +210,7 @@ class EditForm extends Component{
       <Grid item  xs={5} style={{margin:"5px"}}>
     
       
-      
-      {/* <FormControl variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-          Category
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          labelWidth={labelWidth}
-          onChange={product_Category=>{product.setProperty("product_Category", product_Category.target.value)}}
-          
-        >
-          <MenuItem value="">
-            <em></em>
-          </MenuItem>
-          <MenuItem value="Beverages">Beverages</MenuItem>
-          <MenuItem value="Bread/Bakery">Bread/Bakery</MenuItem>
-          <MenuItem value="Canned/Jarred Goods">Canned/Jarred Goods</MenuItem>
-          <MenuItem value="Cleaning">Cleaning</MenuItem>
-          <MenuItem value="Dry/Baking Goods">Dry/Baking Goods </MenuItem>
-          <MenuItem value="Liquor">Liquor</MenuItem>
-          <MenuItem value="Produce">Produce </MenuItem>
-          <MenuItem value="Paper Goods">Paper Goods </MenuItem>
-          <MenuItem value="Personal Care">Personal Care</MenuItem>
-         
-        </Select>
-      </FormControl> */}
+
 
       <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
         <InputLabel htmlFor="grouped-native-select">Category</InputLabel>
@@ -350,35 +318,6 @@ class EditForm extends Component{
       </Grid>
       <Grid xs={5} item style={{margin:"5px"}}>
         
-            {/* <FormControl variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-          Standard UoM
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          maxWidth="100"
-          onChange={product_UoM=>{product.setProperty("product_UoM", product_UoM.target.value)}}
-          labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em></em>
-          </MenuItem>
-          <MenuItem value="10/Order">10/Order</MenuItem>
-          <MenuItem value="12/Order">12/Order</MenuItem>
-          <MenuItem value="15/Order">15/Order</MenuItem>
-          <MenuItem value="20/Order">20/Order</MenuItem>
-          <MenuItem value="24/Order">24/Order</MenuItem>
-          <MenuItem value="30/Order">30/Order</MenuItem>
-          <MenuItem value="36/Order">36/Order</MenuItem>
-          <MenuItem value="40/Order">40/Order</MenuItem>
-          <MenuItem value="48/Order">48/Order</MenuItem>
-          <MenuItem value="50/Order">50/Order</MenuItem>
-          <MenuItem value="72/Order">72/Order</MenuItem>
-          <MenuItem value="80/Order">80/Order</MenuItem>
-          <MenuItem value="100/Order">100/Order</MenuItem>
-        </Select>
-      </FormControl> */}
 
       <TextField 
       id="outlined-basic" 
@@ -411,49 +350,7 @@ class EditForm extends Component{
       onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
       />
 
-      {/* <FormControl  variant="outlined" className={classes.formControl} style={{width:"100%"}}>
-        <InputLabel htmlFor="grouped-native-select">Variant</InputLabel>
-        <Select native  defaultValue={product.product_Variant} id="grouped-native-select" label="Variant"
-        onChange={product_Variant=>{product.setProperty("product_Variant", product_Variant.target.value)}}
-        >
-          <option aria-label="None" value="" />
-          <optgroup label="Color">
-            <option value='Blue'>Blue</option>
-            <option value='Green'>Green</option>
-            <option value='Red'>Red</option>
-            <option value='Orange'>Orange</option>
-            <option value='Yellow'>Yellow</option>
-            <option value='Violet'>Violet</option>
-          </optgroup>
-          <optgroup label="Flavor">
-            <option value='Calamansi'>Calamansi</option>
-            <option value='Spicy'>Spicy</option>
-            <option value='Original'>Original</option>
-            <option value='Sweet'>Sweet</option>
-            <option value='Sweet&Spicy'>Sweet&Spicy</option>
-            <option value='Extra Hot'>Extra Hot</option>
-            <option value='Squid'>Squid</option>
-            <option value='Orange'>Orange</option>
-            <option value='Chocolate'>Chocolate</option>
-            <option value='Lemon'>Lemon</option>
-            <option value='Butter'>Butter</option>
-            <option value='Lime'>Lime</option>
-            <option value='Mango'>Mango</option>
-            <option value='Pineapple'>Pineapple</option>
-            <option value='Grapes'>Grapes</option>
-            <option value='4 Season'>4 Season</option>
-          </optgroup>
-          <optgroup label="Size">
-          <option value='XXS'>XXS</option>
-            <option value='XS'>XS</option>
-            <option value='SM'>SM</option>
-            <option value='L'>L</option>
-            <option value='XL'>XL</option>
-            <option value='XXL'>XXL</option>
-          </optgroup>
-          
-        </Select>
-      </FormControl> */}
+     
 
       </Grid>
  
@@ -522,18 +419,7 @@ class EditForm extends Component{
   
 
 
-  render(){
 
-
-
-return ( 
-       
-  <this.EditForm/>
-
-
- );
-
-}}
 
 
 export default inject("inventoryStore")(observer(EditForm));

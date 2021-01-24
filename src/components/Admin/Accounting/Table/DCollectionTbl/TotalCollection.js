@@ -4,7 +4,8 @@ import {Typography} from '@material-ui/core'
     render() {
         return (
             <React.Fragment>
-                <Typography variant="subtitle1" style={{color:"white",textDecoration:"underlined",paddingRight:"20px"}}>Total Collection : <span style={{fontWeight:"bold"}}>&#8369;{(this.props.amount).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span> </Typography>
+                <Typography variant="subtitle1" style={{color:"white",textDecoration:"underlined",paddingRight:"20px"}}>Total Collection : <span style={{fontWeight:"bold"}}>
+                   {Number(this.props.amount).toLocaleString('en')}</span> </Typography>
             </React.Fragment>
         )
     }

@@ -19,6 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {Divider,Paper,IconButton,Grid,Button, CssBaseline} from '@material-ui/core';
+import './../Styles/Home.css'
 class HomeTab extends React.Component {
   state = {  }
 
@@ -80,28 +81,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     width: "100%",
   },
-  input: {
-    marginLeft: theme.spacing(1),
-    // flex: 1,
-    height:'30px',
-  
-  },
-  iconButton: {
-    padding: 10,
-    height:'30px',
-  
-  
-  },
-
-  search: {
-    // padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'right',
-    width: '100%',
-  
-    height:'30px',
-
-  },
+ 
   button: {
     
    
@@ -165,29 +145,11 @@ const useStyles = makeStyles(theme => ({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-        <Grid container direction="row" xs={12} sm={12} textAlign='right' justify='right'>
-<Grid xs={5} sm={1} style={{marginRight:'20px'}}>
+        <Grid container direction="row" xs={12} sm={12}  >
 
-      {/* <FormControl className={classes.formControl} size='small' >
-        <InputLabel id="demo-controlled-open-select-label" style={{  fontSize:'15px'}}>Categories</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          size='small'
-         
-          onChange={(e)=>setFilter(e.target.value)}
-        >
-          <MenuItem value=""  style={{  fontSize:'15px'}}>
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value='cannedGoods' style={{  fontSize:'15px'}}>Canned Goods</MenuItem>
-          <MenuItem value='beverages' style={{  fontSize:'15px'}}>Beverages</MenuItem>
-          <MenuItem value='snacks' style={{  fontSize:'15px'}}>Snacks</MenuItem>
-        </Select>
-      </FormControl> */}
+<div className='categoryForm'>
+
+{/* <Grid xs={5} sm={1} style={{marginRight:'20px'}}> */}
 
 
       
@@ -280,31 +242,35 @@ const useStyles = makeStyles(theme => ({
         </Select>
       </FormControl>
 
-</Grid>
-  <Grid item sm={1} xs={6} style={{textAlign:"right",paddingTop:'14px'}}>
-        
-        <Paper component="form" className={classes.search}  >
+{/* </Grid> */}
+
+</div>
+
+  {/* <Grid item sm={1} xs={6} style={{textAlign:"right",paddingTop:'14px'}}> */}
+        <div className='searchContainer'>
+        <Paper component="form" className='searchPaper'  >
      
         <InputBase
-          className={classes.input}
+          className='searchInput'
           placeholder="Search"
           inputProps={{ 'aria-label': 'search customers' }}
           onChange={(e)=>setFilter(e.target.value)}
         />
         <span style={{  backgroundColor:"#FFA500",borderRadius:"3px"}}>
-        <IconButton size='small' type="submit" className={classes.iconButton} aria-label="search">
+        <IconButton size='small' type="submit" className='searchiconButton' aria-label="search">
           <SearchIcon style={{color:"white"}}/>
         </IconButton>
         </span>
-        {/* <IconButton color="primary" className={classes.iconButton} aria-label="directions"> */}
-          {/* <DirectionsIcon /> */}
-        {/* </IconButton> */}
+        
       </Paper>
      
-     
-        </Grid>
+      </div>
+        {/* </Grid> */}
   
    </Grid>
+
+
+
    {/* <Grid container direction='row' sm={8} xs={12}> */}
          <Items mysearch={filter}/>
          {/* </Grid> */}

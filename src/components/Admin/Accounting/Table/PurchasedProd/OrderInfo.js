@@ -71,7 +71,7 @@ export default function OrderInfo() {
                 {row.items}
               </StyledTableCell>
               <StyledTableCell align="left">{row.qty}</StyledTableCell>
-              <StyledTableCell align="left">{row.amount}</StyledTableCell>
+              <StyledTableCell align="left">{Number(row.amount).toLocaleString('en')}</StyledTableCell>
             
              
             </StyledTableRow>

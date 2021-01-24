@@ -48,7 +48,7 @@ let rows =listOfOrder.map(order =>{
 
 
 order,order.orderID,order.orderDate,<span> {listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span> {listOfUsers.filter(accs => accs.account_ID === order.packer_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,<span> {listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,order.orderStatus,
-order.modeOfPayment,order.paymentStatus, <span>{order.orderCustomerBalance.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+order.modeOfPayment,order.paymentStatus, <span>{order.orderCustomerBalance}</span>
 
 
   ))
@@ -358,7 +358,7 @@ function SummaryTable() {
                       <TableCell align="right">{row.orderstat}</TableCell>
                       <TableCell align="right">{row.paymethod}</TableCell>
                       <TableCell align="right">{row.paystat}</TableCell>
-                      <TableCell align="right">{row.bal}</TableCell>
+                      <TableCell align="right">{Number(row.bal).toLocaleString('en')}</TableCell>
                     </TableRow>
                   )
                      }
@@ -388,7 +388,7 @@ function SummaryTable() {
                     <TableCell align="right">{row.orderstat}</TableCell>
                     <TableCell align="right">{row.paymethod}</TableCell>
                     <TableCell align="right">{row.paystat}</TableCell>
-                    <TableCell align="right">{row.bal}</TableCell>
+                    <TableCell align="right">{Number(row.bal).toLocaleString('en')}</TableCell>
                   </TableRow>
                   );
                 })}

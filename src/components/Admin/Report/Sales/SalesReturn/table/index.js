@@ -311,7 +311,7 @@ function SReturnTable() {
                       </TableCell>
                       <TableCell align="right">{row.ref}</TableCell>
                       <TableCell align="right">{row.cust} {row.mname} {row.lname}</TableCell>
-                      <TableCell align="right">&#8369;{row.due.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                      <TableCell align="right">{Number(row.due).toLocaleString('en')}</TableCell>
                       <TableCell align="right">{row.rdate}</TableCell>
                       <TableCell align="right">{row.stat}</TableCell>
                       <TableCell align="right">{row.ramt}</TableCell>
@@ -341,7 +341,7 @@ function SReturnTable() {
                             </TableCell>
                             <TableCell align="right">{row.ref}</TableCell>
                             <TableCell align="right">{row.cust} {row.mname} {row.lname}</TableCell>
-                            <TableCell align="right">&#8369;{row.due.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                            <TableCell align="right">{Number(row.due).toLocaleString('en')}</TableCell>
                             <TableCell align="right">{row.rdate}</TableCell>
                             <TableCell align="right">{row.stat}</TableCell>
                             <TableCell align="right">{row.ramt}</TableCell>

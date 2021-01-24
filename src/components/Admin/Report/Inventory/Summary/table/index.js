@@ -38,7 +38,7 @@ function createData(prodId,name, stockin, stockout, available, percent) {
 let rows = listofProducts.map(prod => {
   return (createData(
   prod.product_ID,prod.product_Name,<span>{productStocks.filter((stock) => stock.product_ID === prod.product_ID)
-    .reduce((sum, record) => sum + record.product_replenishQty , 0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>,'null',prod.product_Stocks.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+    .reduce((sum, record) => sum + record.product_replenishQty , 0)}</span>,'null',prod.product_Stocks,
   (Number(prod.product_Stocks) / 100)
   ))
 })

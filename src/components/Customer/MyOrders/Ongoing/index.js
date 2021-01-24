@@ -8,7 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import InfoIcon from '@material-ui/icons/Info';
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import React, { Fragment } from 'react';
 import theme from './../../../theme';
 import CancelBtn from './CancelBtn';
 import Orderinfo from './Info';
@@ -99,14 +99,11 @@ const handleCloseI = () => {
 
   let myOrder = filOrder.map(myorder => {
 
-    // if(myorder.Status === 'Pending' || myorder.Status === 'Packing'){
-    //   setStat(true);
-    // }else{
-    //   setStat(false);
-    // }
+
     return(
-  
-      <Grid item xs={12} sm={12} style={{marginTop:"16px",marginBottom:"50px"}}>
+      <Fragment>
+ 
+      <Grid item  xs={12} sm={5} style={{padding:'14px'}}>
       <Paper className={classes.paper}>
       <Grid container xs={12} sm={12} direction='row' >
         <ThemeProvider theme={theme}>
@@ -132,41 +129,20 @@ const handleCloseI = () => {
                 <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2">Date/Time : <span style={{fontWeight:"bold"}}>{myorder.orderDate}</span></Typography></Grid>
           </Grid>
           <Divider style={{marginTop:"8px",marginBottom:"8px"}}/>
-          {/* <Grid container xs={12} sm={12}>
-
-                <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Packer : <span style={{fontWeight:"bold"}}>{listOfUsers.filter(accs => accs.account_ID === myorder.packer_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span></Typography></Grid>
-                <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Dispatcher : <span style={{fontWeight:"bold"}}>{listOfUsers.filter(accs => accs.account_ID === myorder.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span></Typography></Grid>
-          </Grid>
-          <Divider style={{marginTop:"8px",marginBottom:"8px"}}/> */}
+      
           <Grid container xs={12} sm={12}>
-          {/* <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Order Status : <span style={{fontWeight:"bold"}}>{myorder.orderStatus}</span></Typography></Grid> */}
-          {/* <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Mode Of Payment :<span style={{fontWeight:"bold"}}>{myorder.modeOfPayment}</span></Typography></Grid> */}
+ 
           <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Amount Due : <span style={{fontWeight:"bold"}}> &#8369; {myorder.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</span></Typography></Grid>
           <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Due Date: <span style={{fontWeight:"bold"}}>{myorder.orderDueDate}</span></Typography></Grid>
           <Grid item xs={12} sm={12} style={{textAlign:"left"}}><Typography variant="subtitle2"> Payment Status : <span style={{fontWeight:"bold"}}> {myorder.paymentStatus}</span></Typography></Grid>
           </Grid>
-          {/* <Divider style={{marginTop:"8px",marginBottom:"8px"}}/>
-          <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          <ViewModuleIcon />
-        </ListItemIcon>
-        <ListItemText primary="View Items" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-          
-              <Table orderid={myorder.orderID}/>
-          </ListItem>
-        </List>
-      </Collapse> */}
+   
 
       </Paper>
     </Grid>
+   
   
-  
-  
+    </Fragment>
     )
   })
 
@@ -174,7 +150,7 @@ const handleCloseI = () => {
   return (
     <React.Fragment>
     <div className={classes.root}>
-      <Grid container xs={12} sm={12}>
+      <Grid container xs={12} sm={12} direction='row' justify='center'>
 
       {myOrder}
       </Grid>

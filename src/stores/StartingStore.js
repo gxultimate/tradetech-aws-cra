@@ -29,18 +29,24 @@ class StartingStore {
   listOfNotif =[];
 
   welcomeMessage = "Welcome!";
-  listOfUsers = [];
+ 
   listOfDistributors =[];
   listofProducts =[];
   listOfCart = [];
   listOfReport= [];
   productStocks=[];
   listofProductImg =[];
-  listOfUserDocs = [];
+  
   listOfOrder =[];
   listOfDistributorDocs = [];
   listOfToken = [];
   listOfClogs=[];
+
+  //listOfaccounts
+  listOfUsers = [];
+  listOfUserDocs = [];
+  listOfArchiveCustomers = [];
+
   api = undefined
   
 
@@ -70,6 +76,8 @@ else {
   getAccounts = () => {
     this.api.getaccounts()
     .then(resp => {
+let archived = resp.data.filter(data=> data.account_status === 'archived' && data.account_accessType === 'customer').map(data => data)
+this.listOfArchiveCustomers=archived;
 
      this.listOfUsers=resp.data
      this.listOfUserDocs = resp.data
@@ -907,6 +915,8 @@ decorate(StartingStore, {
   editDistributorD:action,
   addMessage:action,
   getMessage:action,
+  listOfArchiveCustomers:observable,
+
   
 });
 

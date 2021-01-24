@@ -55,7 +55,7 @@ function createData(orderInfo,referenceNo, custfname,mname,lname, amount,date, s
 let rows = listOfOrder.map(order => {
   return(createData(
 
-    order,order.orderID,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,`${order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}`,order.orderDate,order.paymentStatus
+    order,order.orderID,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,`${order.orderTotalAmount}`,order.orderDate,order.paymentStatus
   ))
 })
 
@@ -334,7 +334,7 @@ let print =()=>{
                   let strmydate =moment(mydate).format('MMM/DD/YYYY')
                   let strsdate = moment(sdate).format('MMM/DD/YYYY')
                   let stredate = moment(edate).format('MMM/DD/YYYY')
-                  console.log(edate._isValid,'asdasd')
+               
              
                   if( edate._isValid === true){
                   
@@ -353,14 +353,15 @@ let print =()=>{
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.referenceNo}
+                      style={{cursor:'pointer'}}
                       // selected={isItemSelected}
                     >
                       
-                      <TableCell component="th" id={labelId} scope="row">
+                      <TableCell component="th" id={labelId} scope="row" >
                         {row.referenceNo}
                       </TableCell>
                       <TableCell align="right">{row.custfname} {row.mname} {row.lname}</TableCell>
-                      <TableCell align="right">&#8369;{row.amount}</TableCell>
+                      <TableCell align="right"> {Number(row.amount).toLocaleString('en')}</TableCell>
                       <TableCell align="right">{row.date}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
                     </TableRow>
@@ -385,13 +386,14 @@ if(row.referenceNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWit
       tabIndex={-1}
       key={row.referenceNo}
       // selected={isItemSelected}
+      style={{cursor:'pointer'}}
     >
       
-      <TableCell component="th" id={labelId} scope="row">
+      <TableCell component="th" id={labelId} scope="row" >
         {row.referenceNo}
       </TableCell>
       <TableCell align="right">{row.custfname} {row.mname} {row.lname}</TableCell>
-      <TableCell align="right">&#8369;{row.amount}</TableCell>
+      <TableCell align="right"> {Number(row.amount).toLocaleString('en')}</TableCell>
       <TableCell align="right">{row.date}</TableCell>
       <TableCell align="right">{row.status}</TableCell>
     </TableRow>
@@ -412,20 +414,21 @@ if(row.referenceNo.startsWith(filter) || row.mname.toLocaleLowerCase().startsWit
                 tabIndex={-1}
                 key={row.referenceNo}
                 // selected={isItemSelected}
+                style={{cursor:'pointer'}}
               >
                 
-                <TableCell component="th" id={labelId} scope="row">
+                <TableCell component="th" id={labelId} scope="row" >
                   {row.referenceNo}
                 </TableCell>
                 <TableCell align="right">{row.custfname} {row.mname} {row.lname}</TableCell>
-                <TableCell align="right">&#8369;{row.amount}</TableCell>
+                <TableCell align="right" > {Number(row.amount).toLocaleString('en')}</TableCell>
                 <TableCell align="right">{row.date}</TableCell>
                 <TableCell align="right">{row.status}</TableCell>
               </TableRow>
                );
   
               })}
-
+     
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
                   <TableCell colSpan={6} />

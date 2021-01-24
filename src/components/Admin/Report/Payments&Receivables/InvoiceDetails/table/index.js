@@ -301,8 +301,8 @@ function InvoiceDTable() {
                       <TableCell align="right">{row.orddate}</TableCell>
                       <TableCell align="right">{row.due}</TableCell>
                       <TableCell align="right">{row.cust} {row.mname} {row.lname}</TableCell>
-                      <TableCell align="right">&#8369;{row.amtdue.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                      <TableCell align="right">{row.bal}</TableCell>
+                      <TableCell align="right">{Number(row.amtdue).toLocaleString('en')}</TableCell>
+                      <TableCell align="right">{Number(row.bal).toLocaleString('en')}</TableCell>
                       <TableCell align="right">{row.ordstat}</TableCell>
                     </TableRow>
                     );
@@ -331,8 +331,8 @@ function InvoiceDTable() {
                     <TableCell align="right">{row.orddate}</TableCell>
                     <TableCell align="right">{row.due}</TableCell>
                     <TableCell align="right">{row.cust} {row.mname} {row.lname}</TableCell>
-                    <TableCell align="right">&#8369;{row.amtdue.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
-                    <TableCell align="right">{row.bal}</TableCell>
+                    <TableCell align="right">{Number(row.amtdue).toLocaleString('en')}</TableCell>
+                    <TableCell align="right">{Number(row.bal).toLocaleString('en')}</TableCell>
                     <TableCell align="right">{row.ordstat}</TableCell>
                   </TableRow>
                   );

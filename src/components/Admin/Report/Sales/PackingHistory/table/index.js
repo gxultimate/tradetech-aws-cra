@@ -294,8 +294,8 @@ function PackingHTable() {
                       <TableCell align="right">{row.NOI}</TableCell>
                       <TableCell align="right">{row.rdate}</TableCell>
                       <TableCell align="right">{row.stat}</TableCell>
-                      <TableCell align="right">&#8369;{row.amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</TableCell>
-                      <TableCell align="right">&#8369;{row.bal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</TableCell>
+                      <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
+                      <TableCell align="right">{row.bal}</TableCell>
                     </TableRow>
                      );
 
@@ -325,8 +325,8 @@ function PackingHTable() {
                       <TableCell align="right">{row.NOI}</TableCell>
                       <TableCell align="right">{row.rdate}</TableCell>
                       <TableCell align="right">{row.stat}</TableCell>
-                      <TableCell align="right">&#8369;{row.amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</TableCell>
-                      <TableCell align="right">&#8369;{row.bal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</TableCell>
+                      <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
+                      <TableCell align="right">{row.bal}</TableCell>
                     </TableRow>
                   );
                 })}

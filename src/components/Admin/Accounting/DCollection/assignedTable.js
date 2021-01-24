@@ -50,7 +50,7 @@ let filterorder = listOfOrder.filter((order =>order.distributor_ID === getId.dis
 let rows = filterorder.map(orderss =>{
     return(createData(
     
-    orderss.orderDate,orderss.orderID,<span>{listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,orderss.paymentStatus,<span>&#8369;{orderss.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+    orderss.orderDate,orderss.orderID,<span>{listOfUsers.filter(accs => accs.account_ID === orderss.account_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }</span>,orderss.paymentStatus,<span>{orderss.orderTotalAmount}</span>
 
     
     

@@ -280,7 +280,7 @@ function CustBalTable() {
                         {row.name}
                       </TableCell>
                       <TableCell align="right">{row.invoice}</TableCell>
-                      <TableCell align="right">{row.bal}</TableCell>
+                      <TableCell align="right">{Number(row.bal).toLocaleString('en')}</TableCell>
                     
                     </TableRow>
                   );

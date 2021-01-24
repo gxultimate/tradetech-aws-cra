@@ -291,6 +291,7 @@ class Reports extends Component {
    
   }
 
+
             return (
               <div className={classes.root}>
                 <Grid container spacing={3}>
@@ -362,18 +363,15 @@ class Reports extends Component {
                     </Paper>
                   </Grid>
                   <Grid item xs={10} sm={10}>
-                    <Paper className={classes.paper}>
-                
-                  
+                    {(selected == '')?( 
+                      <p></p>
+                    ):(     
+                       <Paper className={classes.paper}>
 
+                { ReportDisplay(selected)}
 
-
-
-               
-             { ReportDisplay(selected)}
-             
-            
-                    </Paper>
+                       </Paper>)}
+              
                   </Grid>
                 </Grid>
               </div>

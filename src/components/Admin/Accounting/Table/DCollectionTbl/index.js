@@ -50,7 +50,7 @@ class DCollectionTbl extends React.Component {
 let rows = listOfOrder.map(order=> {
 
   return(createData(
-    order,order.orderID,`${listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,order.orderDate,<span>&#8369;{order.orderTotalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span>
+    order,order.orderID,`${listOfUsers.filter(accs => accs.account_ID === order.dispatcher_ID).map((account)=> {return `${account.account_fName} ${account.account_mName} ${account.account_lName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_fName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_mName}`  } ) }`,`${listOfUsers.filter(accs => accs.account_ID === order.account_ID).map((account)=> {return `${account.account_lName}`  } ) }`,order.orderDate,<span>{order.orderTotalAmount}</span>
 
   ))
 })
@@ -398,7 +398,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                           {row.referenceNo}
                         </TableCell>
                         <TableCell align="right">{row.custfname} {row.mname} {row.lname}</TableCell>
-                        <TableCell align="right">&#8369;{row.amount}</TableCell>
+                        <TableCell align="right">{Number(row.amount).toLocaleString('en')}</TableCell>
                         <TableCell align="right">{row.date}</TableCell>
                         <TableCell align="right">{row.status}</TableCell>
                       </TableRow>

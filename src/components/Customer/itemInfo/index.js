@@ -26,6 +26,7 @@ import {
  
 
 } from "react-router-dom";
+import './../Styles/ItemInfo.css'
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -208,10 +209,10 @@ return(
         </DialogActions>
       </Dialog>
 
-  <Grid container sm={6} xs={12}  >
+  <Grid container  >
         
   <Grid item  sm={12} xs={12} style={{margin:"auto",paddingTop:'20px',paddingBottom:'10px'}}>
-   <div style={{margin:"auto",width:"90%"}}> 
+   <div className='headPaper'> 
    <Paper  style={{backgroundColor:"#208769",color:"white",fontWeight:"bold",outlineColor:"black",padding:"5px"}}>
      <Grid container sm={12} xs={12}>
      <Grid item sm={6} xs={6} style={{textAlign:"left",paddingLeft:"5px"}}>
@@ -225,10 +226,13 @@ return(
   </Grid>
   
   <Grid item sm={10} xs={8} style={{margin:"auto",paddingBottom:'10px'}}>
-     <Paper ><img src={product.product_Img} style={{height:"80%",width:"100%"}}></img> </Paper>
+    
+     <Paper className='imgPaper'><img src={product.product_Img} style={{height:"80%",width:"100%"}}></img> </Paper>
+    
   </Grid>
 
-  <Grid item sm={10} xs={10} style={{marginTop:"15px",margin:"auto",border:"1px solid grey"}}>
+  <Grid item sm={12} >
+    <div className='infoPaper'>
     <Grid container direction="row" sm={12} style={{padding:'8px'}}>
   <Grid item sm={6} xs={8} >
 <Typography variant="p" style={{fontWeight:"bold"}}>{product.product_Name}({product.product_UoM})</Typography>
@@ -279,18 +283,19 @@ return(
   <Grid item sm={12} xs={6}>
  
   </Grid>
-  <Grid item sm={12} xs={12}>
+  <Grid item sm={12} xs={12} >
   <Quantity price={product.product_Price} handleChange={this.handleChange}/>
   </Grid>
 
     </Grid>
+    </div>
   </Grid>
  
  <Grid item sm={12} xs={12} >
-  <Grid container sm={12} xs={12} >
+  <Grid container row alignItems='center' sm={12} xs={12} justify='center'>
 
 
-  <Grid item  sm={6} xs={6} >
+  <Grid item  sm={3} xs={6} >
 <Button
   variant="contained"
   style={{backgroundColor:"#FFA500",color:"white",marginTop:"14px",marginLeft:"13%",width:"85%",marginBottom:"80px"}}
@@ -301,7 +306,7 @@ return(
 </Button>
 </Grid>
 
-    <Grid item  sm={6} xs={6} >
+    <Grid item  sm={3} xs={6} >
     
  <Button
   variant="contained"

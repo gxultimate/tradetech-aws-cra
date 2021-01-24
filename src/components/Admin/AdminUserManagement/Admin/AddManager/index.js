@@ -13,8 +13,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 const AddCustomers = (props) => {
 	const [ open, setOpen ] = React.useState(false);
-	const [ snackbaropen, setSnackBar ] = React.useState(false);
-	const [ snackbarmessage, setSnackBarMessage ] = React.useState('Account Successfully Added!');
+	// const [ snackbaropen, setSnackBar ] = React.useState(false);
+	// const [ snackbarmessage, setSnackBarMessage ] = React.useState('Account Added!');
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -27,9 +27,9 @@ const AddCustomers = (props) => {
 		account.setProperty('account_storeName', getDisId.distributor_warehouseName);
 		addAccount();
 
-		setTimeout(() => {
-			setSnackBar(true);
-		}, 3000);
+		// setTimeout(() => {
+		// 	setSnackBar(true);
+		// }, 3000);
 	};
 
 	const handleClickOpen = () => {
@@ -45,15 +45,15 @@ const AddCustomers = (props) => {
 
 	return (
 		<div>
-			<Snackbar
+			{/* <Snackbar
 				anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-				colo
+				
 				open={snackbaropen}
 				autoHideDuration={3000}
 				onClose={setSnackBar(false)}
 			>
 				<Alert severity="success">{snackbarmessage}</Alert>
-			</Snackbar>
+			</Snackbar> */}
 			<Button
 				variant="outlined"
 				color="primary"

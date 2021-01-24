@@ -8,31 +8,10 @@ import React from 'react';
 import theme from './../../../theme';
 
 const RegForm = (props) => {
-	const classes = useStyles();
+	
 	let { account } = props.startingStore;
 	const [ value, setValue ] = React.useState('');
-	const useStyles = makeStyles((theme) => ({
-		root: {
-			'& .MuiTextField-root': {
-				margin: theme.spacing(1),
-				width: 200
-			},
-			formControl: {
-				margin: theme.spacing(1),
-				minWidth: 220
-			},
-			selectEmpty: {
-				marginTop: theme.spacing(2)
-			},
-			formControl2: {
-				margin: theme.spacing(1),
-				minWidth: 220
-			}
-		}
-	}));
 
-	//   var dateB = moment(account_birthday).format('YYYY MMMM Do ');
-	// console.log(dateB);
 	const getHash = (input) => {
 		var hash = 0,
 			len = input.length;
@@ -51,13 +30,7 @@ const RegForm = (props) => {
 
 	let date = new Date();
 
-	//   function onChangeaccount_mName(value) {
-	//     account.setProperty('account_mName' , value)
-	//     }
 
-	//      function onChangeaccount_lName(value) {
-	//     account.setProperty('account_lName' , value)
-	//     }
 
 	const [ selectedDate, setSelectedDate ] = React.useState(new Date('1990-08-18T21:11:54'));
 
@@ -74,16 +47,17 @@ const RegForm = (props) => {
 
 	return (
 		<div>
-			<form className={classes.root} noValidate autoComplete="off">
+			<form  noValidate autoComplete="off">
 				<Grid container direction="row" justify="flex-start" alignItems="flex-start">
-					<Grid item>
-						<Grid container ditection="row" sm={12}>
-							<Grid item xs={4}>
+					<Grid item xs={12}>
+						<Grid container direction="row" sm={12} >
+							<Grid item xs={3} style={{margin:'4px'}}>
 								<TextField
 									id="outlined-secondary"
 									label="First name"
 									variant="outlined"
 									color="secondary"
+									size='small'
 									style={{
 										height: '50px'
 									}}
@@ -103,25 +77,31 @@ const RegForm = (props) => {
 									}}
 								/>
 							</Grid>
-							<Grid item xs={4}>
+							<Grid item xs={3} style={{margin:'4px'}}>
 								<TextField
 									id="outlined-secondary"
 									label="Middle name"
 									variant="outlined"
 									color="secondary"
-									style={{ height: '50px' }}
+									size='small'
+									style={{
+										height: '50px'
+									}}
 									onChange={(account_mName) => {
 										account.setProperty('account_mName', account_mName.target.value);
 									}}
 								/>
 							</Grid>
-							<Grid item xs={4}>
+							<Grid item xs={3} style={{margin:'4px'}}>
 								<TextField
 									id="outlined-secondary"
 									label="Last name"
 									variant="outlined"
 									color="secondary"
-									style={{ height: '50px' }}
+									size='small'
+									style={{
+										height: '50px'
+									}}
 									onChange={(account_lName) => {
 										account.setProperty('account_lName', account_lName.target.value);
 
@@ -132,13 +112,13 @@ const RegForm = (props) => {
 									}}
 								/>
 							</Grid>
-						</Grid>
-					</Grid>
-					<Grid item xs={3}>
+
+							<Grid item xs={2} style={{margin:'4px'}}>
 						<FormControl
 							variant="outlined"
-							className={classes.formControl}
-							style={{ width: '100%', marginLeft: '7px', marginTop: '7.5px' }}
+							size='small'
+								
+							style={{ width: '100%' }}
 						>
 							<InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
 								Suffix
@@ -159,43 +139,57 @@ const RegForm = (props) => {
 							</Select>
 						</FormControl>
 					</Grid>
+						</Grid>
+					</Grid>
+				
+
+					<Grid item xs={12}>
+						<Grid container direction="row" sm={12} >
+							<Grid item xs={3} style={{margin:'4px'}}>
 
 					<TextField
 						id="outlined-secondary"
 						label="Address"
 						variant="outlined"
 						color="secondary"
+						size='small'
 						style={{ height: '50px' }}
 						value={value}
 						onChange={handleChange}
-						// onChange={account_address=>{account.setProperty("account_address", account_address.target.value)}}
+					
 					/>
+					</Grid>
+					<Grid item xs={3} style={{margin:'4px'}}>
 					<TextField
 						id="outlined-secondary"
 						label="Email"
 						variant="outlined"
 						color="secondary"
+						size='small'
 						style={{ height: '50px' }}
 						onChange={(account_emailAddress) => {
 							account.setProperty('account_emailAddress', account_emailAddress.target.value);
 						}}
 					/>
-
+					</Grid>
+	<Grid item xs={3} style={{margin:'4px'}}>
 					<TextField
 						id="outlined-secondary"
 						label="Contact No."
 						variant="outlined"
 						color="secondary"
+						size='small'
 						style={{ height: '50px' }}
 						onChange={(account_contactNo) => {
 							account.setProperty('account_contactNo', account_contactNo.target.value);
 						}}
 					/>
-
+</Grid>
+<Grid item xs={2} style={{margin:'4px'}}>
 					<FormControl
 						variant="outlined"
-						className={classes.formControl}
-						style={{ width: '25%', marginLeft: '7px', marginTop: '7.5px' }}
+						size='small'
+						style={{ width: '100%' }}
 					>
 						<InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
 							Contract
@@ -214,29 +208,18 @@ const RegForm = (props) => {
 							<MenuItem value="contract_4">Contract 4</MenuItem>
 						</Select>
 					</FormControl>
+					</Grid>
+					</Grid>
+					</Grid>
 
-					<ThemeProvider theme={theme}>
-						<MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<KeyboardDatePicker
-								margin="normal"
-								id="date-picker"
-								label="Date of Birth"
-								format="MMM/dd/yyyy"
-								color="primary"
-								value={selectedDate}
-								style={{ height: '50px' }}
-								onChange={handleDateChange}
-								KeyboardButtonProps={{
-									'aria-label': 'change date'
-								}}
-							/>
-						</MuiPickersUtilsProvider>
-					</ThemeProvider>
-
+					<Grid item xs={12}>
+						<Grid container direction="row" sm={12} >
+			
+					<Grid item xs={3} style={{margin:'4px'}}>
 					<FormControl
 						variant="outlined"
-						className={classes.formControl}
-						style={{ width: '22.5%', marginLeft: '7px', marginTop: '7.5px' }}
+						size='small'
+						style={{ width: '98%'}}
 					>
 						<InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
 							Manager Type
@@ -253,6 +236,31 @@ const RegForm = (props) => {
 							<MenuItem value="Dispatcher Manager">Dispatcher Manager</MenuItem>
 						</Select>
 					</FormControl>
+					</Grid>
+
+					<Grid item xs={3} style={{marginLeft:'4px'}}>
+					<ThemeProvider theme={theme}>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								margin="normal"
+								id="date-picker"
+								label="Date of Birth"
+								format="MMM/dd/yyyy"
+								size='small'
+								color="primary"
+								value={selectedDate}
+								style={{ marginTop:'-2px'}}
+								onChange={handleDateChange}
+								KeyboardButtonProps={{
+									'aria-label': 'change date'
+								}}
+							/>
+						</MuiPickersUtilsProvider>
+					</ThemeProvider>
+					</Grid>
+
+					</Grid>
+					</Grid>
 				</Grid>
 			</form>
 		</div>

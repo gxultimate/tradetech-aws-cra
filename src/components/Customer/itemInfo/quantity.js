@@ -32,7 +32,7 @@ class Quantity extends React.Component {
     return (
       <div>
     <Typography variant='p'><span>Total : </span>&#8369; {total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}.00</Typography>
-      <ButtonGroup size="small" aria-label="small outlined button group">
+      <ButtonGroup size="small" aria-label="small outlined button group" >
       <Button onClick={this.handleDecrement}>-</Button>
         {displayCounter && <TextField  value={this.state.counter.toString()} onChange={
            cart.setProperty("product_Quantity",this.state.counter.toString())
