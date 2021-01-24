@@ -25,7 +25,11 @@ const AddProduct = (props) => {
   const [image,setImage]= React.useState('');
   const [loading,setLoading]= React.useState(false);
   const [selectedFile,setSelectedFile]= React.useState(undefined);
+<<<<<<< HEAD
   const[props2,setProps2]=React.useState(false)
+=======
+  const[props,setProps]=React.useState(false)
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   const [labelWidth, setLabelWidth] = React.useState(0);   
   const [selectedDate, setSelectedDate] = React.useState(new Date('08-18-2019'));
   const [exselectedDate, exsetSelectedDate] = React.useState(new Date('08-18-2020'));
@@ -68,11 +72,16 @@ const AddProduct = (props) => {
 
 
   React.useEffect((nextProps)=>{
+<<<<<<< HEAD
     // console.log(nextProps.submitted,'aa')
     // props2 = !props2
     // if (nextProps.submitted 
       // && props2
       // ){
+=======
+    props = !props
+    if (nextProps.submitted && props){
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   
       let formData = new FormData();
       formData.append('productImg' , selectedFile)
@@ -81,14 +90,24 @@ const AddProduct = (props) => {
       console.log(formData,"file")
         addProductImg(formData);
  
+<<<<<<< HEAD
     // }
+=======
+    }
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   
   },[])
   
   
+<<<<<<< HEAD
   // React.useEffect(()=>{
   //   setProps2(!props2)
   // },[])
+=======
+  React.useEffect(()=>{
+    setProps(props)
+  },[])
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   
   
   

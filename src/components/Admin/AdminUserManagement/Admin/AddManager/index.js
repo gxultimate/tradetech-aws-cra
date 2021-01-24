@@ -13,8 +13,13 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 const AddCustomers = (props) => {
 	const [ open, setOpen ] = React.useState(false);
+<<<<<<< HEAD
 	// const [ snackbaropen, setSnackBar ] = React.useState(false);
 	// const [ snackbarmessage, setSnackBarMessage ] = React.useState('Account Added!');
+=======
+	const [ snackbaropen, setSnackBar ] = React.useState(false);
+	const [ snackbarmessage, setSnackBarMessage ] = React.useState('Account Added!');
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 

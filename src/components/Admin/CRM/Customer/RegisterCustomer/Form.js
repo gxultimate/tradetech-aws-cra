@@ -11,17 +11,47 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+<<<<<<< HEAD
 
 
 
  const RegForm = (props) => {
     
+=======
+
+
+
+ const RegForm = (props) => {
+    const classes = useStyles();
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
     let {account}=props.startingStore;
     const [value, setValue] = React.useState('');
 
 
 
+<<<<<<< HEAD
 
+=======
+    const useStyles = makeStyles(theme => ({
+  
+      root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          width: 200,
+        },
+        formControl: {
+          margin: theme.spacing(1),
+          minWidth: 220,
+        },
+        selectEmpty: {
+          marginTop: theme.spacing(2),
+        },
+        formControl2: {
+          margin: theme.spacing(1),
+          minWidth: 220,      },
+      },
+    }));
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
     
     
       function getHash(input){

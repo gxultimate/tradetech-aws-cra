@@ -23,7 +23,11 @@ import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
     let {product}=props.startingStore;
 
+<<<<<<< HEAD
   let  addProd = (e) => {
+=======
+    let addProd = (e) => {
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
       setSubmitted( true )
 
     
@@ -80,4 +84,8 @@ import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
   
 
+<<<<<<< HEAD
 export default inject("startingStore")(observer(AddItemGroup));
+=======
+export default inject("startingStore")(observer(AddItemGroup));
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de

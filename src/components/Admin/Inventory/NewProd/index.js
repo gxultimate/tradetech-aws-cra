@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import {Dialog,DialogContent,DialogTitle,DialogActions, Grid,MenuItem,FormControl,TextField,Select,InputLabel} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { inject, observer } from 'mobx-react';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Resizer from 'react-image-file-resizer';
@@ -88,6 +89,62 @@ class UploadProd extends Component {
     formData.append('productImg' , product.product_Img)
 
     formData.append('type', 'product')
+=======
+import AddProductForm from './Form.js';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+
+  const AddProducts = (props) => {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [image, setImage] = React.useState('');
+    const [submitted, setSubmitted] = React.useState(false);
+    const [snackbaropen, setSnackbaropen] = React.useState(false);
+    const [snackbarmessage, setSnackbarmessage] = React.useState("Product Successfully Added!");
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    let {product}=props.startingStore;
+
+    const useStyles = makeStyles(theme => ({
+      appBar: {
+        position: 'relative',
+      },
+      title: {
+        marginLeft: theme.spacing(2),
+        flex: 1,
+      },
+    }));
+    
+    const Transition = React.forwardRef(function Transition(props, ref) {
+      return <Slide direction="up" ref={ref} {...props} />;
+    });
+
+   let snackbarClose =(event)=>{
+      setSnackbaropen(false);
+    }
+  
+   let addProd = (e) => {
+      setSubmitted( true )
+
+      let getDisId = JSON.parse(sessionStorage.getItem('userData'))
+      product.setProperty("distributor_ID", getDisId.distributor_ID)
+      product.setProperty("product_Status", 'active')
+  
+    setTimeout(()=>{
+  
+   
+       setSnackbaropen( true );
+  
+      },1500) 
+    }
+
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   
       addProductImg(formData);
 
@@ -117,10 +174,20 @@ class UploadProd extends Component {
   
     product.setProperty("product_DateReceived", dReceive)
     }
+<<<<<<< HEAD
     function handleExpiration(exDate) {
       exsetSelectedDate(exDate);
       let dExpiration =  moment(exDate).format('MMM/DD/YYYY')
       
+=======
+   
+    return (                  
+      <div>
+       <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}  open={snackbaropen} autoHideDuration={3000} onClose={snackbarClose}  >   
+       <Alert  severity="success">
+       {snackbarmessage }
+        </Alert></Snackbar>
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
     
       product.setProperty("product_ExpirationDate", dExpiration)
       }
@@ -225,6 +292,7 @@ class UploadProd extends Component {
           onChange={product_Packaging=>{product.setProperty("product_Packaging", product_Packaging.target.value)}}
          
         >
+<<<<<<< HEAD
           <MenuItem value="">
             <em></em>
           </MenuItem>
@@ -249,6 +317,17 @@ class UploadProd extends Component {
 
      <Grid item  xs={4} style={{margin:"0px"}}>
     
+=======
+          <DialogTitle id="responsive-dialog-title" style={{backgroundColor:"#208769"}}><Typography variant="h5" style={{color:"white"}}>Add New Product</Typography></DialogTitle>
+          <Divider/>
+          <DialogContent >
+      <AddProductForm submitted={submitted}  />
+          </DialogContent>
+          <DialogActions>
+          <Button autoFocus onClick={()=>addProd()} style={{backgroundColor:"#208769",color:"white"}}>
+            <span style={{paddingLeft:"8px",paddingRight:"8px"}}>  Submit</span>
+            </Button>
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
       
       
 
@@ -472,6 +551,7 @@ class UploadProd extends Component {
 </Grid>
 
 
+<<<<<<< HEAD
 
 <Grid item xs={12}>
     <Grid container direction="row" xs={12}  >
@@ -593,3 +673,6 @@ return (
 }
 
 export default inject('inventoryStore')(observer(UploadProd))
+=======
+export default inject("startingStore")(observer(AddProducts));
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de

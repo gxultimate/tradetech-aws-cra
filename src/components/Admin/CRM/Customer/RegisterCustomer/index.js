@@ -12,7 +12,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 
+<<<<<<< HEAD
 const addCustomers = (props) => {
+=======
+const AddCustomers = (props) => {
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -20,7 +24,11 @@ const addCustomers = (props) => {
   let [submitted,setSubmitted]=React.useState(false);
   let [snackbaropen,setSnackbaropen]=React.useState(false);
   let [snackbaropenE,setSnackbaropenE]=React.useState(false);
+<<<<<<< HEAD
  
+=======
+  let [snackbaropenE,setSnackbaropenE]=React.useState(false);
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
   let [snackbarS,setSnackbarS]=React.useState("Account Added!");
   let [snackbarerror,setSnackbarerror]=React.useState("Error!");
   let {addAccount,account}=props.startingStore;
@@ -103,6 +111,10 @@ const addCustomers = (props) => {
     </div>
   );
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
 
 
-export default inject("startingStore")(observer(addCustomers));
+export default inject("startingStore")(observer(AddCustomers));

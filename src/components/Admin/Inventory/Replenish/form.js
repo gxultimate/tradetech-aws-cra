@@ -15,6 +15,7 @@ import theme from './../../../theme'
 
  let ReplenishForm = (props) => {
     const classes = useStyles();
+<<<<<<< HEAD
     const [image,setImage]=React.useState('')
     const [selectedDate, setSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
     const [exselectedDate, exsetSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
@@ -22,6 +23,15 @@ import theme from './../../../theme'
 
 
 
+=======
+    let {inventoryStore:{product,stock}}=this.props;  
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
+    const [exselectedDate, exsetSelectedDate] = React.useState(new Date('2019-08-18T21:11:54'));
+    let {product}=props.inventoryStore;
+
+
+
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
     const useStyles = makeStyles(theme => ({
       root: {
         '& > *': {
@@ -50,6 +60,7 @@ import theme from './../../../theme'
       
         return hash;
       }
+<<<<<<< HEAD
 
 
    let   onFileChange = (e) => {
@@ -75,6 +86,8 @@ import theme from './../../../theme'
 
           
       }
+=======
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
 
 
 
@@ -110,7 +123,10 @@ import theme from './../../../theme'
      </Grid>
      <Grid item xs={6} style={{textAlign:"center"}}>
 
+<<<<<<< HEAD
 <img src={image} ></img>
+=======
+>>>>>>> ca76084c9e1065cc3b873dbaaed1042c6ffdc1de
 
 
      </Grid>
